@@ -1,5 +1,6 @@
 # light-portal
-A portal to link client and service with a marketplace.
+
+A portal for client/service management and marketplace.
 
 ## Introduction
 

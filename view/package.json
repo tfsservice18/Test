@@ -1,11 +1,11 @@
 {
-  "name": "react-redux-scaffolding",
+  "name": "light-portal",
   "version": "1.0.0",
-  "description": "A scaffolding application that uses React, Redux and Material UI",
+  "description": "A portal for client/service management and marketplace",
   "main": "index.html",
   "repository": {
     "type": "git",
-    "url": "https://github.com/gonzalovazquez/react-redux-scaffolding/"
+    "url": "https://github.com/networknt/light-portal"
   },
   "author": {
     "name": "Gonzalo Vazquez",
@@ -13,9 +13,9 @@
   },
   "license": "MIT",
   "bugs": {
-    "url": "https://github.com/gonzalovazquez/react-redux-scaffolding/issues"
+    "url": "https://github.com/networknt/light-portalissues"
   },
-  "homepage": "https://github.com/gonzalovazquez/react-redux-scaffolding/#readme",
+  "homepage": "https://github.com/networknt/light-portal#readme",
   "devDependencies": {
     "babel-core": "^6.13.2",
     "babel-eslint": "^6.1.2",

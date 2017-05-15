@@ -1,7 +1,6 @@
-# React Redux Scaffolding
+# Light Portal
 
-A scaffolding application that uses React, Redux and Material Design.
-
+A portal to provide hassle free authentication.
 
 ## Prerequisites
 
@@ -32,7 +31,6 @@ To lint project
 
 `npm run lint`
 
-
 ### Running Tests
 
 @TODO: Add tests
@@ -51,12 +49,9 @@ To build a distribution:
 
 ## Feature List
 
-- [] Improve documentation
+- [] Add unit tests
 
 ## Release Notes
 
 ### 1.0.0
-- Added documentation and working demo
-
-### 0.0.1
-- Initial release of scaffolding.
+- Added scaffolding
