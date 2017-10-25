@@ -1,11 +1,12 @@
-package net.lightapi.portal.menu;
+package net.lightapi.portal.config;
 
 public class ArangoConfig {
     String host;
     int port;
     String user;
     String password;
-    String dbName;
+    String menuDBName;
+    String formDBName;
 
     public ArangoConfig() {
     }
@@ -42,11 +43,19 @@ public class ArangoConfig {
         this.password = password;
     }
 
-    public String getDbName() {
-        return dbName;
+    public String getMenuDBName() {
+        return menuDBName;
     }
 
-    public void setDbName(String dbName) {
-        this.dbName = dbName;
+    public void setMenuDBName(String menuDBName) {
+        this.menuDBName = menuDBName;
+    }
+
+    public String getFormDBName() {
+        return formDBName;
+    }
+
+    public void setFormDBName(String formDBName) {
+        this.formDBName = formDBName;
     }
 }
