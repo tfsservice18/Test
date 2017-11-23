@@ -4,7 +4,7 @@ import ReactDOM from 'react-dom';
 import store from './store/configureStore';
 
 import App from './components/App';
-import Spinner from './components/Spinner/Spinner';
+import ProgressBar from './components/ProgressBar/ProgressBar';
 import { globalRoutes, dynamicRoutes } from './routes';
 import registerServiceWorker from './registerServiceWorker';
 
@@ -36,7 +36,7 @@ const elementMountPoint = document.getElementById('root');
  * with default routes.
  */
 (async () => {
-  ReactDOM.render(<Spinner />, elementMountPoint);
+  ReactDOM.render(<ProgressBar />, elementMountPoint);
   try {
     const newContext = {
       store,
