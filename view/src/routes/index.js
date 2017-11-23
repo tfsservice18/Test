@@ -11,7 +11,7 @@ import NotFound from './notFound/NotFound';
 /**
  * Global Routes
  */
-export default [
+export const globalRoutes = [
   {
     component: Home,
     routes: [
@@ -26,6 +26,7 @@ export default [
       },
       {
         path: '/admin',
+        exact: true,
         component: Admin,
       },
       {
@@ -38,3 +39,22 @@ export default [
     ],
   },
 ];
+
+/**
+ * Dynamic Routes
+ * @param {object} routes - Initialize with dummy routes
+ * @param {object} payload - Routes from server
+ * @returns {object} new object routes
+ */
+export const dynamicRoutes = (routes, payload) => {
+  const pos = routes[0].routes.length - 1;
+  const notFound = routes[0].routes.splice(pos, 1)[0];
+  payload.contains.forEach(element => {
+    routes[0].routes.push({
+      route: element.route,
+      component: Login,
+    });
+  });
+  routes[0].routes.push(notFound);
+  return routes;
+};
