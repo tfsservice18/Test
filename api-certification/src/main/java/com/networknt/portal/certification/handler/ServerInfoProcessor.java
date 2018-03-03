@@ -8,7 +8,11 @@ import java.util.Map;
 
 /**
  * This is a utility class that scans the input server info object and return
- * a list of issues if there is any.
+ * a list of issues if there is any. Note that the input might be a status object
+ * that indicates error during retrieval of server info.
+ *
+ * @author Steve Hu
+ *
  */
 public class ServerInfoProcessor {
     private ServerInfoProcessor() {

@@ -34,7 +34,7 @@ public class EndpointTest {
 
     @Test
     public void testEndpoint() throws ClientException, ApiException {
-        final String s = "{\"host\":\"lightapi.net\",\"service\":\"certification\",\"action\":\"certifyEndpoint\",\"version\":\"0.1.0\",\"serverInfoUrl\":\"/v1/server/info\",\"environment\":\"production\"}";
+        final String s = "{\"host\":\"lightapi.net\",\"service\":\"certification\",\"action\":\"certifyEndpoint\",\"version\":\"0.1.0\",\"data\":{\"host\":\"https://localhost:8443\",\"path\":\"/v2/server/info\",\"environment\":\"prod\"}}";
         final Http2Client client = Http2Client.getInstance();
         final CountDownLatch latch = new CountDownLatch(1);
         final ClientConnection connection;
@@ -61,5 +61,6 @@ public class EndpointTest {
         String body = reference.get().getAttachment(Http2Client.RESPONSE_BODY);
         Assert.assertEquals(200, statusCode);
         Assert.assertNotNull(body);
+        System.out.println("body = " + body);
     }
 }

@@ -12,7 +12,8 @@
             "type": "string"
           },
           "environment": {
-            "type": "string"
+            "type": "string",
+            "enum": ["test", "prod"]
           }
         },
         "required": ["host", "path"]
@@ -24,7 +25,8 @@
             "type": "string"
           },
           "environment": {
-            "type": "string"
+            "type": "string",
+            "enum": ["test", "prod"]
           }
         },
         "required": ["registryUrl"]

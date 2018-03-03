@@ -34,7 +34,7 @@ public class RegistryTest {
 
     @Test
     public void testRegistry() throws ClientException, ApiException {
-        final String s = "{\"host\":\"lightapi.net\",\"service\":\"certification\",\"action\":\"certifyRegistry\",\"version\":\"0.1.0\",\"registryUrl\":\"https://consul:8500\",\"environment\":\"production\"}";
+        final String s = "{\"host\":\"lightapi.net\",\"service\":\"certification\",\"action\":\"certifyRegistry\",\"version\":\"0.1.0\",\"data\":{\"registryUrl\":\"https://consul:8500\",\"environment\":\"prod\"}}";
         final Http2Client client = Http2Client.getInstance();
         final CountDownLatch latch = new CountDownLatch(1);
         final ClientConnection connection;
