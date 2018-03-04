@@ -11,16 +11,13 @@
     <packaging>jar</packaging>
     <name>form-command</name>
     <version>0.1.0</version>
-    <prerequisites>
-        <maven>2.2.0</maven>
-    </prerequisites>
 
     <properties>
         <java.version>1.8</java.version>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
-        <version.light-eventuate-4j>1.5.0</version.light-eventuate-4j>
-        <version.light-4j>1.5.0</version.light-4j>
-        <version.light-hybrid-4j>1.5.0</version.light-hybrid-4j>
+        <version.light-eventuate-4j>1.5.11</version.light-eventuate-4j>
+        <version.light-4j>1.5.11</version.light-4j>
+        <version.light-hybrid-4j>1.5.11</version.light-hybrid-4j>
         <version.jackson>2.9.1</version.jackson>
         <version.slf4j>1.7.25</version.slf4j>
         <version.jose4j>0.6.1</version.jose4j>
@@ -29,13 +26,8 @@
         <version.logback>1.2.3</version.logback>
         <version.junit>4.12</version.junit>
         <version.undertow>1.4.20.Final</version.undertow>
-        <version.json-schema-validator>0.1.10</version.json-schema-validator>
+        <version.json-schema-validator>0.1.15</version.json-schema-validator>
         <version.fastscanner>2.7.0</version.fastscanner>
-        
-        
-        
-        
-        
         <versions.maven-version>2.4</versions.maven-version>
     </properties>
 
@@ -60,12 +52,17 @@
         </dependency>
         <dependency>
             <groupId>com.networknt</groupId>
-            <artifactId>eventuate-jdbc</artifactId>
+            <artifactId>eventuate-client</artifactId>
             <version>${version.light-eventuate-4j}</version>
         </dependency>
         <dependency>
             <groupId>com.networknt</groupId>
-            <artifactId>eventuate-client</artifactId>
+            <artifactId>eventuate-server-jdbc</artifactId>
+            <version>${version.light-eventuate-4j}</version>
+        </dependency>
+        <dependency>
+            <groupId>com.networknt</groupId>
+            <artifactId>eventuate-client-jdbc-common</artifactId>
             <version>${version.light-eventuate-4j}</version>
         </dependency>
         <dependency>
@@ -114,11 +111,6 @@
             <version>${version.jackson}</version>
         </dependency>
         <dependency>
-            <groupId>com.fasterxml.jackson.datatype</groupId>
-            <artifactId>jackson-datatype-jsr310</artifactId>
-            <version>${version.jackson}</version>
-        </dependency>
-        <dependency>
             <groupId>ch.qos.logback</groupId>
             <artifactId>logback-classic</artifactId>
             <version>${version.logback}</version>
@@ -132,14 +124,6 @@
             <groupId>io.github.lukehutch</groupId>
             <artifactId>fast-classpath-scanner</artifactId>
             <version>${version.fastscanner}</version>
-        </dependency>
-        <dependency>
-            <groupId>com.fasterxml.jackson.core</groupId>
-            <artifactId>jackson-databind</artifactId>
-        </dependency>
-        <dependency>
-            <groupId>com.fasterxml.jackson.core</groupId>
-            <artifactId>jackson-core</artifactId>
         </dependency>
 
         <dependency>
