@@ -3,7 +3,7 @@
   <modelVersion>4.0.0</modelVersion>
   <groupId>net.lightapi</groupId>
   <artifactId>hybrid-command</artifactId>
-  <version>1.5.0</version>
+  <version>1.0.0</version>
   <description>A light-hybrid-4j microservice server for command side services.</description>
   <build>
     <defaultGoal>install</defaultGoal>
@@ -40,6 +40,11 @@
     </pluginManagement>
     <plugins>
       <plugin>
+        <groupId>org.codehaus.mojo</groupId>
+        <artifactId>versions-maven-plugin</artifactId>
+        <version>${versions.maven-version}</version>
+      </plugin>
+      <plugin>
         <artifactId>maven-shade-plugin</artifactId>
         <version>2.4.3</version>
         <executions>
@@ -55,6 +60,41 @@
             </configuration>
           </execution>
         </executions>
+      </plugin>
+      <plugin>
+        <artifactId>maven-source-plugin</artifactId>
+        <version>3.0.1</version>
+        <executions>
+          <execution>
+            <id>attach-sources</id>
+            <goals>
+              <goal>jar</goal>
+            </goals>
+          </execution>
+        </executions>
+      </plugin>
+      <plugin>
+        <artifactId>maven-javadoc-plugin</artifactId>
+        <version>2.10.4</version>
+        <executions>
+          <execution>
+            <id>attach-javadocs</id>
+            <goals>
+              <goal>jar</goal>
+            </goals>
+          </execution>
+        </executions>
+      </plugin>
+      <plugin>
+        <artifactId>maven-surefire-plugin</artifactId>
+        <version>2.14</version>
+        <dependencies>
+          <dependency>
+            <groupId>org.apache.maven.surefire</groupId>
+            <artifactId>surefire-junit47</artifactId>
+            <version>2.14</version>
+          </dependency>
+        </dependencies>
       </plugin>
       <plugin>
         <artifactId>maven-jar-plugin</artifactId>
@@ -129,34 +169,29 @@
   </dependencies>
   <properties>
     <version.hdrhistogram>2.1.8</version.hdrhistogram>
-    <version.hikaricp>2.6.0</version.hikaricp>
-    <version.json-schema-validator>0.1.7</version.json-schema-validator>
+    <version.hikaricp>2.6.1</version.hikaricp>
+    <version.json-schema-validator>0.1.15</version.json-schema-validator>
     <version.rxjava>1.2.2</version.rxjava>
-    <version.commons.codec>1.10</version.commons.codec>
-    <version.hamcrest>1.3</version.hamcrest>
     <version.curator>3.3.0</version.curator>
-    <version.fastscanner>2.0.8</version.fastscanner>
+    <version.fastscanner>2.7.0</version.fastscanner>
     <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
     <version.encoder>1.2.1</version.encoder>
     <version.h2>1.3.176</version.h2>
     <version.undertow>1.4.19.Final</version.undertow>
-    <version.jose4j>0.5.5</version.jose4j>
-    <version.light-eventuate-4j>1.5.0</version.light-eventuate-4j>
-    <version.commons-lang>2.6</version.commons-lang>
+    <version.jose4j>0.6.1</version.jose4j>
+    <version.light-eventuate-4j>1.5.11</version.light-eventuate-4j>
     <java.version>1.8</java.version>
-    <version.jackson>2.8.10</version.jackson>
+    <version.jackson>2.9.1</version.jackson>
     <version.mysql-binlog>0.12.1</version.mysql-binlog>
-    <version.light-4j>1.5.0</version.light-4j>
-    <version.assertj>2.1.0</version.assertj>
-    <version.light-hybrid-4j>1.5.0</version.light-hybrid-4j>
-    <version.mockito>2.7.21</version.mockito>
+    <version.light-4j>1.5.11</version.light-4j>
+    <version.light-hybrid-4j>1.5.11</version.light-hybrid-4j>
     <version.slf4j>1.7.25</version.slf4j>
-    <version.commons.io>2.5</version.commons.io>
+    <versions.maven-version>2.4</versions.maven-version>
     <version.logback>1.2.3</version.logback>
     <version.junit>4.12</version.junit>
     <version.kafka-clients>0.11.0.0</version.kafka-clients>
     <version.antlr4>4.7</version.antlr4>
-    <version.mysql>5.1.41</version.mysql>
+    <version.mysql>6.0.5</version.mysql>
   </properties>
 </project>
 
