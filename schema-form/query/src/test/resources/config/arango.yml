@@ -1,6 +1,6 @@
 # Database configuration for ArangoDB
-host: 127.0.0.1
+host: 198.55.49.187
 port: 8529
-user: root
-password: openSesame
+user: form
+password: h9jk83H9l8
 formDBName: form
