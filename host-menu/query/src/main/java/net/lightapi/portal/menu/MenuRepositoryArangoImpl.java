@@ -26,6 +26,7 @@ import java.util.Map;
 public class MenuRepositoryArangoImpl implements MenuRepository {
     static final String CONFIG_NAME = "arango";
 
+    public static final String DBNAME = "menu";
     public static final String MENU = "menu";
     public static final String MENUITEM = "menuItem";
     public static final String ENTITYID = "entityId";
@@ -49,9 +50,9 @@ public class MenuRepositoryArangoImpl implements MenuRepository {
                 .registerModule(new VPackJdk8Module())
                 .build();
         // if first time connect to the arango, create menu database.
-        if(!arangoDB.getDatabases().contains(config.getMenuDBName())) {
-            arangoDB.createDatabase(config.getMenuDBName());
-            db = arangoDB.db(config.getMenuDBName());
+        if(!arangoDB.getDatabases().contains(DBNAME)) {
+            arangoDB.createDatabase(DBNAME);
+            db = arangoDB.db(DBNAME);
             // add two collections with unique indexes
             CollectionEntity menuCollection = db.createCollection(MENU);
             final Collection<String> fields = new ArrayList<String>();
@@ -117,7 +118,7 @@ public class MenuRepositoryArangoImpl implements MenuRepository {
                             "        return result;\n" +
                             "    }\n", null);
         }
-        if(db == null) db = arangoDB.db(config.getMenuDBName());
+        if(db == null) db = arangoDB.db(DBNAME);
     }
 
     @Override

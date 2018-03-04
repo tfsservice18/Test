@@ -24,6 +24,7 @@ import java.util.Map;
 public class FormRepositoryArangoImpl implements FormRepository {
     static final String CONFIG_NAME = "arango";
 
+    public static final String DBNAME = "form";
     public static final String FORM = "form";
     public static final String ENTITYID = "entityId";
     public static final String ID = "id";
@@ -44,9 +45,9 @@ public class FormRepositoryArangoImpl implements FormRepository {
                 .registerModule(new VPackJdk8Module())
                 .build();
         // if first time connect to the arango, create menu database.
-        if(!arangoDB.getDatabases().contains(config.getFormDBName())) {
-            arangoDB.createDatabase(config.getFormDBName());
-            db = arangoDB.db(config.getFormDBName());
+        if(!arangoDB.getDatabases().contains(DBNAME)) {
+            arangoDB.createDatabase(DBNAME);
+            db = arangoDB.db(DBNAME);
             // add form collection with unique indexes
             CollectionEntity formCollection = db.createCollection(FORM);
             final Collection<String> fields = new ArrayList<String>();
@@ -55,7 +56,7 @@ public class FormRepositoryArangoImpl implements FormRepository {
             options.unique(true);
             db.collection(FORM).createHashIndex(fields, options);
         }
-        if(db == null) db = arangoDB.db(config.getFormDBName());
+        if(db == null) db = arangoDB.db(DBNAME);
     }
 
     @Override
