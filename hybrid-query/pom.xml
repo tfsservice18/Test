@@ -191,11 +191,6 @@
             <artifactId>light-rest-4j-generator</artifactId>
             <version>${version.light-4j}</version>
         </dependency>
-        <dependency>
-            <groupId>com.networknt</groupId>
-            <artifactId>codegen-web</artifactId>
-            <version>${version.light-4j}</version>
-        </dependency>
 
 
         <!-- Test Dependencies -->
