@@ -208,6 +208,19 @@
             <version>0.1.0</version>
         </dependency>
 
+        <!-- schema form query side dependencies -->
+        <dependency>
+            <groupId>net.lightapi</groupId>
+            <artifactId>schema-form-common</artifactId>
+            <version>0.1.0</version>
+        </dependency>
+        <dependency>
+            <groupId>net.lightapi</groupId>
+            <artifactId>schema-form-query</artifactId>
+            <version>0.1.0</version>
+        </dependency>
+
+
         <dependency>
             <groupId>com.arangodb</groupId>
             <artifactId>arangodb-java-driver</artifactId>

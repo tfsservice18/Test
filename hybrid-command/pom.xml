@@ -156,7 +156,20 @@
             <artifactId>mysql-connector-java</artifactId>
             <version>${version.mysql}</version>
         </dependency>
-        
+
+        <!-- schema form common and command -->
+        <dependency>
+            <groupId>net.lightapi</groupId>
+            <artifactId>schema-form-common</artifactId>
+            <version>0.1.0</version>
+        </dependency>
+        <dependency>
+            <groupId>net.lightapi</groupId>
+            <artifactId>schema-form-command</artifactId>
+            <version>0.1.0</version>
+        </dependency>
+
+
         
         <!-- Test Dependencies -->
         <dependency>
