@@ -3,7 +3,7 @@
   <modelVersion>4.0.0</modelVersion>
   <groupId>net.lightapi</groupId>
   <artifactId>hybrid-query</artifactId>
-  <version>1.0.0</version>
+  <version>1.5.11</version>
   <description>A light-hybrid-4j microservice server for query side services.</description>
   <build>
     <defaultGoal>install</defaultGoal>
@@ -190,7 +190,7 @@
     <version.logback>1.2.3</version.logback>
     <version.junit>4.12</version.junit>
     <version.rocker>0.22.0</version.rocker>
-    <version.kafka-clients>0.11.0.0</version.kafka-clients>
+    <version.kafka-clients>1.0.0</version.kafka-clients>
     <version.antlr4>4.7</version.antlr4>
     <version.mysql>6.0.5</version.mysql>
   </properties>

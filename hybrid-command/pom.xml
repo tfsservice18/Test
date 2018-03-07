@@ -4,7 +4,7 @@
     <modelVersion>4.0.0</modelVersion>
     <groupId>net.lightapi</groupId>
     <artifactId>hybrid-command</artifactId>
-    <version>1.0.0</version>
+    <version>1.5.11</version>
     <packaging>jar</packaging>
     <description>A light-hybrid-4j microservice server for command side services.</description>
 
@@ -14,7 +14,7 @@
           <version.light-4j>1.5.11</version.light-4j>
           <version.light-hybrid-4j>1.5.11</version.light-hybrid-4j>
           <version.light-eventuate-4j>1.5.11</version.light-eventuate-4j>
-          <version.kafka-clients>0.11.0.0</version.kafka-clients>
+          <version.kafka-clients>1.0.0</version.kafka-clients>
           <version.rxjava>1.2.2</version.rxjava>
           <version.jackson>2.9.1</version.jackson>
           <version.slf4j>1.7.25</version.slf4j>
@@ -157,20 +157,7 @@
             <version>${version.mysql}</version>
         </dependency>
 
-        <!-- schema form common and command -->
-        <dependency>
-            <groupId>net.lightapi</groupId>
-            <artifactId>schema-form-common</artifactId>
-            <version>0.1.0</version>
-        </dependency>
-        <dependency>
-            <groupId>net.lightapi</groupId>
-            <artifactId>schema-form-command</artifactId>
-            <version>0.1.0</version>
-        </dependency>
 
-
-        
         <!-- Test Dependencies -->
         <dependency>
             <groupId>junit</groupId>
