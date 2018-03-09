@@ -1,10 +1,10 @@
 
 <project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
     <modelVersion>4.0.0</modelVersion>
-    <groupId>com.networknt.portal</groupId>
-    <artifactId>certification</artifactId>
+    <groupId>net.lightapi</groupId>
+    <artifactId>api-certification</artifactId>
     <packaging>jar</packaging>
-    <name>certification</name>
+    <name>api-certification</name>
     <version>1.0.0</version>
 
     <properties>
@@ -22,11 +22,6 @@
         <version.undertow>1.4.20.Final</version.undertow>
         <version.json-schema-validator>0.1.15</version.json-schema-validator>
         <version.fastscanner>2.7.0</version.fastscanner>
-        
-        
-        
-        
-        
         <versions.maven-version>2.4</versions.maven-version>
     </properties>
 
