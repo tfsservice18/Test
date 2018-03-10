@@ -16,6 +16,7 @@ public interface UserRepository {
    * Deletes the given user, provided that it exists.
    *
    * @param userId {@link User}'s ID
+   * @return id deleted ID
    */
   int  delete(String userId);
 
@@ -29,6 +30,7 @@ public interface UserRepository {
   /**
    * Finds a user based on its ID.
    *
+   * @param token Token
    * @return a list of {@link User}
    */
   String getUserIdByToken(String token);

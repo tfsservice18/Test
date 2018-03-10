@@ -108,6 +108,7 @@ public class ConfirmationToken<P> implements Entity<String, ConfirmationToken<P>
    * @param id tokens's value
    * @param type confirmation token's type
    * @param minutes expiration in minutes
+   * @param payload payload
    */
   public ConfirmationToken(
           User owner, String id, ConfirmationTokenType type, int minutes, P payload) {

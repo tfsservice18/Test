@@ -16,17 +16,10 @@
         <dependency>
             <groupId>light-portal</groupId>
             <artifactId>user-management-common</artifactId>
-            <version>0.1.0</version>
         </dependency>
         <dependency>
             <groupId>light-portal</groupId>
             <artifactId>user-management-jdbc</artifactId>
-            <version>0.1.0</version>
-        </dependency>
-        <dependency>
-            <groupId>com.networknt</groupId>
-            <artifactId>service</artifactId>
-            <scope>test</scope>
         </dependency>
         <dependency>
             <groupId>com.networknt</groupId>
@@ -45,15 +38,20 @@
             <artifactId>HikariCP</artifactId>
         </dependency>
         <dependency>
+            <groupId>org.postgresql</groupId>
+            <artifactId>postgresql</artifactId>
+        </dependency>
+
+        <dependency>
             <groupId>junit</groupId>
             <artifactId>junit</artifactId>
             <scope>test</scope>
         </dependency>
         <dependency>
-            <groupId>org.postgresql</groupId>
-            <artifactId>postgresql</artifactId>
+            <groupId>com.networknt</groupId>
+            <artifactId>service</artifactId>
+            <scope>test</scope>
         </dependency>
-
     </dependencies>
 
 

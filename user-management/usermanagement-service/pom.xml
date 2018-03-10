@@ -10,42 +10,27 @@
     <artifactId>user-management-service</artifactId>
     <packaging>jar</packaging>
     <version>0.1.0</version>
-    <prerequisites>
-        <maven>2.2.0</maven>
-    </prerequisites>
 
     <properties>
         <java.version>1.8</java.version>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
         <version.light-4j>1.5.11</version.light-4j>
         <version.light-rest-4j>1.5.11</version.light-rest-4j>
-        <version.light-eventuate>1.5.11</version.light-eventuate>
-        <version.jackson>2.8.7</version.jackson>
+        <version.light-eventuate-4j>1.5.11</version.light-eventuate-4j>
+        <version.jackson>2.9.1</version.jackson>
         <version.slf4j>1.7.25</version.slf4j>
-        <version.jose4j>0.5.5</version.jose4j>
-        <version.antlr4>4.7</version.antlr4>
-        <version.commons-lang>2.6</version.commons-lang>
-        <version.commons.io>2.5</version.commons.io>
-        <version.commons.codec>1.10</version.commons.codec>
+        <version.jose4j>0.6.1</version.jose4j>
         <version.encoder>1.2.1</version.encoder>
         <version.logback>1.2.3</version.logback>
         <version.junit>4.12</version.junit>
-        <version.mockito>2.7.21</version.mockito>
-        <version.undertow>1.4.18.Final</version.undertow>
-        <version.json-schema-validator>0.1.17</version.json-schema-validator>
+        <version.undertow>1.4.20.Final</version.undertow>
+        <version.json-schema-validator>0.1.15</version.json-schema-validator>
         <version.hazelcast>3.6.7</version.hazelcast>
-        
         <version.hikaricp>2.6.2</version.hikaricp>
         <version.fastscanner>2.0.8</version.fastscanner>
-        
-        
-        
-        
-        <version.postgres>42.1.1</version.postgres>        
-        
-        
+        <version.postgres>42.1.1</version.postgres>
         <version.h2>1.3.176</version.h2>
-        
+        <version.swagger>1.0.32</version.swagger>
     </properties>
 
     <dependencies>
@@ -168,11 +153,6 @@
         </dependency>
         <dependency>
             <groupId>com.networknt</groupId>
-            <artifactId>config</artifactId>
-            <version>${version.light-4j}</version>
-        </dependency>
-        <dependency>
-            <groupId>com.networknt</groupId>
             <artifactId>consul</artifactId>
             <version>${version.light-4j}</version>
         </dependency>
@@ -187,19 +167,9 @@
             <version>${version.json-schema-validator}</version>
         </dependency>
         <dependency>
-            <groupId>light-portal</groupId>
-            <artifactId>user-management-common</artifactId>
-            <version>0.1.0</version>
-        </dependency>
-        <dependency>
-            <groupId>light-portal</groupId>
-            <artifactId>user-management-jdbc</artifactId>
-            <version>0.1.0</version>
-        </dependency>
-        <dependency>
-            <groupId>light-portal</groupId>
-            <artifactId>usermanagement-auth</artifactId>
-            <version>0.1.0</version>
+            <groupId>io.swagger</groupId>
+            <artifactId>swagger-parser</artifactId>
+            <version>${version.swagger}</version>
         </dependency>
         <dependency>
             <groupId>com.networknt</groupId>
@@ -257,17 +227,17 @@
         <dependency>
             <groupId>com.networknt</groupId>
             <artifactId>eventuate-common</artifactId>
-            <version>${version.light-eventuate}</version>
+            <version>${version.light-eventuate-4j}</version>
         </dependency>
         <dependency>
             <groupId>com.networknt</groupId>
             <artifactId>eventuate-event</artifactId>
-            <version>${version.light-eventuate}</version>
+            <version>${version.light-eventuate-4j}</version>
         </dependency>
         <dependency>
             <groupId>com.networknt</groupId>
             <artifactId>eventuate-client</artifactId>
-            <version>${version.light-eventuate}</version>
+            <version>${version.light-eventuate-4j}</version>
         </dependency>
         
         

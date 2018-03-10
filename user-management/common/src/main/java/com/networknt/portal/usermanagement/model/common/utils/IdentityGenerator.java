@@ -80,6 +80,7 @@ public final class IdentityGenerator {
   /**
    * Generates a new unique ID for the given shard.
    *
+   * @param shardId shard ID
    * @return a new unique ID
    */
   public static long generate(byte shardId) {

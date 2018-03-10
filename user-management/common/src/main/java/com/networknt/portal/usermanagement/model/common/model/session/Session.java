@@ -34,6 +34,7 @@ public class Session implements Entity<Long, Session> {
    *
    * @param id Session ID
    * @param userId User ID
+   * @param token Token
    */
   public Session(Long id, Long userId, String token) {
     this(id, userId, token, DEFAULT_EXPIRATION_MINUTES);
