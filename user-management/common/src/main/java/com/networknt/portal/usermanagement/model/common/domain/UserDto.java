@@ -3,9 +3,9 @@ package com.networknt.portal.usermanagement.model.common.domain;
 
 
 import com.networknt.portal.usermanagement.model.common.domain.contact.ContactData;
-import com.networknt.portal.usermanagement.model.common.model.Timezone;
 
 import java.util.Locale;
+import java.util.TimeZone;
 
 
 public class UserDto {
@@ -14,7 +14,7 @@ public class UserDto {
 
   private ContactData contactData = new ContactData();
 
-  private String timezone = Timezone.CANADA_EASTERN.name();
+  private String timezone = TimeZone.getDefault().getDisplayName();
   private String locale = Locale.CANADA.getDisplayName();
 
   private String password;

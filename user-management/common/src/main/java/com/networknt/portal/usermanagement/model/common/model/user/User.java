@@ -6,13 +6,8 @@ import com.networknt.portal.usermanagement.model.common.domain.AuditData;
 import com.networknt.portal.usermanagement.model.common.domain.Entity;
 import com.networknt.portal.usermanagement.model.common.domain.contact.ContactData;
 import com.networknt.portal.usermanagement.model.common.exception.InvalidTokenException;
-import com.networknt.portal.usermanagement.model.common.model.Timezone;
-import com.networknt.portal.usermanagement.model.common.utils.IdentityGenerator;
 
-import java.util.LinkedHashSet;
-import java.util.Locale;
-import java.util.Optional;
-import java.util.Set;
+import java.util.*;
 
 
 /**
@@ -30,7 +25,7 @@ public class User implements Entity<String, User> {
 
   private Set<String> authorities = new LinkedHashSet<>();
 
-  private Timezone timezone = Timezone.CANADA_EASTERN;
+  private TimeZone timeZone = TimeZone.getDefault();
   private Locale locale = Locale.CANADA;
 
   private boolean confirmed;
@@ -70,16 +65,16 @@ public class User implements Entity<String, User> {
     return token;
   }
 
-  public Timezone getTimezone() {
-    return timezone;
+  public TimeZone getTimezone() {
+    return timeZone;
   }
 
   public String getTimezoneName() {
-    return timezone.name();
+    return timeZone.getDisplayName();
   }
 
-  public void setTimezone(Timezone timezone) {
-    this.timezone = timezone;
+  public void setTimezone(TimeZone timeZone) {
+    this.timeZone = timeZone;
   }
 
   public Locale getLocale() {
