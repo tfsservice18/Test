@@ -75,7 +75,7 @@ import java.time.LocalDate;
         System.out.println(service.isEmitEvent());
 
         //service.setEmitEvent(false);
-        service.signup(user, "password");
+      //  service.signup(user, "password", false);
 
     }
 }

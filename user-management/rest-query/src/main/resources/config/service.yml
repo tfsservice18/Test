@@ -19,10 +19,14 @@ singletons:
   - com.networknt.portal.usermanagement.model.jdbc.user.UserRepositoryImpl
 - com.networknt.portal.usermanagement.model.common.crypto.PasswordSecurity:
   - com.networknt.portal.usermanagement.model.common.crypto.Pbkdf2PasswordSecurityImpl
+- com.networknt.eventuate.jdbc.EventuateSchema:
+  - com.networknt.eventuate.jdbc.EventuateSchema
+- com.networknt.eventuate.jdbc.EventuateJdbcAccess:
+  - com.networknt.eventuate.jdbc.EventuateJdbcAccessImpl
 - com.networknt.eventuate.common.impl.sync.AggregateCrud:
-  - com.networknt.eventuate.client.EventuateLocalDBAggregateCrud
+  - com.networknt.eventuate.server.jdbckafkastore.EventuateLocalAggregateCrud
 - com.networknt.eventuate.common.impl.AggregateEvents:
-  - com.networknt.eventuate.client.KafkaAggregateSubscriptions
+  - com.networknt.eventuate.server.jdbckafkastore.EventuateKafkaAggregateSubscriptions
 - com.networknt.eventuate.common.impl.AggregateCrud:
   - com.networknt.eventuate.common.impl.adapters.SyncToAsyncAggregateCrudAdapter
 - com.networknt.eventuate.common.SnapshotManager:
@@ -38,7 +42,39 @@ singletons:
   - com.networknt.eventuate.event.EventHandlerProcessorDispatchedEventReturningCompletableFuture
   - com.networknt.eventuate.event.EventHandlerProcessorEventHandlerContextReturningCompletableFuture
   - com.networknt.eventuate.event.EventHandlerProcessorEventHandlerContextReturningVoid
-- com.networknt.eventuate.client.SubscriptionsRegistry:
-  - com.networknt.eventuate.client.SubscriptionsRegistryImpl
 - com.networknt.portal.usermanagement.model.auth.command.user.UserAggregate:
   - com.networknt.portal.usermanagement.model.auth.command.user.UserAggregate
+
+
+
+
+# HandlerProvider implementation
+- com.networknt.server.HandlerProvider:
+  - com.networknt.portal.usermanagement.restquery.PathHandlerProvider
+# StartupHookProvider implementations, there are one to many and they are called in the same sequence defined.
+- com.networknt.server.StartupHookProvider:
+  - com.networknt.eventuate.client.EventuateClientStartupHookProvider
+
+# MiddlewareHandler implementations, the calling sequence is as defined in the request/response chain.
+- com.networknt.handler.MiddlewareHandler:
+  # Exception Global exception handler that needs to be called first to wrap all middleware handlers and business handlers
+  - com.networknt.exception.ExceptionHandler
+  # Metrics handler to calculate response time accurately, this needs to be the second handler in the chain.
+  - com.networknt.metrics.MetricsHandler
+  # Traceability Put traceabilityId into response header from request header if it exists
+  - com.networknt.traceability.TraceabilityHandler
+  # Correlation Create correlationId if it doesn't exist in the request header and put it into the request header
+  - com.networknt.correlation.CorrelationHandler
+  # Swagger Parsing swagger specification based on request uri and method.
+  - com.networknt.swagger.SwaggerHandler
+  # Security JWT token verification and scope verification (depending on SwaggerHandler)
+  - com.networknt.security.JwtVerifyHandler
+  # Body Parse body based on content type in the header.
+  - com.networknt.body.BodyHandler
+  # SimpleAudit Log important info about the request into audit log
+  - com.networknt.audit.AuditHandler
+  # Sanitizer Encode cross site scripting
+  - com.networknt.sanitizer.SanitizerHandler
+  # Validator Validate request based on swagger specification (depending on Swagger and Body)
+  - com.networknt.validator.ValidatorHandler
+

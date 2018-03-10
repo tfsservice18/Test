@@ -1,0 +1,209 @@
+{"lightapi.net/user/deleteUserById/0.1.0":{"schema": {
+        "title": "Service",
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "string"
+          }
+        },
+        "required": [
+          "id"
+        ]        
+      },"scope": "user.a"},"lightapi.net/user/confirmUser/0.1.0":{"schema": {
+        "title": "Service",
+        "type": "object",
+        "properties": {
+          "tokenId": {
+            "type": "string"
+          }
+        },
+        "required": [
+          "tokenId"
+        ]        
+      },"scope": "user.a"},"lightapi.net/user/getUserByName/0.1.0":{"schema": {
+        "title": "Service",
+        "type": "object",
+        "properties": {
+          "name": {
+            "type": "string"
+          }
+        },
+        "required": [
+          "name"
+        ]        
+      },"scope": "user.all.r"},"lightapi.net/user/loginUser/0.1.0":{"schema": {
+        "title": "Service",
+        "type": "object",
+        "properties": {
+          "LoginForm": {
+              "type": "object",
+              "properties": {
+                  "nameOrEmail": {
+                      "type": "string",
+                      "description": "user screenName or email for login"
+                  },
+                  "password": {
+                      "type": "string",
+                      "description": "user password for user login"
+                  },
+                  "token": {
+                      "type": "string",
+                      "description": "token with the user login"
+                  }
+              }                              
+          }
+        },
+        "required": [
+          "nameOrEmail"
+        ]        
+      },"scope": "user.r"},"lightapi.net/user/updateUser/0.1.0":{"schema": {
+        "title": "Service",
+        "type": "object",
+        "properties": {
+          "id": {
+              "type": "string",
+              "description": "a UUID generated"
+          },
+          "host": {
+              "type": "string",
+              "description": "user host indicator the organization for user"
+          },
+          "screenName": {
+              "type": "string",
+              "description": "screenName of user"
+          },
+          "timezone": {
+              "type": "string",
+              "description": "timezone name of user"
+          },
+          "locale": {
+               "type": "string",
+               "description": "locale display name of user"
+          },
+          "password": {
+               "type": "string",
+               "description": "raw password of user"
+          },    
+          "ContactData": {
+            "type": "object",
+            "properties": {
+                "email": {
+                    "type": "string",
+                    "description": "email address of the user"
+                },
+                "firstName": {
+                    "type": "string",
+                    "description": "firstName of the user"
+                },
+                "lastName": {
+                    "type": "string",
+                    "description": "firstName of the user"
+                },
+                "gender": {
+                    "type": "string",
+                    "description": "user gender type",
+                    "enum": [
+                        "FEMALE",
+                        "MALE",
+                        "UNKNOWN"
+                    ]
+                },
+                "birthday": {
+                    "type": "string",
+                    "format": "date-time",
+                    "description": "birthday of the user"
+                }
+            }
+        }                            
+        },
+        "required": [
+          "id"
+        ]        
+      },"scope": "user.a"},"lightapi.net/user/getUserById/0.1.0":{"schema": {
+        "title": "Service",
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "string"
+          }
+        },
+        "required": [
+          "id"
+        ]        
+      },"scope": "user.all.r"},"lightapi.net/user/getUsers/0.1.0":{"schema": {
+        "title": "Service"
+      },"scope": "user.all.r"},"lightapi.net/user/getUserByEmail/0.1.0":{"schema": {
+        "title": "Service",
+        "type": "object",
+        "properties": {
+          "email": {
+            "type": "string"
+          }
+        },
+        "required": [
+          "email"
+        ]        
+      },"scope": "user.all.r"},"lightapi.net/user/createUser/0.1.0":{"schema": {
+        "title": "Service",
+        "type": "object",
+        "properties": {
+          "id": {
+              "type": "string",
+              "description": "a UUID generated"
+          },
+          "host": {
+              "type": "string",
+              "description": "user host indicator the organization for user"
+          },
+          "screenName": {
+              "type": "string",
+              "description": "screenName of user"
+          },
+          "timezone": {
+              "type": "string",
+              "description": "timezone name of user"
+          },
+          "locale": {
+               "type": "string",
+               "description": "locale display name of user"
+          },
+          "password": {
+               "type": "string",
+               "description": "raw password of user"
+          },    
+          "ContactData": {
+            "type": "object",
+            "properties": {
+                "email": {
+                    "type": "string",
+                    "description": "email address of the user"
+                },
+                "firstName": {
+                    "type": "string",
+                    "description": "firstName of the user"
+                },
+                "lastName": {
+                    "type": "string",
+                    "description": "firstName of the user"
+                },
+                "gender": {
+                    "type": "string",
+                    "description": "user gender type",
+                    "enum": [
+                        "FEMALE",
+                        "MALE",
+                        "UNKNOWN"
+                    ]
+                },
+                "birthday": {
+                    "type": "string",
+                    "format": "date-time",
+                    "description": "birthday of the user"
+                }
+            }
+        }                            
+        },
+        "required": [
+          "host"
+        ]        
+      },"scope": "user.a"}}
