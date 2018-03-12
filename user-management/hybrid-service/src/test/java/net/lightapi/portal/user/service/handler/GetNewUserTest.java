@@ -30,16 +30,17 @@ import java.util.concurrent.CountDownLatch;
 import java.util.concurrent.atomic.AtomicReference;
 
 public class GetNewUserTest {
+
     @ClassRule
     public static TestServer server = TestServer.getInstance();
 
-    static final Logger logger = LoggerFactory.getLogger(GetNewUser.class); 
+    static final Logger logger = LoggerFactory.getLogger(GetNewUser.class);
     static final boolean enableHttp2 = server.getServerConfig().isEnableHttp2();
     static final boolean enableHttps = server.getServerConfig().isEnableHttps();
     static final int httpPort = server.getServerConfig().getHttpPort();
     static final int httpsPort = server.getServerConfig().getHttpsPort();
     static final String url = enableHttp2 || enableHttps ? "https://localhost:" + httpsPort : "http://localhost:" + httpPort;
-/*
+
     public static DataSource ds;
     static {
         ds = (DataSource) SingletonServiceFactory.getBean(DataSource.class);
@@ -59,8 +60,9 @@ public class GetNewUserTest {
         }
     }
 
-    static final String s = "{\"host\":\"lightapi.net\",\"service\":\"menu\",\"action\":\"createMenu\",\"version\":\"0.1.0\",\"data\":{\"host\":\"example.org\",\"description\":\"example org web site\",\"contains\":[\"1\",\"2\",\"3\"]}}";
-*/
+    // {"host":"lightapi.net","service":"user","action":"createUser","version":"0.1.0","data":{"host":"cibc","screenName":"testUser","password":"1222222","ContactData":{"email":"lqqq.qqq@DDD.COM”,"addresses":[{"country":"CA","state":"AK","city":"BaBa","addressLine1":"222 Bay Street","addressType":"SHIPPING"}],"gender":"MALE"}}}
+    static final String s = "  {\"host\":\"lightapi.net\",\"service\":\"user\",\"action\":\"createUser\",\"version\":\"0.1.0\",\"data\":{\"host\":\"cibc\",\"screenName\":\"testUser\",\"password\":\"1222222\",\"contactData\":{\"email\":\"lqqq.qqq@DDD.COM\",\"addresses\":[{\"country\":\"CA\",\"state\":\"AK\",\"city\":\"BaBa\",\"addressLine1\":\"222 Bay Street\",\"addressType\":\"SHIPPING\"}],\"gender\":\"MALE\"}}}";
+
     @Test
     public void testGetNewUser() throws ClientException, ApiException {
 /*

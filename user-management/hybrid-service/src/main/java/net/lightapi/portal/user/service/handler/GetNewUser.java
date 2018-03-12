@@ -33,8 +33,9 @@ public class GetNewUser implements Handler {
         String result = "Ok!";
         try {
             String json = mapper.writeValueAsString(input);
+            System.out.println("hybrid input:" + json);
             UserDto userDto = mapper.readValue(json, UserDto.class);
-
+            System.out.println("user:" + userDto.getScreenName());
             User user = service.fromUserDto(userDto);
             service.signup(user, userDto.getPassword(), false);
 
