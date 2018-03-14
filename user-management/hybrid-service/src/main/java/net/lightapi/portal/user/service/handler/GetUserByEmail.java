@@ -25,7 +25,7 @@ public class GetUserByEmail implements Handler {
         String email = ((Map<String, String>)input).get("email");
         System.out.println(" user email:" + email);
 
-        Optional<User> user = service.findUser(email);;
+        Optional<User> user = service.findUser(email);
         String result = null;
         try {
             if (user.isPresent()) {

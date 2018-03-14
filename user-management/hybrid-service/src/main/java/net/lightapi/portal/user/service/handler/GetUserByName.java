@@ -1,9 +1,11 @@
 
 package net.lightapi.portal.user.service.handler;
 
+import com.networknt.config.Config;
 import com.networknt.portal.usermanagement.model.auth.service.UserService;
 import com.networknt.portal.usermanagement.model.auth.service.UserServiceImpl;
 import com.networknt.portal.usermanagement.model.common.crypto.PasswordSecurity;
+import com.networknt.portal.usermanagement.model.common.model.user.User;
 import com.networknt.portal.usermanagement.model.common.model.user.UserRepository;
 import com.networknt.service.SingletonServiceFactory;
 import com.networknt.utility.NioUtils;
@@ -11,6 +13,7 @@ import com.networknt.rpc.Handler;
 import com.networknt.rpc.router.ServiceHandler;
 import java.nio.ByteBuffer;
 import java.util.Map;
+import java.util.Optional;
 
 @ServiceHandler(id="lightapi.net/user/getUserByName/0.1.0")
 public class GetUserByName implements Handler {
@@ -20,6 +23,21 @@ public class GetUserByName implements Handler {
     @Override
     public ByteBuffer handle(Object input)  {
         String name = ((Map<String, String>)input).get("name");
-        return NioUtils.toByteBuffer("");
+        System.out.println(" user name:" + name);
+
+        Optional<User> user = service.findUser(name);;
+        String result = null;
+        try {
+            if (user.isPresent()) {
+                result = Config.getInstance().getMapper().writeValueAsString(service.toUserDto(user.get()));
+            } else {
+                result = "No user find for the name:" + name;
+            }
+        } catch (Exception e) {
+            result = e.getMessage();
+            //TODO handler Exception, add log info?
+        }
+        System.out.println("result:" + result);
+        return NioUtils.toByteBuffer(result);
     }
 }

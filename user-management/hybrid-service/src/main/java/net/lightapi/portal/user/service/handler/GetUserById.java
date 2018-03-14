@@ -13,6 +13,7 @@ import com.networknt.utility.NioUtils;
 import com.networknt.rpc.Handler;
 import com.networknt.rpc.router.ServiceHandler;
 import java.nio.ByteBuffer;
+import java.util.Map;
 import java.util.Optional;
 
 @ServiceHandler(id="lightapi.net/user/getUserById/0.1.0")
@@ -22,8 +23,7 @@ public class GetUserById implements Handler {
     private UserService service = new UserServiceImpl(passwordSecurity, null, userRepository);
     @Override
     public ByteBuffer handle(Object input)  {
-        JsonNode inputPara = Config.getInstance().getMapper().valueToTree(input);
-        String id = inputPara.findPath("id").asText();
+        String id = ((Map<String, String>)input).get("id");
         System.out.println(" user id:" + id);
 
         Optional<User> user = service.findUser(id);
