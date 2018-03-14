@@ -20,6 +20,8 @@ public class UserDto {
   private String password;
   private String host;
 
+
+  private String id;
   private boolean emailChange;
   private boolean passwordReset;
   private boolean screenNameChange;
@@ -103,4 +105,13 @@ public class UserDto {
   public void setScreenNameChange(boolean screenNameChange) {
     this.screenNameChange = screenNameChange;
   }
+
+  public String getId() {
+    return id;
+  }
+
+  public void setId(String id) {
+    this.id = id;
+  }
+
 }

@@ -33,11 +33,13 @@ public class UpdateUserById implements Handler {
     public ByteBuffer handle(Object input)  {
         ObjectMapper mapper = new ObjectMapper();
         String id = ((Map<String, String>)input).get("id");
+        System.out.println("id:" + id);
         String result;
         try {
             String json = mapper.writeValueAsString(input);
             System.out.println("hybrid input:" + json);
             UserDto user = mapper.readValue(json, UserDto.class);
+            System.out.println("user:" + user.getScreenName());
             User userResult ;
             if (user.isEmailChange()) {
                 userResult= service.changeEmail(id,  user.getContactData().getEmail());
@@ -60,7 +62,7 @@ public class UpdateUserById implements Handler {
             result = e.getMessage();
             //TODO handler Exception, add log info?
         }
-
+        System.out.println("result:" + result);
         return NioUtils.toByteBuffer(result);
     }
 }
