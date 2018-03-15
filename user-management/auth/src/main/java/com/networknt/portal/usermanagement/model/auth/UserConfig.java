@@ -15,6 +15,7 @@ public class UserConfig {
     private String serverHost;
     private String password;
     private String port;
+    private boolean sendEmail;
 
     public UserConfig() {
     }
@@ -81,5 +82,13 @@ public class UserConfig {
 
     public void setPort(String port) {
         this.port = port;
+    }
+
+    public boolean isSendEmail() {
+        return sendEmail;
+    }
+
+    public void setSendEmail(boolean sendEmail) {
+        this.sendEmail = sendEmail;
     }
 }

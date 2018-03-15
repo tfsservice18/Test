@@ -85,13 +85,15 @@ public class UserServiceImpl implements UserService {
     String linkStr = userConfig.getServerHost() +  token.getId();
     String emailBody = MessageFormat.format(userConfig.getContent(), linkStr);
     System.out.println(emailBody);
-
-    EmailSender emailSender = new EmailSender(userConfig.getSmtpHost(), userConfig.getPort(), userConfig.getFromEmail(), userConfig.getPassword());
-    try {
-      emailSender.sendMail(newEmail, userConfig.getSubject(), emailBody);
-    } catch (Exception e) {
-      logger.error(e.getMessage(), e);
+    if (userConfig.isSendEmail()) {
+      EmailSender emailSender = new EmailSender(userConfig.getSmtpHost(), userConfig.getPort(), userConfig.getFromEmail(), userConfig.getPassword());
+      try {
+        emailSender.sendMail(newEmail, userConfig.getSubject(), emailBody);
+      } catch (Exception e) {
+        logger.error(e.getMessage(), e);
+      }
     }
+
 
 
   //  userEventEmitter.emit(new UserEvent(userId, EMAIL_CHANGED));
@@ -356,10 +358,11 @@ public class UserServiceImpl implements UserService {
     }
     String emailBody = MessageFormat.format(userConfig.getContent(), linkStr);
     logger.info(emailBody);
+    if (userConfig.isSendEmail()) {
+      EmailSender emailSender = new EmailSender(userConfig.getSmtpHost(), userConfig.getPort(), userConfig.getFromEmail(), userConfig.getPassword());
+      emailSender.sendMail(email, userConfig.getSubject(), emailBody);
+    }
 
-     EmailSender emailSender = new EmailSender(userConfig.getSmtpHost(), userConfig.getPort(), userConfig.getFromEmail(), userConfig.getPassword());
-
-    emailSender.sendMail(email, userConfig.getSubject(), emailBody);
     if (isEmitEvent()) {
       userCommandService.add(toUserDto(user));
 
