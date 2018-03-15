@@ -8,6 +8,7 @@ import com.networknt.portal.usermanagement.model.common.domain.contact.State;
 import com.networknt.portal.usermanagement.model.common.exception.NoSuchUserException;
 import com.networknt.portal.usermanagement.model.common.model.user.*;
 import com.networknt.portal.usermanagement.model.common.utils.LocalDateTimeUtil;
+import com.networknt.portal.usermanagement.model.jdbc.DatabaseSchema;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -29,10 +30,13 @@ public class UserRepositoryImpl implements UserRepository {
     protected Logger logger = LoggerFactory.getLogger(getClass());
 
     private DataSource dataSource;
+    private DatabaseSchema databaseSchema;
 
-    public UserRepositoryImpl(DataSource dataSource) {
+    public UserRepositoryImpl(DataSource dataSource, DatabaseSchema databaseSchema) {
         this.dataSource = dataSource;
+        this.databaseSchema = databaseSchema;
     }
+
 
     public void setDataSource(DataSource dataSource) {this.dataSource = dataSource;}
 
@@ -41,7 +45,8 @@ public class UserRepositoryImpl implements UserRepository {
        Objects.requireNonNull(userId);
        int count = 0;
        try (final Connection connection = dataSource.getConnection()){
-           String psDelete = "UPDATE USER_DETAIL SET deleted = 'Y' WHERE user_id = ?";
+           String psDelete = String.format("UPDATE %s SET deleted = 'Y' WHERE user_id = ?",
+                   databaseSchema.qualifyTable("USER_DETAIL"));
            PreparedStatement psEntity = connection.prepareStatement(psDelete);
            psEntity.setString(1, userId);
            count = psEntity.executeUpdate();
@@ -59,7 +64,8 @@ public class UserRepositoryImpl implements UserRepository {
     @Override
     public List<User> getAllUsers() {
         List<User> users = new ArrayList<User>();
-        String psSelect = "SELECT user_id, email, host, timezone, screen_name, first_name, last_name, gender, birthday, password_hash, password_salt  FROM user_detail WHERE deleted = 'N' and confirmed = 'Y'";
+        String psSelect = String.format("SELECT user_id, email, host, timezone, screen_name, first_name, last_name, gender, birthday, password_hash, password_salt  FROM %s WHERE deleted = 'N' and confirmed = 'Y'",
+                databaseSchema.qualifyTable("USER_DETAIL"));
         try (final Connection connection = dataSource.getConnection()) {
             PreparedStatement stmt = connection.prepareStatement(psSelect);
             ResultSet rs = stmt.executeQuery();
@@ -81,7 +87,8 @@ public class UserRepositoryImpl implements UserRepository {
     @Override
     public String getUserIdByToken(String token) {
         Objects.requireNonNull(token);
-        String psSelect = "SELECT user_id FROM confirmation_token WHERE id = ?";
+        String psSelect = String.format("SELECT %s FROM confirmation_token WHERE id = ?",
+                databaseSchema.qualifyTable("confirmation_token"));
         String userId = null;
         try (final Connection connection = dataSource.getConnection()) {
             PreparedStatement stmt = connection.prepareStatement(psSelect);
@@ -100,9 +107,15 @@ public class UserRepositoryImpl implements UserRepository {
     public Optional<User> findById(String userId) {
         Objects.requireNonNull(userId);
         User user = null;
-        String psSelect = "SELECT user_id, email, host, timezone, screen_name, first_name, last_name, gender, birthday, confirmed, password_hash, password_salt  FROM user_detail WHERE deleted = 'N' AND user_id = ?";
-        String psSelect_address = "SELECT  address_type, country, province_state, city, zipcode, address_line1, address_line2  FROM address WHERE  user_id = ?";
-        String psSelect_token = "SELECT  id, token_type, valid, payload, expiresAt, usedAt  FROM confirmation_token WHERE  user_id = ? and expiresAt >= ?";
+     //   String psSelect = "SELECT user_id, email, host, timezone, screen_name, first_name, last_name, gender, birthday, confirmed, password_hash, password_salt  FROM user_detail WHERE deleted = 'N' AND user_id = ?";
+        String psSelect = String.format("SELECT user_id, email, host, timezone, screen_name, first_name, last_name, gender, birthday, confirmed, password_hash, password_salt  FROM %s WHERE deleted = 'N' AND user_id = ?",
+                databaseSchema.qualifyTable("USER_DETAIL"));
+      //  String psSelect_address = "SELECT  address_type, country, province_state, city, zipcode, address_line1, address_line2  FROM address WHERE  user_id = ?";
+        String psSelect_address = String.format("SELECT  address_type, country, province_state, city, zipcode, address_line1, address_line2  FROM %s WHERE  user_id = ?",
+                databaseSchema.qualifyTable("address"));
+     //   String psSelect_token = "SELECT  id, token_type, valid, payload, expiresAt, usedAt  FROM confirmation_token WHERE  user_id = ? and expiresAt >= ?";
+        String psSelect_token = String.format("SELECT  id, token_type, valid, payload, expiresAt, usedAt  FROM %s WHERE  user_id = ? and expiresAt >= ?",
+                databaseSchema.qualifyTable("confirmation_token"));
         try (final Connection connection = dataSource.getConnection()){
             PreparedStatement stmt = connection.prepareStatement(psSelect);
             stmt.setString(1, userId);
@@ -165,9 +178,14 @@ public class UserRepositoryImpl implements UserRepository {
    public Optional<User> findByEmail(String email) {
        Objects.requireNonNull(email);
        User user = null;
-       String psSelect = "SELECT user_id, email, host, timezone, screen_name, first_name, last_name, gender, birthday, confirmed, password_hash, password_salt  FROM user_detail WHERE deleted = 'N' AND email = ?";
-       String psSelect_address = "SELECT  address_type, country, province_state, city, zipcode, address_line1, address_line2  FROM address WHERE  user_id = ?";
-       String psSelect_token = "SELECT  id, token_type, valid, payload, expiresAt, usedAt  FROM confirmation_token WHERE  user_id = ? and expiresAt >= ?";
+     //  String psSelect = "SELECT user_id, email, host, timezone, screen_name, first_name, last_name, gender, birthday, confirmed, password_hash, password_salt  FROM user_detail WHERE deleted = 'N' AND email = ?";
+       String psSelect = String.format("SELECT user_id, email, host, timezone, screen_name, first_name, last_name, gender, birthday, confirmed, password_hash, password_salt  FROM %s WHERE deleted = 'N' AND email = ?",
+               databaseSchema.qualifyTable("USER_DETAIL"));
+       String psSelect_address = String.format("SELECT  address_type, country, province_state, city, zipcode, address_line1, address_line2  FROM %s WHERE  user_id = ?",
+               databaseSchema.qualifyTable("address"));
+        String psSelect_token = String.format("SELECT  id, token_type, valid, payload, expiresAt, usedAt  FROM %s WHERE  user_id = ? and expiresAt >= ?",
+               databaseSchema.qualifyTable("confirmation_token"));
+
        try (final Connection connection = dataSource.getConnection()){
            PreparedStatement stmt = connection.prepareStatement(psSelect);
            stmt.setString(1, email);
@@ -231,9 +249,13 @@ public class UserRepositoryImpl implements UserRepository {
    public  Optional<User> findByScreenName(String screenName) {
        Objects.requireNonNull(screenName);
        User user = null;
-        String psSelect = "SELECT user_id, email, host, timezone, screen_name, first_name, last_name, gender, birthday,confirmed, password_hash, password_salt  FROM user_detail WHERE deleted = 'N' AND screen_name = ?";
-        String psSelect_address = "SELECT  address_type, country, province_state, city, zipcode, address_line1, address_line2  FROM address WHERE  user_id = ?";
-        String psSelect_token = "SELECT  id, token_type, valid, payload, expiresAt, usedAt  FROM confirmation_token WHERE  user_id = ? and expiresAt >= ?";
+    //    String psSelect = "SELECT user_id, email, host, timezone, screen_name, first_name, last_name, gender, birthday,confirmed, password_hash, password_salt  FROM user_detail WHERE deleted = 'N' AND screen_name = ?";
+        String psSelect = String.format("SELECT user_id, email, host, timezone, screen_name, first_name, last_name, gender, birthday, confirmed, password_hash, password_salt  FROM %s WHERE deleted = 'N' AND screen_name = ?",
+                databaseSchema.qualifyTable("USER_DETAIL"));
+        String psSelect_address = String.format("SELECT  address_type, country, province_state, city, zipcode, address_line1, address_line2  FROM %s WHERE  user_id = ?",
+                databaseSchema.qualifyTable("address"));
+        String psSelect_token = String.format("SELECT  id, token_type, valid, payload, expiresAt, usedAt  FROM %s WHERE  user_id = ? and expiresAt >= ?",
+                databaseSchema.qualifyTable("confirmation_token"));
         try (final Connection connection = dataSource.getConnection()){
            PreparedStatement stmt = connection.prepareStatement(psSelect);
            stmt.setString(1, screenName);
@@ -297,11 +319,16 @@ public class UserRepositoryImpl implements UserRepository {
 
        Objects.requireNonNull(user);
 
-       String psInsert = "INSERT INTO user_detail (user_id, email, host, timezone, screen_name, first_name, last_name, gender, birthday, password_hash," +
-               "  password_salt, locale, confirmed, locked, deleted, createBy,  createdAt) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?,?, ?, ?, ?)";
-       String psInsert_address = "INSERT INTO address (user_id, address_type, country, province_state, city, zipcode, address_line1, address_line2) VALUES (?, ?, ?, ?, ?, ?, ?, ?)";
-       String psInsert_token = "INSERT INTO confirmation_token (id, user_id, token_type, payload, expiresAt, usedAt) VALUES (?, ?, ?, ?, ?, ?)";
-
+   //    String psInsert = "INSERT INTO user_detail (user_id, email, host, timezone, screen_name, first_name, last_name, gender, birthday, password_hash," +
+     //          "  password_salt, locale, confirmed, locked, deleted, createBy,  createdAt) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?,?, ?, ?, ?)";
+       String psInsert = String.format("INSERT INTO %s (user_id, email, host, timezone, screen_name, first_name, last_name, gender, birthday, password_hash, password_salt, locale, confirmed, locked, deleted, createBy,  createdAt) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?,?, ?, ?, ?)",
+               databaseSchema.qualifyTable("user_detail"));
+     //  String psInsert_address = "INSERT INTO address (user_id, address_type, country, province_state, city, zipcode, address_line1, address_line2) VALUES (?, ?, ?, ?, ?, ?, ?, ?)";
+       String psInsert_address = String.format("INSERT INTO %s (user_id, address_type, country, province_state, city, zipcode, address_line1, address_line2) VALUES (?, ?, ?, ?, ?, ?, ?, ?)",
+               databaseSchema.qualifyTable("address"));
+     //  String psInsert_token = "INSERT INTO confirmation_token (id, user_id, token_type, payload, expiresAt, usedAt) VALUES (?, ?, ?, ?, ?, ?)";
+       String psInsert_token = String.format("INSERT INTO %s (id, user_id, token_type, payload, expiresAt, usedAt) VALUES (?, ?, ?, ?, ?, ?)",
+               databaseSchema.qualifyTable("confirmation_token"));
        try (final Connection connection = dataSource.getConnection()) {
             connection.setAutoCommit(false);
            PreparedStatement stmt = connection.prepareStatement(psInsert);
@@ -372,8 +399,12 @@ public class UserRepositoryImpl implements UserRepository {
     public  User update(User user) {
         Objects.requireNonNull(user);
         try (final Connection connection = dataSource.getConnection()){
-            String psUpdate = "UPDATE user_detail SET screen_name = ?, email = ?,  first_name = ?, last_name= ?, birthday = ?, gender=?, password_hash =?, password_salt = ?, locked = ?, confirmed = ? WHERE user_id = ?";
-            String psInsert_token = "INSERT INTO confirmation_token (id, user_id, token_type, payload, expiresAt, usedAt) VALUES (?, ?, ?, ?, ?, ?)";
+            //String psUpdate = "UPDATE user_detail SET screen_name = ?, email = ?,  first_name = ?, last_name= ?, birthday = ?, gender=?, password_hash =?, password_salt = ?, locked = ?, confirmed = ? WHERE user_id = ?";
+            String psUpdate = String.format("UPDATE %s SET screen_name = ?, email = ?,  first_name = ?, last_name= ?, birthday = ?, gender=?, password_hash =?, password_salt = ?, locked = ?, confirmed = ? WHERE user_id = ?",
+                    databaseSchema.qualifyTable("user_detail"));
+        //    String psInsert_token = "INSERT INTO confirmation_token (id, user_id, token_type, payload, expiresAt, usedAt) VALUES (?, ?, ?, ?, ?, ?)";
+            String psInsert_token = String.format("INSERT INTO %s (id, user_id, token_type, payload, expiresAt, usedAt) VALUES (?, ?, ?, ?, ?, ?)",
+                    databaseSchema.qualifyTable("confirmation_token"));
             connection.setAutoCommit(false);
             PreparedStatement psEntity = connection.prepareStatement(psUpdate);
             psEntity.setString(1, user.getScreenName());
@@ -423,8 +454,12 @@ public class UserRepositoryImpl implements UserRepository {
         Objects.requireNonNull(userId);
         Objects.requireNonNull(token);
         try (final Connection connection = dataSource.getConnection()){
-            String psDelete1 = "UPDATE user_detail SET locked = 'N', confirmed = 'Y' WHERE user_id = ?";
-            String psDelete2 = "DELETE FROM  confirmation_token WHERE user_id = ?";
+        //    String psDelete1 = "UPDATE user_detail SET locked = 'N', confirmed = 'Y' WHERE user_id = ?";
+            String psDelete1 = String.format("UPDATE %s SET locked = 'N', confirmed = 'Y' WHERE user_id = ?",
+                    databaseSchema.qualifyTable("user_detail"));
+         //   String psDelete2 = "DELETE FROM  confirmation_token WHERE user_id = ?";
+            String psDelete2 = String.format("DELETE FROM  %s WHERE user_id = ?",
+                    databaseSchema.qualifyTable("confirmation_token"));
             PreparedStatement psEntity = connection.prepareStatement(psDelete1);
             psEntity.setString(1, userId);
             int count = psEntity.executeUpdate();

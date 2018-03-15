@@ -6,6 +6,13 @@ singletons:
       jdbcUrl: jdbc:mysql://mysql:3306/todo_db?useSSL=false
       username: mysqluser
       password: mysqlpw
+- com.networknt.portal.usermanagement.model.jdbc.DatabaseSchema:
+  - com.networknt.portal.usermanagement.model.jdbc.DatabaseSchema:
+    - java.lang.String: none
+- com.networknt.portal.usermanagement.model.common.model.user.UserRepository:
+  - com.networknt.portal.usermanagement.model.jdbc.user.UserRepositoryImpl
+- com.networknt.portal.usermanagement.model.common.crypto.PasswordSecurity:
+  - com.networknt.portal.usermanagement.model.common.crypto.Pbkdf2PasswordSecurityImpl
 - com.networknt.eventuate.common.impl.sync.AggregateCrud:
   - com.networknt.eventuate.client.EventuateLocalDBAggregateCrud
 - com.networknt.eventuate.common.impl.AggregateEvents:
