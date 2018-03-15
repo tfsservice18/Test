@@ -56,7 +56,26 @@ public enum State {
   WI("Wisconsin"),
   WV("West Virginia"),
   WY("Wyoming"),
+
+  // PQ is QC, YK is YT, NF is NL    ---Canada province
+  BC( "British Columbia" ),
+  AB( "Alberta" ),
+  SK( "Saskatchewan" ),
+  MB( "Manitoba" ),
+  ON( "Ontario" ),
+  QC( "Quebec" ),
+  PE( "Prince Edward Island" ),
+  NB( "New Brunswick" ),
+  NS( "Nova Scotia" ),
+  NL( "Newfoundland/Labrador" ),
+  YT( "Yukon" ),
+  NT( "NWT" ),
+  NU( "Nunavut" ),
+
   NA("N/A");
+
+
+
 
   private String state;
 

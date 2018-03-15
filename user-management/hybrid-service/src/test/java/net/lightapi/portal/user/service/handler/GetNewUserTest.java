@@ -65,7 +65,7 @@ public class GetNewUserTest {
 
     @Test
     public void testGetNewUser() throws ClientException, ApiException {
-      /*  final Http2Client client = Http2Client.getInstance();
+   /*     final Http2Client client = Http2Client.getInstance();
         final CountDownLatch latch = new CountDownLatch(1);
         final ClientConnection connection;
         try {
