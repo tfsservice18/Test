@@ -19,6 +19,7 @@ import org.xnio.IoUtils;
 import org.xnio.OptionMap;
 
 import java.net.URI;
+import java.net.URLEncoder;
 import java.util.concurrent.CountDownLatch;
 import java.util.concurrent.atomic.AtomicReference;
 
@@ -33,9 +34,11 @@ public class ConfirmUserTest {
     static final int httpsPort = server.getServerConfig().getHttpsPort();
     static final String url = enableHttp2 || enableHttps ? "https://localhost:" + httpsPort : "http://localhost:" + httpPort;
 
+    static final String s = "{\"host\":\"lightapi.net\",\"service\":\"user\",\"action\":\"confirmUser\",\"version\":\"0.1.0\",\"data\":{\"tokenId\":\"111222-2222\"}}";
+
     @Test
     public void testConfirmUser() throws ClientException, ApiException {
-        /*
+
         final Http2Client client = Http2Client.getInstance();
         final CountDownLatch latch = new CountDownLatch(1);
         final ClientConnection connection;
@@ -46,10 +49,15 @@ public class ConfirmUserTest {
         }
         final AtomicReference<ClientResponse> reference = new AtomicReference<>();
         try {
-            ClientRequest request = new ClientRequest().setPath("/api/json").setMethod(Methods.POST);
+            System.out.println("message = " + s);
+            String message = "/api/json?cmd=" + URLEncoder.encode(s, "UTF-8");
+            System.out.println("message = " + message);
+            ClientRequest request = new ClientRequest().setPath(message).setMethod(Methods.GET);
             request.getRequestHeaders().put(Headers.CONTENT_TYPE, "application/json");
             request.getRequestHeaders().put(Headers.TRANSFER_ENCODING, "chunked");
-            connection.sendRequest(request, client.createClientCallback(reference, latch, "request body to be replaced"));
+            connection.sendRequest(request, client.createClientCallback(reference, latch));
+
+
             latch.await();
         } catch (Exception e) {
             logger.error("Exception: ", e);
@@ -59,8 +67,9 @@ public class ConfirmUserTest {
         }
         int statusCode = reference.get().getResponseCode();
         String body = reference.get().getAttachment(Http2Client.RESPONSE_BODY);
+        System.out.println("response:" + body);
         Assert.assertEquals(200, statusCode);
         Assert.assertNotNull(body);
-        */
+
     }
 }

@@ -22,7 +22,9 @@ public class ConfirmUser implements Handler {
     private UserService service = new UserServiceImpl(passwordSecurity, null, userRepository);
     @Override
     public ByteBuffer handle(Object input)  {
+
         String tokenId = ((Map<String, String>)input).get("tokenId");
+        System.out.println("token:" + tokenId);
         String result = null;
         try {
             User user = service.confirmEmail(tokenId);

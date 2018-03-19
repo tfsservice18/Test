@@ -17,6 +17,10 @@ public class UserConfig {
     private String port;
     private boolean sendEmail;
 
+    private boolean hybridServie;
+    private String hybridLink;
+
+
     public UserConfig() {
     }
 
@@ -90,5 +94,21 @@ public class UserConfig {
 
     public void setSendEmail(boolean sendEmail) {
         this.sendEmail = sendEmail;
+    }
+
+    public boolean isHybridServie() {
+        return hybridServie;
+    }
+
+    public void setHybridServie(boolean hybridServie) {
+        this.hybridServie = hybridServie;
+    }
+
+    public String getHybridLink() {
+        return hybridLink;
+    }
+
+    public void setHybridLink(String hybridLink) {
+        this.hybridLink = hybridLink;
     }
 }

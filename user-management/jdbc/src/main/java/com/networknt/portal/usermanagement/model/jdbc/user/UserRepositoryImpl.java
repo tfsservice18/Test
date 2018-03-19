@@ -87,7 +87,7 @@ public class UserRepositoryImpl implements UserRepository {
     @Override
     public String getUserIdByToken(String token) {
         Objects.requireNonNull(token);
-        String psSelect = String.format("SELECT %s FROM confirmation_token WHERE id = ?",
+        String psSelect = String.format("SELECT user_id FROM  %s WHERE id = ?",
                 databaseSchema.qualifyTable("confirmation_token"));
         String userId = null;
         try (final Connection connection = dataSource.getConnection()) {

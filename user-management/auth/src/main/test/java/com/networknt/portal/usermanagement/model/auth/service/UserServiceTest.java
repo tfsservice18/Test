@@ -11,38 +11,26 @@ import com.networknt.portal.usermanagement.model.common.model.user.User;
 import com.networknt.portal.usermanagement.model.common.model.user.UserRepository;
 import com.networknt.portal.usermanagement.model.common.utils.IdentityGenerator;
 import com.networknt.service.SingletonServiceFactory;
+import org.h2.tools.RunScript;
 import org.junit.BeforeClass;
 import org.junit.Test;
 
 import javax.sql.DataSource;
+import java.io.InputStream;
+import java.io.InputStreamReader;
+import java.sql.Connection;
+import java.sql.SQLException;
 import java.time.LocalDate;
 
-            public class UserServiceTest {
+public class UserServiceTest {
 
-                public static DataSource ds;
 
-     //           static {
-      //              ds = (DataSource) SingletonServiceFactory.getBean(DataSource.class);
-            /*        try (Connection connection = ds.getConnection()) {
-                        // Runscript doesn't work need to execute batch here.
-                        String schemaResourceName = "/user_management_ddl.sql";
-                        InputStream in = UserServiceTest.class.getResourceAsStream(schemaResourceName);
 
-                        if (in == null) {
-                            throw new RuntimeException("Failed to load resource: " + schemaResourceName);
-                        }
-                        InputStreamReader reader = new InputStreamReader(in);
-                        RunScript.execute(connection, reader);
-
-                    } catch (SQLException e) {
-                        e.printStackTrace();
-
-        }*/
-  //  }
 
     private UserRepository userRepository = (UserRepository)SingletonServiceFactory.getBean(UserRepository.class);
     private static PasswordSecurity passwordSecurity = (PasswordSecurity)SingletonServiceFactory.getBean(PasswordSecurity.class);
-    private UserService  service = new UserServiceImpl(passwordSecurity, null, userRepository);
+
+     private UserService  service = new UserServiceImpl(passwordSecurity, null, userRepository);
 
 
     private static User user;
@@ -72,10 +60,10 @@ import java.time.LocalDate;
     public void testSignup()  throws Exception {
 
 
-        System.out.println(service.isEmitEvent());
+       System.out.println(service.isEmitEvent());
 
-        //service.setEmitEvent(false);
-      //  service.signup(user, "password", false);
+        service.setEmitEvent(false);
+        service.signup(user, "password", false);
 
     }
 }
