@@ -60,10 +60,10 @@ public class UserServiceTest {
     public void testSignup()  throws Exception {
 
 
-       System.out.println(service.isEmitEvent());
+    //   System.out.println(service.isEmitEvent());
 
-        service.setEmitEvent(false);
-        service.signup(user, "password", false);
+     //   service.setEmitEvent(false);
+    //    service.signup(user, "password", false);
 
     }
 }
