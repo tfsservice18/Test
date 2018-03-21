@@ -34,11 +34,11 @@ public class loginUserTest {
     static final String url = enableHttp2 || enableHttps ? "https://localhost:" + httpsPort : "http://localhost:" + httpPort;
 
    // static final String s = "  {\"host\":\"lightapi.net\",\"service\":\"user\",\"action\":\"loginUser\",\"version\":\"0.1.0\",\"data\":{\"loginForm\":{\"nameOrEmail\":\"testUser\", \"password\": \"111111\"}}}";
-    static final String s = "  {\"host\":\"lightapi.net\",\"service\":\"user\",\"action\":\"loginUser\",\"version\":\"0.1.0\",\"data\":{\"loginForm\":{\"nameOrEmail\":\"testUser\", \"password\": \"111111\"}}}";
+    static final String s = "  {\"host\":\"lightapi.net\",\"service\":\"user\",\"action\":\"loginUser\",\"version\":\"0.1.0\",\"data\":{\"nameOrEmail\":\"testUser\", \"password\": \"111111\"}}";
 
     @Test
     public void testloginUser() throws ClientException, ApiException {
-/*
+
         final Http2Client client = Http2Client.getInstance();
         final CountDownLatch latch = new CountDownLatch(1);
         final ClientConnection connection;
@@ -65,6 +65,6 @@ public class loginUserTest {
         String body = reference.get().getAttachment(Http2Client.RESPONSE_BODY);
         Assert.assertEquals(200, statusCode);
         Assert.assertNotNull(body);
-*/
+
     }
 }

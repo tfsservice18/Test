@@ -37,13 +37,15 @@ public class loginUser implements Handler {
         String result = "[]";
         ResponseResult response = new ResponseResult();
         try {
-            String json = mapper.writeValueAsString(input);
-            System.out.println("hybrid input login:" + json);
-            LoginForm login = mapper.readValue(json, LoginForm.class);
-            if (login.getToken() != null ) {
-                userResult= service.confirmPasswordReset(login.getNameOrEmail(), login.getToken());
+
+            String nameOrEmail = ((Map<String, String>)input).get("nameOrEmail");
+            String password = ((Map<String, String>)input).get("password");
+            String token = ((Map<String, String>)input).get("token");
+
+            if (token != null ) {
+                userResult= service.confirmPasswordReset(nameOrEmail, token);
             }
-            userResult =  service.login(login.getNameOrEmail(), login.getPassword());
+            userResult =  service.login(nameOrEmail, password);
 
 
             if (userResult == null) {
