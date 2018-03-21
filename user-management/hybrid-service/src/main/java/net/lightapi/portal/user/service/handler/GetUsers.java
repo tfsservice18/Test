@@ -27,7 +27,7 @@ public class GetUsers implements Handler {
         List<User> users = service.getUser();
         List<UserDto> userList = users.stream().map(e-> service.toUserDto(e)).collect(Collectors.toList());
         try {
-            result = Config.getInstance().getMapper().writeValueAsString(result);
+            result = Config.getInstance().getMapper().writeValueAsString(userList);
         } catch (Exception e) {
             result = e.getMessage();
             //TODO handler Exception, add log info?

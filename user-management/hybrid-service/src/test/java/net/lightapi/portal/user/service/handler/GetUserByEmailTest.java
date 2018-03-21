@@ -47,6 +47,7 @@ public class GetUserByEmailTest {
         }
         final AtomicReference<ClientResponse> reference = new AtomicReference<>();
         try {
+
             ClientRequest request = new ClientRequest().setPath("/api/json").setMethod(Methods.POST);
             request.getRequestHeaders().put(Headers.CONTENT_TYPE, "application/json");
             request.getRequestHeaders().put(Headers.TRANSFER_ENCODING, "chunked");

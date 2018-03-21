@@ -2,6 +2,7 @@
 package net.lightapi.portal.user.service.handler;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
+import com.networknt.config.Config;
 import com.networknt.portal.usermanagement.model.auth.service.UserService;
 import com.networknt.portal.usermanagement.model.auth.service.UserServiceImpl;
 import com.networknt.portal.usermanagement.model.common.crypto.PasswordSecurity;
@@ -30,24 +31,22 @@ public class GetNewUser implements Handler {
 
         ObjectMapper mapper = new ObjectMapper();
 
-        String result = "Ok!";
+        ResponseResult response = new ResponseResult();
+        String result = "[Ok!]";
         try {
             String json = mapper.writeValueAsString(input);
-            System.out.println("hybrid input:" + json);
+
             UserDto userDto = mapper.readValue(json, UserDto.class);
            //userDto.getContactData().getAddresses().forEach(e->System.out.println(e.getCountry().name()));
             User user = service.fromUserDto(userDto);
             service.signup(user, userDto.getPassword(), false);
 
-            //TODO remove the following implemetation after confirm email implemented
-            Optional<ConfirmationToken> token = user.getConfirmationTokens().stream().findFirst();
-            if (token.isPresent()) {
-                result = "http://localhost:8080/v1/user/token/" + token.get().getId();
-            }
+            response.setCompleted(true);
+            response.setMessage("created User:"  + user.getScreenName());
+            result = Config.getInstance().getMapper().writeValueAsString(response);
 
         } catch (Exception e) {
             result = e.getMessage();
-            //TODO handler Exception, add log info?
         }
 
         return NioUtils.toByteBuffer(result);

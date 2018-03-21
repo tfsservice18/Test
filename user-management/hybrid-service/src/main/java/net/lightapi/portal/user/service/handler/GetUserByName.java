@@ -23,21 +23,20 @@ public class GetUserByName implements Handler {
     @Override
     public ByteBuffer handle(Object input)  {
         String name = ((Map<String, String>)input).get("name");
-        System.out.println(" user name:" + name);
-
+        ResponseResult response = new ResponseResult();
         Optional<User> user = service.findUser(name);;
         String result = null;
         try {
             if (user.isPresent()) {
                 result = Config.getInstance().getMapper().writeValueAsString(service.toUserDto(user.get()));
             } else {
-                result = "No user find for the name:" + name;
+                response.setMessage("No user find for the name:" + name);
+                result = Config.getInstance().getMapper().writeValueAsString(response);
             }
         } catch (Exception e) {
             result = e.getMessage();
             //TODO handler Exception, add log info?
         }
-        System.out.println("result:" + result);
         return NioUtils.toByteBuffer(result);
     }
 }

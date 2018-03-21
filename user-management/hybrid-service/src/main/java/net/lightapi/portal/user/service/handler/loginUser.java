@@ -3,6 +3,7 @@ package net.lightapi.portal.user.service.handler;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.networknt.body.BodyHandler;
+import com.networknt.config.Config;
 import com.networknt.portal.usermanagement.model.auth.service.UserService;
 import com.networknt.portal.usermanagement.model.auth.service.UserServiceImpl;
 import com.networknt.portal.usermanagement.model.common.crypto.PasswordSecurity;
@@ -34,9 +35,10 @@ public class loginUser implements Handler {
 
         User userResult;
         String result = "[]";
+        ResponseResult response = new ResponseResult();
         try {
             String json = mapper.writeValueAsString(input);
-            System.out.println("hybrid input:" + json);
+            System.out.println("hybrid input login:" + json);
             LoginForm login = mapper.readValue(json, LoginForm.class);
             if (login.getToken() != null ) {
                 userResult= service.confirmPasswordReset(login.getNameOrEmail(), login.getToken());
@@ -45,10 +47,13 @@ public class loginUser implements Handler {
 
 
             if (userResult == null) {
-                result = "Login failed, please re-try or contact to admin;";
+                response.setCompleted(false);
+                response.setMessage("Login failed, please re-try or contact to admin;");
             } else {
-                result =  "Login successfully: \n" + mapper.writeValueAsString(service.toUserDto(userResult));
+                response.setCompleted(true);
+                response.setMessage("Login successfully: \n" + mapper.writeValueAsString(service.toUserDto(userResult)));
             }
+            result = Config.getInstance().getMapper().writeValueAsString(response);
         } catch (Exception e) {
             logger.error("login error:" + e);
         }

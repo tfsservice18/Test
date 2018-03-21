@@ -21,7 +21,7 @@ public class DeleteUserById implements Handler {
     private UserService service = new UserServiceImpl(passwordSecurity, null, userRepository);
     @Override
     public ByteBuffer handle(Object input)  {
-
+        ResponseResult response = new ResponseResult();
         JsonNode inputPara = Config.getInstance().getMapper().valueToTree(input);
 
         String id = inputPara.findPath("id").asText();
@@ -29,11 +29,19 @@ public class DeleteUserById implements Handler {
         System.out.println("delete user id:" + id);
 
         int rec  = service.delete(id);
-        String result = null;
+        String result = "[]";
         if (rec > 0) {
-            result = "Deleted user: " + id;
+            response.setCompleted(true);
+            response.setMessage("Deleted user: " + id);
         } else {
-            result = "No Such User:" + id;
+            response.setCompleted(false);
+            response.setMessage("No Such User:" + id);
+        }
+
+        try {
+            result = Config.getInstance().getMapper().writeValueAsString(response);
+        } catch (Exception e) {
+            //TODO
         }
 
         return NioUtils.toByteBuffer(result);

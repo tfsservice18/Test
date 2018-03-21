@@ -24,14 +24,15 @@ public class GetUserByEmail implements Handler {
     public ByteBuffer handle(Object input)  {
         String email = ((Map<String, String>)input).get("email");
         System.out.println(" user email:" + email);
-
+        ResponseResult response = new ResponseResult();
         Optional<User> user = service.findUser(email);
         String result = null;
         try {
             if (user.isPresent()) {
                 result = Config.getInstance().getMapper().writeValueAsString(service.toUserDto(user.get()));
             } else {
-                result = "No user find for the email:" + email;
+                response.setMessage("No user find for the email:" + email);
+                result = Config.getInstance().getMapper().writeValueAsString(response);
             }
         } catch (Exception e) {
             result = e.getMessage();

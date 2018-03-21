@@ -46,7 +46,7 @@ public class UserRepositoryImpl implements UserRepository {
        int count = 0;
        try (final Connection connection = dataSource.getConnection()){
            String psDelete = String.format("UPDATE %s SET deleted = 'Y' WHERE user_id = ?",
-                   databaseSchema.qualifyTable("USER_DETAIL"));
+                   databaseSchema.qualifyTable("user_detail"));
            PreparedStatement psEntity = connection.prepareStatement(psDelete);
            psEntity.setString(1, userId);
            count = psEntity.executeUpdate();
@@ -65,7 +65,7 @@ public class UserRepositoryImpl implements UserRepository {
     public List<User> getAllUsers() {
         List<User> users = new ArrayList<User>();
         String psSelect = String.format("SELECT user_id, email, host, timezone, screen_name, first_name, last_name, gender, birthday, password_hash, password_salt  FROM %s WHERE deleted = 'N' and confirmed = 'Y'",
-                databaseSchema.qualifyTable("USER_DETAIL"));
+                databaseSchema.qualifyTable("user_detail"));
         try (final Connection connection = dataSource.getConnection()) {
             PreparedStatement stmt = connection.prepareStatement(psSelect);
             ResultSet rs = stmt.executeQuery();
@@ -109,7 +109,7 @@ public class UserRepositoryImpl implements UserRepository {
         User user = null;
      //   String psSelect = "SELECT user_id, email, host, timezone, screen_name, first_name, last_name, gender, birthday, confirmed, password_hash, password_salt  FROM user_detail WHERE deleted = 'N' AND user_id = ?";
         String psSelect = String.format("SELECT user_id, email, host, timezone, screen_name, first_name, last_name, gender, birthday, confirmed, password_hash, password_salt  FROM %s WHERE deleted = 'N' AND user_id = ?",
-                databaseSchema.qualifyTable("USER_DETAIL"));
+                databaseSchema.qualifyTable("user_detail"));
       //  String psSelect_address = "SELECT  address_type, country, province_state, city, zipcode, address_line1, address_line2  FROM address WHERE  user_id = ?";
         String psSelect_address = String.format("SELECT  address_type, country, province_state, city, zipcode, address_line1, address_line2  FROM %s WHERE  user_id = ?",
                 databaseSchema.qualifyTable("address"));
@@ -180,7 +180,7 @@ public class UserRepositoryImpl implements UserRepository {
        User user = null;
      //  String psSelect = "SELECT user_id, email, host, timezone, screen_name, first_name, last_name, gender, birthday, confirmed, password_hash, password_salt  FROM user_detail WHERE deleted = 'N' AND email = ?";
        String psSelect = String.format("SELECT user_id, email, host, timezone, screen_name, first_name, last_name, gender, birthday, confirmed, password_hash, password_salt  FROM %s WHERE deleted = 'N' AND email = ?",
-               databaseSchema.qualifyTable("USER_DETAIL"));
+               databaseSchema.qualifyTable("user_detail"));
        String psSelect_address = String.format("SELECT  address_type, country, province_state, city, zipcode, address_line1, address_line2  FROM %s WHERE  user_id = ?",
                databaseSchema.qualifyTable("address"));
         String psSelect_token = String.format("SELECT  id, token_type, valid, payload, expiresAt, usedAt  FROM %s WHERE  user_id = ? and expiresAt >= ?",
@@ -251,7 +251,7 @@ public class UserRepositoryImpl implements UserRepository {
        User user = null;
     //    String psSelect = "SELECT user_id, email, host, timezone, screen_name, first_name, last_name, gender, birthday,confirmed, password_hash, password_salt  FROM user_detail WHERE deleted = 'N' AND screen_name = ?";
         String psSelect = String.format("SELECT user_id, email, host, timezone, screen_name, first_name, last_name, gender, birthday, confirmed, password_hash, password_salt  FROM %s WHERE deleted = 'N' AND screen_name = ?",
-                databaseSchema.qualifyTable("USER_DETAIL"));
+                databaseSchema.qualifyTable("user_detail"));
         String psSelect_address = String.format("SELECT  address_type, country, province_state, city, zipcode, address_line1, address_line2  FROM %s WHERE  user_id = ?",
                 databaseSchema.qualifyTable("address"));
         String psSelect_token = String.format("SELECT  id, token_type, valid, payload, expiresAt, usedAt  FROM %s WHERE  user_id = ? and expiresAt >= ?",
