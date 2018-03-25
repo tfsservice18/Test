@@ -5,6 +5,7 @@ import com.networknt.service.SingletonServiceFactory;
 import com.networknt.utility.NioUtils;
 import com.networknt.rpc.Handler;
 import com.networknt.rpc.router.ServiceHandler;
+import io.undertow.server.HttpServerExchange;
 import net.lightapi.portal.menu.MenuRepository;
 
 import java.nio.ByteBuffer;
@@ -14,7 +15,7 @@ public class GetMenuItem implements Handler {
     MenuRepository menuQueryRepository = SingletonServiceFactory.getBean(MenuRepository.class);
 
     @Override
-    public ByteBuffer handle(Object input)  {
+    public ByteBuffer handle(HttpServerExchange exchange, Object input)  {
         String result = menuQueryRepository.getMenuItem();
         return NioUtils.toByteBuffer(result);
     }

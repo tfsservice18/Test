@@ -5,6 +5,7 @@ import com.networknt.service.SingletonServiceFactory;
 import com.networknt.utility.NioUtils;
 import com.networknt.rpc.Handler;
 import com.networknt.rpc.router.ServiceHandler;
+import io.undertow.server.HttpServerExchange;
 import net.lightapi.portal.form.FormRepository;
 
 import java.nio.ByteBuffer;
@@ -14,7 +15,7 @@ public class GetForm implements Handler {
     FormRepository formQueryRepository = SingletonServiceFactory.getBean(FormRepository.class);
 
     @Override
-    public ByteBuffer handle(Object input)  {
+    public ByteBuffer handle(HttpServerExchange exchange, Object input)  {
         String result = formQueryRepository.getForm();
         return NioUtils.toByteBuffer(result);
     }

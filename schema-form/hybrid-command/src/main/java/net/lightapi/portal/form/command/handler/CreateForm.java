@@ -8,6 +8,7 @@ import com.networknt.service.SingletonServiceFactory;
 import com.networknt.utility.NioUtils;
 import com.networknt.rpc.Handler;
 import com.networknt.rpc.router.ServiceHandler;
+import io.undertow.server.HttpServerExchange;
 import net.lightapi.portal.form.FormService;
 import net.lightapi.portal.form.FormServiceImpl;
 import net.lightapi.portal.form.domain.FormAggregate;
@@ -25,7 +26,7 @@ public class CreateForm implements Handler {
     private FormService service = new FormServiceImpl(repository);
 
     @Override
-    public ByteBuffer handle(Object input)  {
+    public ByteBuffer handle(HttpServerExchange exchange, Object input)  {
         System.out.println("input data:" + input);
         try {
             CompletableFuture<String> result =  service.create(Config.getInstance().getMapper().writeValueAsString(input)).thenApply((e) -> {

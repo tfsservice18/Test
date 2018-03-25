@@ -9,6 +9,7 @@ import com.networknt.rpc.Handler;
 import com.networknt.rpc.router.ServiceHandler;
 import com.networknt.service.SingletonServiceFactory;
 import com.networknt.utility.NioUtils;
+import io.undertow.server.HttpServerExchange;
 import net.lightapi.portal.menu.MenuItemService;
 import net.lightapi.portal.menu.MenuItemServiceImpl;
 import net.lightapi.portal.menu.domain.MenuItemAggregate;
@@ -27,7 +28,7 @@ public class CreateMenuItem implements Handler {
     private MenuItemService service = new MenuItemServiceImpl(repository);
 
     @Override
-    public ByteBuffer handle(Object input)  {
+    public ByteBuffer handle(HttpServerExchange exchange, Object input)  {
         System.out.println("input = " + input);
         try {
             CompletableFuture<String> result =  service.create(Config.getInstance().getMapper().writeValueAsString(input)).thenApply((e) -> {

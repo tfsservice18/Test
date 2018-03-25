@@ -9,6 +9,7 @@ import com.networknt.service.SingletonServiceFactory;
 import com.networknt.utility.NioUtils;
 import com.networknt.rpc.Handler;
 import com.networknt.rpc.router.ServiceHandler;
+import io.undertow.server.HttpServerExchange;
 import net.lightapi.portal.menu.MenuService;
 import net.lightapi.portal.menu.MenuServiceImpl;
 import net.lightapi.portal.menu.domain.MenuAggregate;
@@ -25,7 +26,7 @@ public class DeleteMenu implements Handler {
     private AggregateRepository repository = new AggregateRepository(MenuAggregate.class, eventStore);
     private MenuService service = new MenuServiceImpl(repository);
     @Override
-    public ByteBuffer handle(Object input)  {
+    public ByteBuffer handle(HttpServerExchange exchange, Object input)  {
         JsonNode inputPara = Config.getInstance().getMapper().valueToTree(input);
 
         String id = inputPara.findPath("id").asText();
