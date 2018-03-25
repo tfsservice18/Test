@@ -1,0 +1,16 @@
+{"lightapi.net/playground/generateJwt/0.1.0":{"schema": {
+        "title": "Generate test JWT token",
+        "type": "object",
+        "properties": {
+          "expiredInMinutes": {
+            "type": "integer"
+          },
+          "scope": {
+            "type": "array",
+            "items": {
+              "type": "string"
+            }
+          }
+        },
+        "required": ["scope"]
+      },"scope": "jwt.r"}}
