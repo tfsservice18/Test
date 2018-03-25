@@ -6,6 +6,7 @@ import com.networknt.portal.certification.model.Issue;
 import com.networknt.utility.NioUtils;
 import com.networknt.rpc.Handler;
 import com.networknt.rpc.router.ServiceHandler;
+import io.undertow.server.HttpServerExchange;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -18,7 +19,7 @@ public class Endpoint implements Handler {
     static final Logger logger = LoggerFactory.getLogger(Endpoint.class);
 
     @Override
-    public ByteBuffer handle(Object input)  {
+    public ByteBuffer handle(HttpServerExchange exchange, Object input)  {
         Map<String, String> map = (Map<String, String>)input;
         String host = map.get("host");
         String path = map.get("path");
