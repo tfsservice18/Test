@@ -11,6 +11,8 @@ import com.networknt.service.SingletonServiceFactory;
 import com.networknt.utility.NioUtils;
 import com.networknt.rpc.Handler;
 import com.networknt.rpc.router.ServiceHandler;
+import io.undertow.server.HttpServerExchange;
+
 import java.nio.ByteBuffer;
 
 @ServiceHandler(id="lightapi.net/user/deleteUserById/0.1.0")
@@ -20,7 +22,8 @@ public class DeleteUserById implements Handler {
     private static PasswordSecurity passwordSecurity = (PasswordSecurity)SingletonServiceFactory.getBean(PasswordSecurity.class);
     private UserService service = new UserServiceImpl(passwordSecurity, null, userRepository);
     @Override
-    public ByteBuffer handle(Object input)  {
+    public ByteBuffer handle(HttpServerExchange exchange, Object input)  {
+
         ResponseResult response = new ResponseResult();
         JsonNode inputPara = Config.getInstance().getMapper().valueToTree(input);
 
