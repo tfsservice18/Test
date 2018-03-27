@@ -37,10 +37,11 @@ public class GetNewUser implements Handler {
         String result = "[Ok!]";
         try {
             String json = mapper.writeValueAsString(input);
-
+            System.out.println("json:" + json);
             UserDto userDto = mapper.readValue(json, UserDto.class);
            //userDto.getContactData().getAddresses().forEach(e->System.out.println(e.getCountry().name()));
             User user = service.fromUserDto(userDto);
+            System.out.println("user:" + user.getScreenName());
             service.signup(user, userDto.getPassword(), false);
 
             response.setCompleted(true);

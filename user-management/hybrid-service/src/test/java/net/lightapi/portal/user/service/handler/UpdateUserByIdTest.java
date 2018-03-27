@@ -37,7 +37,7 @@ public class UpdateUserByIdTest {
 
     @Test
     public void testUpdateUserById() throws ClientException, ApiException {
-
+System.out.println("s:" + s);
         final Http2Client client = Http2Client.getInstance();
         final CountDownLatch latch = new CountDownLatch(1);
         final ClientConnection connection;

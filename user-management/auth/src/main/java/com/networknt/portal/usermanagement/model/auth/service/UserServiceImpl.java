@@ -332,6 +332,7 @@ public class UserServiceImpl implements UserService {
     Objects.requireNonNull(rawPassword, "rawPassword");
 
     String email = user.getEmail();
+      System.out.println("email:" + email);
     if (!Validator.isEmail(email)) {
       throw new InvalidEmailException();
     }
@@ -345,11 +346,14 @@ public class UserServiceImpl implements UserService {
     }
 
     Password password = passwordSecurity.ecrypt(rawPassword);
+      System.out.println("password:" + password);
     user.setPassword(password);
     ConfirmationToken token  = new ConfirmationToken(user , ConfirmationTokenType.EMAIL, 24*60);
+      System.out.println("token:" + token);
     user.addConfirmationToken(token);
     // user.addConfirmationToken(ConfirmationTokenType.EMAIL, 24*60);
     user = store(user);
+      System.out.println("completed store user...");
     String linkStr;
     if (userConfig.isHybridServie()) {
       linkStr = String.format(userConfig.getHybridLink(), token.getId());
@@ -360,8 +364,9 @@ public class UserServiceImpl implements UserService {
         linkStr = userConfig.getServerHost() +  token.getId();
       }
     }
-
+      System.out.println("link:" + linkStr);
     String emailBody = MessageFormat.format(userConfig.getContent(), linkStr);
+      System.out.println("emailBody:" + emailBody);
     logger.info(emailBody);
     if (userConfig.isSendEmail()) {
       EmailSender emailSender = new EmailSender(userConfig.getSmtpHost(), userConfig.getPort(), userConfig.getFromEmail(), userConfig.getPassword());
@@ -372,6 +377,8 @@ public class UserServiceImpl implements UserService {
       userCommandService.add(toUserDto(user));
 
     }
+
+      System.out.println("end...");
   }
 
   @Override
