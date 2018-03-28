@@ -39,7 +39,7 @@ public class GetNewUser implements Handler {
         String result = "[Ok!]";
         try {
             String json = mapper.writeValueAsString(input);
-            System.out.println("json:" + json);
+
             UserDto userDto = mapper.readValue(json, UserDto.class);
             IdGenerator idGenerator = new IdGeneratorImpl();
             User user = service.fromUserDto(userDto, idGenerator.genId().asString());

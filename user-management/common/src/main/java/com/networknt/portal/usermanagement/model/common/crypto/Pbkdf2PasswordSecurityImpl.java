@@ -50,11 +50,13 @@ public class Pbkdf2PasswordSecurityImpl implements PasswordSecurity {
 
   @Override
   public Password ecrypt(String rawPassword) {
+    System.out.println("rawPassword:" + rawPassword);
     byte[] salt = new byte[SALT_BYTES];
+    System.out.println("salt:" + salt);
     RandomUtil.nextBytes(salt);
-
+    System.out.println("salt2:" + salt);
     byte[] hash = pbkdf2(rawPassword.toCharArray(), salt, PBKDF2_ITERATIONS, HASH_BYTES);
-
+    System.out.println("hash:" + hash);
     return new Password(toHex(hash), toHex(salt));
   }
 
