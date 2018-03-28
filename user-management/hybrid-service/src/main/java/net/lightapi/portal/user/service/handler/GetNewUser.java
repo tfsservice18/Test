@@ -3,8 +3,6 @@ package net.lightapi.portal.user.service.handler;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.networknt.config.Config;
-import com.networknt.eventuate.jdbc.IdGenerator;
-import com.networknt.eventuate.jdbc.IdGeneratorImpl;
 import com.networknt.portal.usermanagement.model.auth.service.UserService;
 import com.networknt.portal.usermanagement.model.auth.service.UserServiceImpl;
 import com.networknt.portal.usermanagement.model.common.crypto.PasswordSecurity;
@@ -41,8 +39,7 @@ public class GetNewUser implements Handler {
             String json = mapper.writeValueAsString(input);
 
             UserDto userDto = mapper.readValue(json, UserDto.class);
-            IdGenerator idGenerator = new IdGeneratorImpl();
-            User user = service.fromUserDto(userDto, idGenerator.genId().asString());
+            User user = service.fromUserDto(userDto);
             System.out.println("user:" + user.getScreenName());
             service.signup(user, userDto.getPassword(), false);
 

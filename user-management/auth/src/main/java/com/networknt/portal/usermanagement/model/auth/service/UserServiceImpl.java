@@ -18,9 +18,7 @@ import com.networknt.portal.usermanagement.model.common.exception.InvalidEmailEx
 import com.networknt.portal.usermanagement.model.common.exception.InvalidTokenException;
 import com.networknt.portal.usermanagement.model.common.exception.NoSuchUserException;
 import com.networknt.portal.usermanagement.model.common.model.user.*;
-import com.networknt.portal.usermanagement.model.common.utils.EmailSender;
-import com.networknt.portal.usermanagement.model.common.utils.IdentityGenerator;
-import com.networknt.portal.usermanagement.model.common.utils.Validator;
+import com.networknt.portal.usermanagement.model.common.utils.*;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -434,8 +432,9 @@ public class UserServiceImpl implements UserService {
   @Override
   public User fromUserDto(UserDto userDto) {
     Objects.requireNonNull(userDto, "user");
+    IdGenerator idGenerator = new IdGeneratorImpl();
     String email = userDto.getContactData()==null?null: userDto.getContactData().getEmail();
-    User user =   new User (Long.toString(IdentityGenerator.generate()), userDto.getScreenName(), email);
+    User user =   new User (idGenerator.genId().asString(), userDto.getScreenName(), email);
     user.setContactData(userDto.getContactData());
 
     user.setHost(userDto.getHost());
