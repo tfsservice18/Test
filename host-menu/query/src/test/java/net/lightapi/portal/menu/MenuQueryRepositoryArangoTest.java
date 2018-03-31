@@ -22,20 +22,18 @@ public class MenuQueryRepositoryArangoTest {
     @AfterClass
     public static void tearDown() {
         // remove testing data
-    }
-
-    @Test
-    public void testCreateMenuItem() throws Exception {
-        // clean up all vertexes if exist.
         menuQueryRepository.removeMenu("e1");
+        menuQueryRepository.removeMenu("e2");
         menuQueryRepository.removeMenuItem("e11");
         menuQueryRepository.removeMenuItem("e12");
         menuQueryRepository.removeMenuItem("e13");
         menuQueryRepository.removeMenuItem("e1");
         menuQueryRepository.removeMenuItem("e2");
         menuQueryRepository.removeMenuItem("e3");
-        // at this moment, the edge collect should be removed. verify it.
+    }
 
+    @Test
+    public void testHost() {
 
         String s11 = "{\"menuItemId\":\"11\",\"label\":\"Host Admin\",\"route\":\"/admin/hostAdmin\",\"roles\":[\"admin\",\"owner\"]}";
         String s12 = "{\"menuItemId\":\"12\",\"label\":\"Rule Admin\",\"route\":\"/admin/ruleAdmin\",\"roles\":[\"ruleAdmin\",\"admin\",\"owner\"]}";
@@ -44,7 +42,6 @@ public class MenuQueryRepositoryArangoTest {
         String s2 = "{\"menuItemId\":\"2\",\"label\":\"login\",\"route\":\"/login\",\"roles\":[\"user\"]}";
         String s3 = "{\"menuItemId\":\"3\",\"label\":\"logout\",\"route\":\"/logout\",\"roles\":[\"user\"]}";
 
-
         menuQueryRepository.createMenuItem("e11", s11);
         menuQueryRepository.createMenuItem("e12", s12);
         menuQueryRepository.createMenuItem("e13", s13);
@@ -52,36 +49,19 @@ public class MenuQueryRepositoryArangoTest {
         menuQueryRepository.createMenuItem("e2", s2);
         menuQueryRepository.createMenuItem("e3", s3);
 
-
-        String site1 = "{\"host\":\"example.com\",\"description\":\"example site\",\"contains\":[\"1\",\"2\",\"3\"]}";
-        menuQueryRepository.createMenu("e1", site1);
-
-        String result = menuQueryRepository.getMenuByHost("example.com");
-        System.out.println("result = " + result);
-        Assert.assertNotNull(result);
-    }
-
-    @Test
-    public void testGetMenuByHost() {
-        String result = menuQueryRepository.getMenuByHost("example.com");
-        System.out.println("result = " + result);
-        Assert.assertNotNull(result);
-    }
-
-    @Test
-    public void testCreateAnotherMenu() {
-        menuQueryRepository.removeMenu("e2");
         String site2 = "{\"host\":\"example.org\",\"description\":\"example site\",\"contains\":[\"1\",\"2\",\"3\"]}";
         menuQueryRepository.createMenu("e2", site2);
-    }
 
-    @Test
-    public void testUpdateAndGetMenu() {
+        String result = menuQueryRepository.getMenuByHost("example.org");
+        System.out.println("result = " + result);
+        Assert.assertNotNull(result);
+
         menuQueryRepository.removeMenu("e2");
-        String site2 = "{\"host\":\"example.org\",\"description\":\"example site\",\"contains\":[\"1\",\"2\",\"3\"]}";
+        site2 = "{\"host\":\"example.org\",\"description\":\"example site\",\"contains\":[\"1\",\"2\",\"3\"]}";
         menuQueryRepository.createMenu("e2", site2);
         String site2_new = "{\"host\":\"example.org\",\"description\":\"example site111\",\"contains\":[\"1\",\"5\",\"3\"]}";
         menuQueryRepository.updateMenu("e2", site2_new);
         System.out.println(menuQueryRepository.getMenu());
     }
+
 }
