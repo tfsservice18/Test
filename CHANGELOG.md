@@ -38,7 +38,7 @@
 - Move the user-management services on light-eventuate-4j to light-portal [\#14](https://github.com/networknt/light-portal/issues/14)
 - Remove dependency on JsonPath in SPI of hybrid-server [\#12](https://github.com/networknt/light-portal/issues/12)
 - Add api-certification service to portal [\#10](https://github.com/networknt/light-portal/issues/10)
-- travis.yml doesn't work with nodejs to build view [\#9](https://github.com/networknt/light-portal/issues/9)
+- travis.yml does not work with nodejs to build view [\#9](https://github.com/networknt/light-portal/issues/9)
 - Add document site networknt.github.io/light-portal [\#8](https://github.com/networknt/light-portal/issues/8)
 - Add hybrid-server module and hybrid-service folder to host all light-port hybrid services [\#6](https://github.com/networknt/light-portal/issues/6)
 - initial user management service module [\#5](https://github.com/networknt/light-portal/issues/5)
