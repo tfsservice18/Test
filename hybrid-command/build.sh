@@ -4,7 +4,7 @@
 set -ex
 
 VERSION=$1
-IMAGE_NAME="networknt/portal-command-server"
+IMAGE_NAME="networknt/portal-hybrid-command"
 
 showHelp() {
     echo " "
