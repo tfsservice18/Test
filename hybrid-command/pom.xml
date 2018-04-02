@@ -4,7 +4,7 @@
     <modelVersion>4.0.0</modelVersion>
     <groupId>net.lightapi</groupId>
     <artifactId>hybrid-command</artifactId>
-    <version>1.5.11</version>
+    <version>1.5.12</version>
     <packaging>jar</packaging>
     <description>A light-hybrid-4j microservice server for command side services.</description>
 
