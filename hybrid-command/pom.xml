@@ -25,7 +25,7 @@
           <version.junit>4.12</version.junit>
           <version.undertow>1.4.19.Final</version.undertow>
           <version.hdrhistogram>2.1.8</version.hdrhistogram>
-          <version.json-schema-validator>0.1.15</version.json-schema-validator>
+          <version.json-schema-validator>0.1.18</version.json-schema-validator>
           <version.curator>3.3.0</version.curator>
           <version.hikaricp>2.6.1</version.hikaricp>
           <version.fastscanner>2.7.0</version.fastscanner>
