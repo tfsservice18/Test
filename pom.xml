@@ -30,7 +30,7 @@
         <version.jose4j>0.6.0</version.jose4j>
         <version.logback>1.2.3</version.logback>
         <version.junit>4.12</version.junit>
-        <version.undertow>1.4.20.Final</version.undertow>
+        <version.undertow>1.4.23.Final</version.undertow>
         <version.json-schema-validator>0.1.10</version.json-schema-validator>
         <version.hikaricp>2.7.0</version.hikaricp>
         <version.javamail>1.6.0</version.javamail>
