@@ -1,5 +1,13 @@
 # Change Log
 
+## [1.5.11](https://github.com/networknt/light-portal/tree/1.5.11) (2018-04-08)
+[Full Changelog](https://github.com/networknt/light-portal/compare/1.5.11...1.5.11)
+
+**Closed issues:**
+
+- upgrade javamail dependency and framework 1.5.12 [\#53](https://github.com/networknt/light-portal/issues/53)
+- add an API to create long lived token for development testing [\#42](https://github.com/networknt/light-portal/issues/42)
+
 ## [1.5.11](https://github.com/networknt/light-portal/tree/1.5.11) (2018-04-01)
 **Implemented enhancements:**
 
