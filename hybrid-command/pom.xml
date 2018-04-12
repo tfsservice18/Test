@@ -27,7 +27,7 @@
           <version.hdrhistogram>2.1.8</version.hdrhistogram>
           <version.json-schema-validator>0.1.18</version.json-schema-validator>
           <version.curator>3.3.0</version.curator>
-          <version.hikaricp>2.6.1</version.hikaricp>
+          <version.hikaricp>3.0.0</version.hikaricp>
           <version.fastscanner>2.18.1</version.fastscanner>
           <version.mysql>6.0.5</version.mysql>
           <version.mysql-binlog>0.12.1</version.mysql-binlog>
