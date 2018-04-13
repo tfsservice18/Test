@@ -35,7 +35,7 @@ public class JwtTokenTest {
 
     @Test
     public void testJwtToken() throws ClientException, ApiException {
-        final String requestBody = "{\"host\":\"lightapi.net\",\"service\":\"playground\",\"action\":\"generateJwt\",\"version\":\"0.1.0\",\"data\":{\"expiredInMinutes\":5256000,\"scope\":[\"jwt.r\",\"server.info.r\"]}}";
+        final String requestBody = "{\"host\":\"lightapi.net\",\"service\":\"playground\",\"action\":\"generateJwt\",\"version\":\"0.1.0\",\"data\":{\"exp\":1827550800,\"scope\":[\"mr.r\",\"mr.w\",\"server.info.r\"]}}";
         final Http2Client client = Http2Client.getInstance();
         final CountDownLatch latch = new CountDownLatch(1);
         final ClientConnection connection;
