@@ -2,7 +2,7 @@
         "title": "Generate test JWT token",
         "type": "object",
         "properties": {
-          "expiredInMinutes": {
+          "exp": {
             "type": "integer"
           },
           "scope": {
