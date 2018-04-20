@@ -17,8 +17,6 @@ class Login extends Component {
        version: '0.1.0',
        data: {nameOrEmail:formData.get('idoremail'), password: formData.get('password') },
      };
-
-     alert('login submitted: ' + body);
      alert('login submitted json: ' + JSON.stringify(body));
   }
 
