@@ -1,5 +1,14 @@
 # Change Log
 
+## [1.5.13](https://github.com/networknt/light-portal/tree/1.5.13) (2018-04-20)
+[Full Changelog](https://github.com/networknt/light-portal/compare/1.5.12...1.5.13)
+
+**Closed issues:**
+
+- update oauth-playground to add client\_id and user\_id [\#61](https://github.com/networknt/light-portal/issues/61)
+- update oauth-playground schema with exp [\#60](https://github.com/networknt/light-portal/issues/60)
+- oauth-playground test case change to replace exp [\#59](https://github.com/networknt/light-portal/issues/59)
+
 ## [1.5.12](https://github.com/networknt/light-portal/tree/1.5.12) (2018-04-08)
 [Full Changelog](https://github.com/networknt/light-portal/compare/1.5.11...1.5.12)
 
