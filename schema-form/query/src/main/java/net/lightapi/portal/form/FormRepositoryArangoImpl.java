@@ -137,7 +137,8 @@ public class FormRepositoryArangoImpl implements FormRepository {
             System.out.println("key:" + entityId);
             bd.setKey(entityId);
             bd.setProperties(map);
-            bd.addAttribute(ID, map.get(ID));
+            // bd.addAttribute(ID, map.get(ID));
+            bd.addAttribute(ID, entityId);
             final DocumentCreateEntity<BaseDocument> doc = db.collection(FORM).insertDocument(bd);
             System.out.println("Id:" + doc.getId() + " ; key:" + doc.getKey());
             // create menu to menuItem edges from contains
