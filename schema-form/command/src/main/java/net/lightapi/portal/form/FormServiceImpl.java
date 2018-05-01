@@ -28,13 +28,13 @@ public class FormServiceImpl implements FormService {
     }
 
     @Override
-    public CompletableFuture<EntityWithIdAndVersion<FormAggregate>> remove(String id) {
-        return aggregateRepository.update(id, new DeleteFormCommand());
+    public CompletableFuture<EntityWithIdAndVersion<FormAggregate>> remove(String data) {
+        return aggregateRepository.save(new DeleteFormCommand(data));
     }
 
     @Override
-    public CompletableFuture<EntityWithIdAndVersion<FormAggregate>> update(String id, String data) {
-        return aggregateRepository.update(id, new UpdateFormCommand(id, data));
+    public CompletableFuture<EntityWithIdAndVersion<FormAggregate>> update(String data) {
+        return aggregateRepository.save(new UpdateFormCommand( data));
     }
 
 }

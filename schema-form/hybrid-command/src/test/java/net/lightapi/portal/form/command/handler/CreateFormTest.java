@@ -75,6 +75,7 @@ public class CreateFormTest {
 
         FormRequest formRequest = new FormRequest("lightapi.net", "form", "createForm", "0.1.0");
         Form form = new Form();
+        form.setFormId("com.test");
         form.setDescription("test Form");
         form.setVersion("1.0");
         Action action = new Action("lightapi.net", "form", "createForm", "0.1.0", "POST");

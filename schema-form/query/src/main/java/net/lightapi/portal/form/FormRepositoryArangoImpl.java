@@ -27,7 +27,7 @@ public class FormRepositoryArangoImpl implements FormRepository {
     public static final String DBNAME = "form";
     public static final String FORM = "form";
     public static final String ENTITYID = "entityId";
-    public static final String ID = "id";
+    public static final String ID = "formId";
     public static final String HOST = "host";
 
     protected Logger logger = LoggerFactory.getLogger(getClass());
@@ -129,19 +129,22 @@ public class FormRepositoryArangoImpl implements FormRepository {
     }
 
     @Override
-    public void createForm(String entityId, String data) {
+    public void createForm( String data) {
 
         try {
             Map<String, Object> map = mapper.readValue(data, new TypeReference<Map<String, Object>>() {});
             final BaseDocument bd = new BaseDocument();
-            System.out.println("key:" + entityId);
-            bd.setKey(entityId);
-            bd.setProperties(map);
-            // bd.addAttribute(ID, map.get(ID));
-            bd.addAttribute(ID, entityId);
-            final DocumentCreateEntity<BaseDocument> doc = db.collection(FORM).insertDocument(bd);
-            System.out.println("Id:" + doc.getId() + " ; key:" + doc.getKey());
-            // create menu to menuItem edges from contains
+            String formId = (String)map.get(ID);
+            System.out.println("key:" + formId);
+            if (getFormByEntityId(formId)==null) {
+                bd.setKey(formId);
+                bd.setProperties(map);
+                //bd.addAttribute(ID, map.get(ID));
+                bd.addAttribute(ID, formId);
+
+                final DocumentCreateEntity<BaseDocument> doc = db.collection(FORM).insertDocument(bd);
+                System.out.println("Id:" + doc.getId() + " ; key:" + doc.getKey());
+            }
         } catch(IOException e) {
             logger.error("Error parsing event data from json string to map in CreateMenu.", e);
             // TODO should I throw a runtime exception here?
@@ -150,7 +153,7 @@ public class FormRepositoryArangoImpl implements FormRepository {
     }
 
     @Override
-    public void updateForm(String entityId, String data) {
+    public void updateForm(String data) {
 
         try {
             Map<String, Object> map = mapper.readValue(data, new TypeReference<Map<String, Object>>() {});
@@ -158,7 +161,7 @@ public class FormRepositoryArangoImpl implements FormRepository {
           //  bd.setKey(entityId);
             bd.setProperties(map);
             bd.addAttribute(ID, map.get(ID));
-            db.collection(FORM).updateDocument(entityId, bd);
+            db.collection(FORM).updateDocument((String)map.get(ID), bd);
         } catch (ArangoDBException e) {
             logger.error("Failed to update document. " + e.getMessage());
         } catch(IOException e) {
@@ -167,15 +170,22 @@ public class FormRepositoryArangoImpl implements FormRepository {
     }
 
     @Override
-    public void removeForm(String entityId) {
-        // entityId should be uniquely indexed.
-        if (getFormByEntityId(entityId)!=null) {
-            try {
-                db.collection(FORM).deleteDocument(entityId);
-            } catch (ArangoDBException e) {
-                logger.error("Failed to delete document. " + e.getMessage());
+    public void removeForm(String data) {
+        try {
+            Map<String, Object> map = mapper.readValue(data, new TypeReference<Map<String, Object>>() {});
+            // entityId should be uniquely indexed.
+            if (getFormByEntityId((String)map.get(ID))!=null) {
+                try {
+                    db.collection(FORM).deleteDocument((String)map.get(ID));
+                } catch (ArangoDBException e) {
+                    logger.error("Failed to delete document. " + e.getMessage());
+                }
             }
+        } catch(IOException e) {
+            logger.error("Error parsing event data from json string to map in CreateMenu.", e);
+            // TODO should I throw a runtime exception here?
         }
+
 
     }
 

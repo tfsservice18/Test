@@ -12,7 +12,7 @@ public interface FormService {
 
     CompletableFuture<EntityWithIdAndVersion<FormAggregate>> create(String data);
 
-    CompletableFuture<EntityWithIdAndVersion<FormAggregate>> remove(String host);
+    CompletableFuture<EntityWithIdAndVersion<FormAggregate>> remove(String data);
 
-    CompletableFuture<EntityWithIdAndVersion<FormAggregate>> update(String host, String data);
+    CompletableFuture<EntityWithIdAndVersion<FormAggregate>> update(String data);
 }

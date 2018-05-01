@@ -22,20 +22,21 @@ public class FormQueryEventHandler {
     public void createForm(DispatchedEvent<FormCreatedEvent> de) {
         if(logger.isDebugEnabled()) logger.debug("createForm is called with event = " + de);
         String data = de.getEvent().getForm();
-        repo.createForm(de.getEntityId(), data);
+        repo.createForm(data);
     }
 
     @EventHandlerMethod
     public void deleteForm(DispatchedEvent<FormDeletedEvent> de) {
         if(logger.isDebugEnabled()) logger.debug("deleteForm is called with event = " + de);
-        repo.removeForm(de.getEntityId());
+        repo.removeForm(de.getEvent().getForm());
     }
 
     @EventHandlerMethod
     public void updateForm(DispatchedEvent<FormUpdatedEvent> de) {
         if(logger.isDebugEnabled()) logger.debug("updateForm is called with event = " + de);
         String data = de.getEvent().getForm();
-        repo.updateForm(de.getEntityId(), data);
+        //de.getEntityId()
+        repo.updateForm(data);
     }
 
 }

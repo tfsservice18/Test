@@ -18,29 +18,21 @@ import java.util.List;
 
 public class FormAggregate extends ReflectiveMutableCommandProcessingAggregate<FormAggregate, FormCommand> {
 
-    String id;
     String data;
-    boolean deleted;
 
     public List<Event> process(CreateFormCommand cmd) {
-        if(this.deleted) {
-            return Collections.emptyList();
-        }
+
         return EventUtil.events(new FormCreatedEvent(cmd.getForm()));
     }
 
     public List<Event> process(UpdateFormCommand cmd) {
-        if(this.deleted) {
-            return Collections.emptyList();
-        }
-        return EventUtil.events(new FormUpdatedEvent(cmd.getId(), cmd.getForm()));
+
+        return EventUtil.events(new FormUpdatedEvent( cmd.getForm()));
     }
 
     public List<Event> process(DeleteFormCommand cmd) {
-        if(this.deleted) {
-            return Collections.emptyList();
-        }
-        return EventUtil.events(new FormDeletedEvent());
+
+        return EventUtil.events(new FormDeletedEvent(cmd.getForm()));
     }
 
 
@@ -49,12 +41,11 @@ public class FormAggregate extends ReflectiveMutableCommandProcessingAggregate<F
     }
 
     public void apply(FormUpdatedEvent event) {
-        this.id = event.getId();
         this.data = event.getForm();
     }
 
     public void apply(FormDeletedEvent event) {
-        this.deleted = true;
+        this.data = event.getForm();
     }
 
     public String getForm() {

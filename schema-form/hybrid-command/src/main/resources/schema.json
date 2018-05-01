@@ -136,7 +136,10 @@
       },"scope": "form.w"},"lightapi.net/form/createForm/0.1.0":{"schema": {
         "title": "Service",
         "type": "object",
-        "properties": {       
+        "properties": {
+          "formId": {
+            "type": "string"
+          },
           "version": {
             "type": "string"
           },
@@ -252,5 +255,6 @@
           }
         },
         "required": [
+          "formId"
         ]
       },"scope": "form.w"}}

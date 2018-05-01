@@ -36,7 +36,7 @@ public class DeleteForm implements Handler {
 
 
         try {
-            CompletableFuture<String> result =  service.remove(id).thenApply((e) -> {
+            CompletableFuture<String> result =  service.remove(Config.getInstance().getMapper().writeValueAsString(input)).thenApply((e) -> {
                 String s = e.getAggregate().getForm();
                 return s;
             });

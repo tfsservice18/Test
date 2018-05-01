@@ -14,9 +14,9 @@ public interface FormRepository {
 
     String getFormByEntityId(String id);
 
-    void createForm(String entityId, String data);
+    void createForm(String data);
 
-    void updateForm(String entityId, String data);
+    void updateForm(String data);
 
-    void removeForm(String entityId);
+    void removeForm(String data);
 }

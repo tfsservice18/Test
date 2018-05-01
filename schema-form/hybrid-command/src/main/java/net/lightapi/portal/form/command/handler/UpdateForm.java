@@ -34,7 +34,7 @@ public class UpdateForm implements Handler {
         String id = inputPara.findPath("formId").asText();
         System.out.println("update form formId :" + id);
         try {
-            CompletableFuture<String> result =  service.update(id, Config.getInstance().getMapper().writeValueAsString(input)).thenApply((e) -> {
+            CompletableFuture<String> result =  service.update(Config.getInstance().getMapper().writeValueAsString(input)).thenApply((e) -> {
                 String s = e.getAggregate().getForm();
                 return s;
             });

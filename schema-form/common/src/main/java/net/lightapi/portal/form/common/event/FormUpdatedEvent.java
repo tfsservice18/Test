@@ -4,12 +4,10 @@ import java.util.Map;
 
 public class FormUpdatedEvent implements FormEvent {
     String data;
-    String id;
     public FormUpdatedEvent() {
     }
 
-    public FormUpdatedEvent(String id, String data) {
-        this.id = id;
+    public FormUpdatedEvent(String data) {
         this.data = data;
     }
 
@@ -21,7 +19,4 @@ public class FormUpdatedEvent implements FormEvent {
         this.data = data;
     }
 
-    public String getId() {
-        return id;
-    }
 }

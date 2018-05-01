@@ -5,19 +5,24 @@
   "dependencies": {
     "flow-bin": "^0.57.3",
     "husky": "^0.14.3",
+    "jquery": "^3.1.1",
     "lint-staged": "^4.3.0",
-    "material-ui": "^1.0.0-beta.17",
+    "material-ui": "^1.0.0-beta.43",
     "material-ui-icons": "^1.0.0-beta.17",
     "node-fetch": "^1.7.3",
     "prettier": "^1.7.4",
     "prop-types": "^15.6.0",
     "react": "^16.0.0",
+    "react-ace": "4.0.0",
     "react-dom": "^16.0.0",
     "react-redux": "^5.0.6",
     "react-router-config": "^1.0.0-beta.4",
     "react-router-dom": "^4.2.2",
     "react-router-redux": "^4.0.8",
+    "react-schema-form": "^0.3.11",
+    "react-schema-form-rc-select": "^0.2.1",
     "react-scripts": "1.0.14",
+    "react-select": "^1.0.0-rc.5",
     "redux": "^3.7.2",
     "redux-logger": "^3.0.6",
     "redux-thunk": "^2.2.0",
@@ -58,6 +63,14 @@
     "redux-devtools": "^3.4.0",
     "redux-mock-store": "^1.3.0"
   },
-  "proxy": "https://198.55.49.187:8442"
-
+  "proxy": {
+    "/api/command": {
+      "target": "https://localhost:8443",
+      "secure": false
+    },
+    "/api/query": {
+      "target": "https://localhost:8442",
+      "secure": false
+    }
+  }
 }

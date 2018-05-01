@@ -1,11 +1,10 @@
 package net.lightapi.portal.form.command;
 
 public class UpdateFormCommand implements FormCommand {
-    String id;
+
     String data;
 
-    public UpdateFormCommand(String id, String data) {
-        this.id = id;
+    public UpdateFormCommand(String data) {
         this.data = data;
     }
 
@@ -13,5 +12,4 @@ public class UpdateFormCommand implements FormCommand {
         return data;
     }
 
-    public String getId() { return id; }
 }

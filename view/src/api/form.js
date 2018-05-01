@@ -1,16 +1,16 @@
 const body = {
   host: 'lightapi.net',
-  service: 'menu',
-  action: 'getMenuByHost',
+  service: 'form',
+  action: 'getFormById',
   version: '0.1.0',
-  data: { host: 'lightportal.org' },
+  data: { formId: '00000162f3245333-0242ac1200070000' },
 };
 
 /**
- * Returns a promise from Menu Service
+ * Returns a promise from Form Service
  * @returns Promise
  */
-export default async () => {
+export const getFormById = () => async () => {
   const res = await fetch('/api/query', {
     method: 'POST',
     headers: {
