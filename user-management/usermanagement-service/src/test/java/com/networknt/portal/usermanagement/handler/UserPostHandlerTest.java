@@ -29,6 +29,7 @@ import javax.sql.DataSource;
 import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.net.URI;
+import java.nio.charset.Charset;
 import java.sql.Connection;
 import java.sql.SQLException;
 import java.util.concurrent.CountDownLatch;
@@ -51,7 +52,7 @@ public class UserPostHandlerTest {
             if (in == null) {
                 throw new RuntimeException("Failed to load resource: " + schemaResourceName);
             }
-            InputStreamReader reader = new InputStreamReader(in);
+            InputStreamReader reader = new InputStreamReader(in,  Charset.defaultCharset());
             RunScript.execute(connection, reader);
 
         } catch (SQLException e) {

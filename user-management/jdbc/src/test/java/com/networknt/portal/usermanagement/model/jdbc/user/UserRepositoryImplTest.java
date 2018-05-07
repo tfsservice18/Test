@@ -19,6 +19,7 @@ import static org.junit.Assert.assertTrue;
 import javax.sql.DataSource;
 import java.io.InputStream;
 import java.io.InputStreamReader;
+import java.nio.charset.Charset;
 import java.sql.Connection;
 import java.sql.SQLException;
 import java.time.LocalDate;
@@ -42,7 +43,7 @@ public class UserRepositoryImplTest {
             if (in == null) {
                 throw new RuntimeException("Failed to load resource: " + schemaResourceName);
             }
-            InputStreamReader reader = new InputStreamReader(in);
+            InputStreamReader reader = new InputStreamReader(in, Charset.defaultCharset());
             RunScript.execute(connection, reader);
 
         } catch (SQLException e) {

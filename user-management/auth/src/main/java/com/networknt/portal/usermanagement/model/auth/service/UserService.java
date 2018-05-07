@@ -24,7 +24,7 @@ public interface UserService {
    * @param newEmail new email address
    * @return the modified {@link User}
    * @throws NoSuchUserException if the user doesn't exist
-
+   * @throws InvalidEmailException if the user email not valid
    */
   User changeEmail(String userId, String newEmail)
       throws InvalidEmailException, NoSuchUserException;
@@ -75,7 +75,7 @@ public interface UserService {
 
   /**
    * Deletes the given {@link User}.
-   *
+   * @return the deleted user id
    * @param userId {@link User}'s ID
    */
   int delete(String userId) ;
@@ -143,6 +143,7 @@ public interface UserService {
    * @param emailOrScreenName Email or screen name
    * @param password password
    * @return the {@link User} if it exists and its password matches
+   * @throws NoSuchUserException if the given user not existing
    */
   User login(String emailOrScreenName, String password)
       throws NoSuchUserException;
@@ -179,6 +180,7 @@ public interface UserService {
    *
    * @param user a {@link User}
    * @param rawPassword {@link User}'s cleartext password
+   * @throws Exception if the sign-up with error
    */
   void signup(User user, String rawPassword, boolean withEventuate)
       throws Exception;
@@ -188,6 +190,7 @@ public interface UserService {
    *
    * @param user a {@link User} to store
    * @return the stored user
+   * @throws Exception if use save with error
    */
   User store(User user)
       throws Exception;
