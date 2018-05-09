@@ -8,6 +8,7 @@ import java.util.Objects;
 import java.util.Optional;
 
 import com.networknt.config.Config;
+import com.networknt.email.EmailSender;
 import com.networknt.portal.usermanagement.model.auth.UserConfig;
 import com.networknt.portal.usermanagement.model.auth.command.user.UserCommandService;
 
@@ -84,7 +85,7 @@ public class UserServiceImpl implements UserService {
     String emailBody = MessageFormat.format(userConfig.getContent(), linkStr);
     System.out.println(emailBody);
     if (userConfig.isSendEmail()) {
-      EmailSender emailSender = new EmailSender(userConfig.getSmtpHost(), userConfig.getPort(), userConfig.getFromEmail(), userConfig.getPassword());
+      EmailSender emailSender = new EmailSender();
       try {
         emailSender.sendMail(newEmail, userConfig.getSubject(), emailBody);
       } catch (Exception e) {
@@ -363,7 +364,7 @@ public class UserServiceImpl implements UserService {
     String emailBody = MessageFormat.format(userConfig.getContent(), linkStr);
     logger.info(emailBody);
     if (userConfig.isSendEmail()) {
-      EmailSender emailSender = new EmailSender(userConfig.getSmtpHost(), userConfig.getPort(), userConfig.getFromEmail(), userConfig.getPassword());
+      EmailSender emailSender = new EmailSender();
       emailSender.sendMail(email, userConfig.getSubject(), emailBody);
     }
 
