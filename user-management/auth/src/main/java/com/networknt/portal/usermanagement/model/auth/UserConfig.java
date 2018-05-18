@@ -7,14 +7,11 @@ package com.networknt.portal.usermanagement.model.auth;
  *
  */
 public class UserConfig {
-    private String smtpHost;
-    private String fromEmail;
+
     private String subject;
     private boolean emitEvent;
     private String content;
     private String serverHost;
-    private String password;
-    private String port;
     private boolean sendEmail;
 
     private boolean hybridServie;
@@ -24,21 +21,6 @@ public class UserConfig {
     public UserConfig() {
     }
 
-    public String getSmtpHost() {
-        return smtpHost;
-    }
-
-    public void setSmtpHost(String smtpHost) {
-        this.smtpHost = smtpHost;
-    }
-
-    public String getFromEmail() {
-        return fromEmail;
-    }
-
-    public void setFromEmail(String fromEmail) {
-        this.fromEmail = fromEmail;
-    }
 
     public String getSubject() {
         return subject;
@@ -72,21 +54,6 @@ public class UserConfig {
         this.serverHost = serverHost;
     }
 
-    public String getPassword() {
-        return password;
-    }
-
-    public void setPassword(String password) {
-        this.password = password;
-    }
-
-    public String getPort() {
-        return port;
-    }
-
-    public void setPort(String port) {
-        this.port = port;
-    }
 
     public boolean isSendEmail() {
         return sendEmail;

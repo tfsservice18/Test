@@ -20,6 +20,7 @@ public interface SessionService {
    *
    * @param sessionId a {@link Session}'s ID
    * @param userId a {@link User}'s ID
+   * @param token user session token
    * @return a newly created session
    */
   Session createSession(long sessionId, long userId, String token);
@@ -29,6 +30,7 @@ public interface SessionService {
    *
    * @param sessionId a {@link Session}'s ID
    * @param userId a {@link User}'s ID
+   * @param token user session token
    * @param minutes minutes to expire from now
    * @return a newly created session
    */
@@ -36,14 +38,14 @@ public interface SessionService {
 
   /**
    * Gets the {@link Session} for the given ID.
-   *
+   * @param id session ID
    * @return a {@link Session} if it exists.
    */
   Optional<Session> findSession(Long id);
 
   /**
    * Gets the {@link Session} for the given ID.
-   *
+   * @param id session ID
    * @return a {@link Session} if it exists.
    * @throws NoSuchSessionException when there is no such session for the given ID
    */
@@ -58,7 +60,9 @@ public interface SessionService {
 
   /**
    * Updates the {@link Session} for the given ID.
-   *
+   * @param id session ID
+   * @param value string value of the session
+   * @param lastUsedAt session last use timestamp
    * @throws NoSuchSessionException when there is no such session for the given ID
    */
   void useSession(Long id, String value, LocalDateTime lastUsedAt)
