@@ -1,5 +1,21 @@
 # Change Log
 
+## [1.5.14](https://github.com/networknt/light-portal/tree/1.5.14) (2018-05-20)
+[Full Changelog](https://github.com/networknt/light-portal/compare/1.5.13...1.5.14)
+
+**Implemented enhancements:**
+
+- Switch light-4j email module for sending email [\#30](https://github.com/networknt/light-portal/issues/30)
+
+**Closed issues:**
+
+- switch arangodb to local database instead of remote [\#65](https://github.com/networknt/light-portal/issues/65)
+- remove jquery from view dependencies [\#64](https://github.com/networknt/light-portal/issues/64)
+- upgrade all view dependencies to the latest [\#63](https://github.com/networknt/light-portal/issues/63)
+- upgrade the view to react 16.3.2 and sync with latest create-react-app [\#62](https://github.com/networknt/light-portal/issues/62)
+- user-management sql exception in test case [\#55](https://github.com/networknt/light-portal/issues/55)
+- user-management compile warnings [\#54](https://github.com/networknt/light-portal/issues/54)
+
 ## [1.5.13](https://github.com/networknt/light-portal/tree/1.5.13) (2018-04-20)
 [Full Changelog](https://github.com/networknt/light-portal/compare/1.5.12...1.5.13)
 
