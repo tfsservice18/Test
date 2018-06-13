@@ -7,24 +7,20 @@ import com.networknt.client.Http2Client;
 import com.networknt.config.Config;
 import com.networknt.eventuate.common.AggregateRepository;
 import com.networknt.eventuate.common.EventuateAggregateStore;
-import com.networknt.exception.ApiException;
 import com.networknt.exception.ClientException;
+import com.networknt.handler.LightHttpHandler;
 import com.networknt.portal.usermanagement.model.auth.command.user.UserAggregate;
 import com.networknt.portal.usermanagement.model.auth.command.user.UserCommandService;
 import com.networknt.portal.usermanagement.model.auth.command.user.UserCommandServiceImpl;
-
 import com.networknt.portal.usermanagement.model.common.domain.UserDto;
-
-
 import com.networknt.portal.usermanagement.restcommand.model.User;
 import com.networknt.service.SingletonServiceFactory;
 import io.undertow.UndertowOptions;
 import io.undertow.client.ClientConnection;
 import io.undertow.client.ClientRequest;
 import io.undertow.client.ClientResponse;
-import io.undertow.server.HttpHandler;
 import io.undertow.server.HttpServerExchange;
-import io.undertow.util.HttpString;
+import io.undertow.util.Headers;
 import io.undertow.util.Methods;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -32,14 +28,12 @@ import org.xnio.IoUtils;
 import org.xnio.OptionMap;
 
 import java.net.URI;
-import java.util.HashMap;
 import java.util.Map;
-import java.util.Optional;
 import java.util.concurrent.CompletableFuture;
 import java.util.concurrent.CountDownLatch;
 import java.util.concurrent.atomic.AtomicReference;
 
-public class UserPostHandler implements HttpHandler {
+public class UserPostHandler implements LightHttpHandler {
     static String CONFIG_NAME = "query_side";
     public static final String NO_USER_USER_EMAIL = "No user find to use the email";
     private EventuateAggregateStore eventStore  = (EventuateAggregateStore) SingletonServiceFactory.getBean(EventuateAggregateStore.class);
@@ -70,10 +64,10 @@ public class UserPostHandler implements HttpHandler {
                 return m;
             });
 
-            exchange.getResponseHeaders().add(new HttpString("Content-Type"), "application/json");
+            exchange.getResponseHeaders().add(Headers.CONTENT_TYPE, "application/json");
             exchange.getResponseSender().send(Config.getInstance().getMapper().writeValueAsString(result.get()));
         } else {
-            exchange.getResponseHeaders().add(new HttpString("Content-Type"), "application/json");
+            exchange.getResponseHeaders().add(Headers.CONTENT_TYPE, "application/json");
             exchange.getResponseSender().send("email has been taken by other user");
         }
 

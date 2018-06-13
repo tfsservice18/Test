@@ -2,20 +2,19 @@
 package com.networknt.portal.usermanagement.restquery.handler;
 
 import com.networknt.config.Config;
+import com.networknt.handler.LightHttpHandler;
 import com.networknt.portal.usermanagement.model.auth.service.UserService;
 import com.networknt.portal.usermanagement.model.auth.service.UserServiceImpl;
 import com.networknt.portal.usermanagement.model.common.crypto.PasswordSecurity;
 import com.networknt.portal.usermanagement.model.common.model.user.User;
 import com.networknt.portal.usermanagement.model.common.model.user.UserRepository;
 import com.networknt.service.SingletonServiceFactory;
-import io.undertow.server.HttpHandler;
 import io.undertow.server.HttpServerExchange;
 import io.undertow.util.HttpString;
-import java.util.HashMap;
-import java.util.Map;
+
 import java.util.Optional;
 
-public class UserEmailGetHandler implements HttpHandler {
+public class UserEmailGetHandler implements LightHttpHandler {
 
     public static final String NO_USER_USER_EMAIL = "No user find to use the email";
 

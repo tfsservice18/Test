@@ -4,17 +4,17 @@ package com.networknt.portal.usermanagement.restcommand.handler;
 import com.networknt.config.Config;
 import com.networknt.eventuate.common.AggregateRepository;
 import com.networknt.eventuate.common.EventuateAggregateStore;
+import com.networknt.handler.LightHttpHandler;
 import com.networknt.portal.usermanagement.model.auth.command.user.UserAggregate;
 import com.networknt.portal.usermanagement.model.auth.command.user.UserCommandService;
 import com.networknt.portal.usermanagement.model.auth.command.user.UserCommandServiceImpl;
 import com.networknt.service.SingletonServiceFactory;
-import io.undertow.server.HttpHandler;
 import io.undertow.server.HttpServerExchange;
-import io.undertow.util.HttpString;
+import io.undertow.util.Headers;
 
 import java.util.concurrent.CompletableFuture;
 
-public class UserIdDeleteHandler implements HttpHandler {
+public class UserIdDeleteHandler implements LightHttpHandler {
 
     private EventuateAggregateStore eventStore  = (EventuateAggregateStore) SingletonServiceFactory.getBean(EventuateAggregateStore.class);
     private AggregateRepository userRepository = new AggregateRepository(UserAggregate.class, eventStore);
@@ -28,7 +28,7 @@ public class UserIdDeleteHandler implements HttpHandler {
             return m;
         });
 
-        exchange.getResponseHeaders().add(new HttpString("Content-Type"), "application/json");
+        exchange.getResponseHeaders().add(Headers.CONTENT_TYPE, "application/json");
         exchange.getResponseSender().send(Config.getInstance().getMapper().writeValueAsString(result));
 
     }

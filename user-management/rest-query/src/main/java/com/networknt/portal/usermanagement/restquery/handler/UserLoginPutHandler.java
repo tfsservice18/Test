@@ -4,6 +4,7 @@ package com.networknt.portal.usermanagement.restquery.handler;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.networknt.body.BodyHandler;
 import com.networknt.config.Config;
+import com.networknt.handler.LightHttpHandler;
 import com.networknt.portal.usermanagement.model.auth.service.UserService;
 import com.networknt.portal.usermanagement.model.auth.service.UserServiceImpl;
 import com.networknt.portal.usermanagement.model.common.crypto.PasswordSecurity;
@@ -13,13 +14,12 @@ import com.networknt.portal.usermanagement.model.common.model.user.User;
 import com.networknt.portal.usermanagement.model.common.model.user.UserRepository;
 import com.networknt.portal.usermanagement.restquery.model.LoginForm;
 import com.networknt.service.SingletonServiceFactory;
-import io.undertow.server.HttpHandler;
 import io.undertow.server.HttpServerExchange;
-import io.undertow.util.HttpString;
-import java.util.HashMap;
+import io.undertow.util.Headers;
+
 import java.util.Map;
 
-public class UserLoginPutHandler implements HttpHandler {
+public class UserLoginPutHandler implements LightHttpHandler {
 
     private UserRepository userRepository = (UserRepository) SingletonServiceFactory.getBean(UserRepository.class);
     private static PasswordSecurity passwordSecurity = (PasswordSecurity)SingletonServiceFactory.getBean(PasswordSecurity.class);
@@ -55,7 +55,7 @@ public class UserLoginPutHandler implements HttpHandler {
             //TODO get session???
         }
 
-        exchange.getResponseHeaders().add(new HttpString("Content-Type"), "application/json");
+        exchange.getResponseHeaders().add(Headers.CONTENT_TYPE, "application/json");
         exchange.getResponseSender().send(Config.getInstance().getMapper().writeValueAsString(result));
         //    exchange.endExchange();
     }

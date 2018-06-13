@@ -2,20 +2,19 @@
 package com.networknt.portal.usermanagement.restquery.handler;
 
 import com.networknt.config.Config;
+import com.networknt.handler.LightHttpHandler;
 import com.networknt.portal.usermanagement.model.auth.service.UserService;
 import com.networknt.portal.usermanagement.model.auth.service.UserServiceImpl;
 import com.networknt.portal.usermanagement.model.common.crypto.PasswordSecurity;
 import com.networknt.portal.usermanagement.model.common.model.user.User;
 import com.networknt.portal.usermanagement.model.common.model.user.UserRepository;
 import com.networknt.service.SingletonServiceFactory;
-import io.undertow.server.HttpHandler;
 import io.undertow.server.HttpServerExchange;
-import io.undertow.util.HttpString;
-import java.util.HashMap;
-import java.util.Map;
+import io.undertow.util.Headers;
+
 import java.util.Optional;
 
-public class UserIdGetHandler implements HttpHandler {
+public class UserIdGetHandler implements LightHttpHandler {
     private UserRepository userRepository = (UserRepository) SingletonServiceFactory.getBean(UserRepository.class);
     private static PasswordSecurity passwordSecurity = (PasswordSecurity)SingletonServiceFactory.getBean(PasswordSecurity.class);
     private UserService service = new UserServiceImpl(passwordSecurity, null, userRepository);
@@ -29,7 +28,7 @@ public class UserIdGetHandler implements HttpHandler {
         String result = null;
 
 
-        exchange.getResponseHeaders().add(new HttpString("Content-Type"), "application/json");
+        exchange.getResponseHeaders().add(Headers.CONTENT_TYPE, "application/json");
         if (user.isPresent()) {
             exchange.getResponseSender().send(Config.getInstance().getMapper().writeValueAsString(service.toUserDto(user.get())));
         } else {
