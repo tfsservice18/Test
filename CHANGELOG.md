@@ -1,5 +1,12 @@
 # Change Log
 
+## [1.5.15](https://github.com/networknt/light-portal/tree/1.5.15) (2018-06-18)
+[Full Changelog](https://github.com/networknt/light-portal/compare/1.5.14...1.5.15)
+
+**Closed issues:**
+
+- create LightHttpHandler with default method to handle the error status [\#66](https://github.com/networknt/light-portal/issues/66)
+
 ## [1.5.14](https://github.com/networknt/light-portal/tree/1.5.14) (2018-05-20)
 [Full Changelog](https://github.com/networknt/light-portal/compare/1.5.13...1.5.14)
 
