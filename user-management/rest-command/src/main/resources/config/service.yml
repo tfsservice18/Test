@@ -26,7 +26,7 @@ singletons:
   - com.networknt.portal.usermanagement.model.auth.command.user.UserAggregate
 
 # HandlerProvider implementation
-- com.networknt.server.HandlerProvider:
+- com.networknt.handler.HandlerProvider:
   - com.networknt.portal.usermanagement.restcommand.PathHandlerProvider
 # StartupHookProvider implementations, there are one to many and they are called in the same sequence defined.
 

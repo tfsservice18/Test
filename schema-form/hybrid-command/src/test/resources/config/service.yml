@@ -25,7 +25,7 @@ singletons:
 - com.networknt.eventuate.common.sync.EventuateAggregateStore:
   - com.networknt.eventuate.common.impl.sync.EventuateAggregateStoreImpl
 # HandlerProvider implementation
-- com.networknt.server.HandlerProvider:
+- com.networknt.handler.HandlerProvider:
   - com.networknt.rpc.router.RpcRouter
 # StartupHookProvider implementations, there are one to many and they are called in the same sequence defined.
 - com.networknt.server.StartupHookProvider:
