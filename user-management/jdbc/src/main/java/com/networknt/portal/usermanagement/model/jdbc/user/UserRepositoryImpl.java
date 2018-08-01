@@ -47,13 +47,13 @@ public class UserRepositoryImpl implements UserRepository {
        try (final Connection connection = dataSource.getConnection()){
            String psDelete = String.format("UPDATE %s SET deleted = 'Y' WHERE user_id = ?",
                    databaseSchema.qualifyTable("user_detail"));
-           PreparedStatement psEntity = connection.prepareStatement(psDelete);
-           psEntity.setString(1, userId);
-           count = psEntity.executeUpdate();
-           if (count != 1) {
-               logger.error("Failed to update USER_DETAIL: {}", userId);
+           try (PreparedStatement psEntity = connection.prepareStatement(psDelete)) {
+               psEntity.setString(1, userId);
+               count = psEntity.executeUpdate();
+               if (count != 1) {
+                   logger.error("Failed to update USER_DETAIL: {}", userId);
+               }
            }
-
        } catch (SQLException e) {
            logger.error("SqlException:", e);
        }
@@ -67,16 +67,16 @@ public class UserRepositoryImpl implements UserRepository {
         String psSelect = String.format("SELECT user_id, email, host, timezone, screen_name, first_name, last_name, gender, birthday, password_hash, password_salt  FROM %s WHERE deleted = 'N' and confirmed = 'Y'",
                 databaseSchema.qualifyTable("user_detail"));
         try (final Connection connection = dataSource.getConnection()) {
-            PreparedStatement stmt = connection.prepareStatement(psSelect);
-            ResultSet rs = stmt.executeQuery();
-            while (rs.next()) {
-                User user = new User(rs.getString("user_id"), rs.getString("screen_name"), rs.getString("email") );
-                user.setHost(rs.getString("host"));
-                user.getContactData().setFirstName(rs.getString("first_name"));
-                user.getContactData().setLastName(rs.getString("last_name"));
+            try(PreparedStatement stmt = connection.prepareStatement(psSelect); ResultSet rs = stmt.executeQuery()) {
+                while (rs.next()) {
+                    User user = new User(rs.getString("user_id"), rs.getString("screen_name"), rs.getString("email") );
+                    user.setHost(rs.getString("host"));
+                    user.getContactData().setFirstName(rs.getString("first_name"));
+                    user.getContactData().setLastName(rs.getString("last_name"));
 
-                user.setPassword(new Password(rs.getString("password_hash"), rs.getString("password_salt")));
-                users.add(user);
+                    user.setPassword(new Password(rs.getString("password_hash"), rs.getString("password_salt")));
+                    users.add(user);
+                }
             }
         } catch (SQLException e) {
             logger.error("SqlException:", e);
@@ -91,11 +91,13 @@ public class UserRepositoryImpl implements UserRepository {
                 databaseSchema.qualifyTable("confirmation_token"));
         String userId = null;
         try (final Connection connection = dataSource.getConnection()) {
-            PreparedStatement stmt = connection.prepareStatement(psSelect);
-            stmt.setString(1, token);
-            ResultSet rs = stmt.executeQuery();
-            while (rs.next()) {
-                userId = rs.getString("user_id");
+            try(PreparedStatement stmt = connection.prepareStatement(psSelect)) {
+                stmt.setString(1, token);
+                try(ResultSet rs = stmt.executeQuery()) {
+                    while (rs.next()) {
+                        userId = rs.getString("user_id");
+                    }
+                }
             }
         } catch (SQLException e) {
             logger.error("SqlException:", e);
@@ -117,52 +119,59 @@ public class UserRepositoryImpl implements UserRepository {
         String psSelect_token = String.format("SELECT  id, token_type, valid, payload, expiresAt, usedAt  FROM %s WHERE  user_id = ? and expiresAt >= ?",
                 databaseSchema.qualifyTable("confirmation_token"));
         try (final Connection connection = dataSource.getConnection()){
-            PreparedStatement stmt = connection.prepareStatement(psSelect);
-            stmt.setString(1, userId);
-            ResultSet rs = stmt.executeQuery();
-            if (rs == null || rs.getFetchSize() > 1) {
-                logger.error("incorrect fetch result {}", userId);
-            } else {
-                while (rs.next()) {
-                    user = new User(userId, rs.getString("screen_name"), rs.getString("email") );
-                    user.setHost(rs.getString("host"));
-                    user.getContactData().setFirstName(rs.getString("first_name"));
-                    user.getContactData().setLastName(rs.getString("last_name"));
-                    user.setPassword(new Password(rs.getString("password_hash"), rs.getString("password_salt")));
-                    user.setConfirmed("Y".equalsIgnoreCase(rs.getString("confirmed"))?true:false);
-                }
-                if (user!=null) {
-                    stmt =  connection.prepareStatement(psSelect_address);
-                    stmt.setString(1, userId);
-                    ResultSet rs2 = stmt.executeQuery();
-                    if (rs2!=null) {
-                        while (rs2.next()) {
-                            AddressData address = new AddressData();
-                            address.setAddressType(AddressType.valueOf(rs2.getString("address_type")));
-                            address.setState(rs2.getString("province_state")==null?null:State.valueOf(rs2.getString("province_state")));
-                            address.setCountry(rs2.getString("country")==null?null: Country.valueOf(rs2.getString("country")));
-                            address.setCity(rs2.getString("city"));
-                            address.setZipCode(rs2.getString("zipcode"));
-                            address.setAddressLine1(rs2.getString("address_line1"));
-                            address.setAddressLine2(rs2.getString("address_line2"));
-                            user.getContactData().addAddresses(address);
+            try(PreparedStatement stmt = connection.prepareStatement(psSelect)) {
+                stmt.setString(1, userId);
+                try(ResultSet rs = stmt.executeQuery()) {
+                    if (rs == null || rs.getFetchSize() > 1) {
+                        logger.error("incorrect fetch result {}", userId);
+                    } else {
+                        while (rs.next()) {
+                            user = new User(userId, rs.getString("screen_name"), rs.getString("email") );
+                            user.setHost(rs.getString("host"));
+                            user.getContactData().setFirstName(rs.getString("first_name"));
+                            user.getContactData().setLastName(rs.getString("last_name"));
+                            user.setPassword(new Password(rs.getString("password_hash"), rs.getString("password_salt")));
+                            user.setConfirmed("Y".equalsIgnoreCase(rs.getString("confirmed"))?true:false);
+                        }
+                        if (user!=null) {
+                            try(PreparedStatement stmt1 =  connection.prepareStatement(psSelect_address)) {
+                                stmt1.setString(1, userId);
+                                try(ResultSet rs2 = stmt1.executeQuery()) {
+                                    if (rs2!=null) {
+                                        while (rs2.next()) {
+                                            AddressData address = new AddressData();
+                                            address.setAddressType(AddressType.valueOf(rs2.getString("address_type")));
+                                            address.setState(rs2.getString("province_state")==null?null:State.valueOf(rs2.getString("province_state")));
+                                            address.setCountry(rs2.getString("country")==null?null: Country.valueOf(rs2.getString("country")));
+                                            address.setCity(rs2.getString("city"));
+                                            address.setZipCode(rs2.getString("zipcode"));
+                                            address.setAddressLine1(rs2.getString("address_line1"));
+                                            address.setAddressLine2(rs2.getString("address_line2"));
+                                            user.getContactData().addAddresses(address);
+                                        }
+                                    }
+                                }
+                            }
+
+                            try(PreparedStatement stmt3 =  connection.prepareStatement(psSelect_token)) {
+                                stmt3.setString(1, userId);
+                                stmt3.setTimestamp(2, Timestamp.valueOf(LocalDateTime.now()));
+                                try(ResultSet rs3 = stmt3.executeQuery()) {
+                                    if (rs3!=null) {
+                                        while (rs3.next()) {
+                                            int Mins = LocalDateTimeUtil.getMinsDiff(LocalDateTime.now(systemUTC()), rs3.getTimestamp("expiresAt").toLocalDateTime());
+                                            ConfirmationToken token = new ConfirmationToken(user, rs3.getString("id"), ConfirmationTokenType.valueOf(rs3.getString("token_type")), Mins);
+
+                                            token.setValid("Y".equalsIgnoreCase(rs3.getString("valid"))?true:false);
+                                            user.addConfirmationToken(token);
+                                        }
+                                    }
+                                }
+                            }
                         }
                     }
-
-                    stmt =  connection.prepareStatement(psSelect_token);
-                    stmt.setString(1, userId);
-                    stmt.setTimestamp(2, Timestamp.valueOf(LocalDateTime.now()));
-                    rs2 = stmt.executeQuery();
-                    if (rs2!=null) {
-                        while (rs2.next()) {
-                            int Mins = LocalDateTimeUtil.getMinsDiff(LocalDateTime.now(systemUTC()), rs2.getTimestamp("expiresAt").toLocalDateTime());
-                            ConfirmationToken token = new ConfirmationToken(user, rs2.getString("id"), ConfirmationTokenType.valueOf(rs2.getString("token_type")), Mins);
-
-                            token.setValid("Y".equalsIgnoreCase(rs2.getString("valid"))?true:false);
-                            user.addConfirmationToken(token);
-                        }
-                    }
                 }
+
             }
         } catch (SQLException e) {
             logger.error("SqlException:", e);

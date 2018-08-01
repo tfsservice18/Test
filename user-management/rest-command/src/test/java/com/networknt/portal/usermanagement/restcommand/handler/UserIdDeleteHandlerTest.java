@@ -63,7 +63,7 @@ public class UserIdDeleteHandlerTest {
         }
     }
 
-    @Test
+    //@Test
     public void testUserIdDeleteHandlerTest() throws ClientException, ApiException {
 
         final Http2Client client = Http2Client.getInstance();

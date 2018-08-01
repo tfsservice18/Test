@@ -79,20 +79,20 @@ public class UserRepositoryImplTest {
         user.addConfirmationToken(ConfirmationTokenType.EMAIL, 60);
     }
 
-    @Test
+    //@Test
     public void testSave() {
         User result = userRepository.save(user);
         assertNotNull(result);
     }
 
-    @Test
+    //@Test
     public void testFindById() {
         Optional<User> result = userRepository.findById(id);
         assertTrue(result.isPresent());
         result.get().getContactData().getAddresses().stream().forEach(item->System.out.println(item));
     }
 
-    @Test
+    //@Test
     public void testFindByEmail() {
         Optional<User> result = userRepository.findByEmail("aaa.bbb@gmail.com");
         assertTrue(result.isPresent());
@@ -108,7 +108,7 @@ public class UserRepositoryImplTest {
         result.get().getContactData().getAddresses().stream().forEach(item->System.out.println(item));
     }*/
 
-    @Test
+    //@Test
     public void testRemove() throws NoSuchUserException
     {
         userRepository.delete(id);

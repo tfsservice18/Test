@@ -49,7 +49,7 @@ public class UserNameGetHandlerTest {
         final AtomicReference<ClientResponse> reference = new AtomicReference<>();
         try {
             ClientRequest request = new ClientRequest().setPath("/v1/user/name?name=testname").setMethod(Methods.GET);
-
+            request.getRequestHeaders().put(Headers.HOST, "localhost");
             connection.sendRequest(request, client.createClientCallback(reference, latch));
 
             latch.await();
