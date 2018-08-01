@@ -101,6 +101,7 @@ public class UserPostHandlerTest {
 
         try {
             ClientRequest request = new ClientRequest().setPath("/v1/user").setMethod(Methods.POST);
+            request.getRequestHeaders().put(Headers.HOST, "localhost");
             request.getRequestHeaders().put(Headers.CONTENT_TYPE, "application/json");
             request.getRequestHeaders().put(Headers.TRANSFER_ENCODING, "chunked");
             connection.sendRequest(request, client.createClientCallback(reference, latch, json));
