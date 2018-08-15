@@ -34,6 +34,8 @@
           <version.h2>1.3.176</version.h2>
           <version.javamail>1.6.1</version.javamail>
           <versions.maven-version>2.4</versions.maven-version>
+
+          <version.jgit>4.6.0.201612231935-r</version.jgit>
     </properties>
 
     <dependencies>
@@ -167,6 +169,11 @@
             <artifactId>javax.mail</artifactId>
             <version>${version.javamail}</version>
         </dependency>
+        <dependency>
+            <groupId>org.eclipse.jgit</groupId>
+            <artifactId>org.eclipse.jgit</artifactId>
+            <version>${version.jgit}</version>
+        </dependency>
 
         <!-- Test Dependencies -->
         <dependency>
@@ -268,6 +275,28 @@
                         <argument>target/${project.build.finalName}.jar</argument>
                     </arguments>
                 </configuration>
+            </plugin>
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-dependency-plugin</artifactId>
+                <version>2.6</version>
+                <executions>
+                    <execution>
+                        <id>unpack-dependencies</id>
+                        <phase>package</phase>
+                        <goals>
+                            <goal>unpack-dependencies</goal>
+                        </goals>
+                        <configuration>
+                            <excludeScope>system</excludeScope>
+                            <excludes>META-INF/*.SF</excludes>
+                            <excludes>META-INF/*.DSA</excludes>
+                            <excludes>META-INF/*.RSA</excludes>
+                            <excludeGroupIds>junit,org.mockito,org.hamcrest</excludeGroupIds>
+                            <outputDirectory>${project.build.directory}/classes</outputDirectory>
+                        </configuration>
+                    </execution>
+                </executions>
             </plugin>
             <!-- Google error-prone compiles -->
             <plugin>
