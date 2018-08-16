@@ -35,7 +35,7 @@
           <version.javamail>1.6.1</version.javamail>
           <versions.maven-version>2.4</versions.maven-version>
 
-          <version.jgit>4.6.0.201612231935-r</version.jgit>
+          <version.jgit>5.0.2.201807311906-r</version.jgit>
     </properties>
 
     <dependencies>
@@ -207,6 +207,16 @@
                             <goal>shade</goal>
                         </goals>
                         <configuration>
+                            <filters>
+                                <filter>
+                                    <artifact>*:*</artifact>
+                                    <excludes>
+                                        <exclude>META-INF/*.SF</exclude>
+                                        <exclude>META-INF/*.DSA</exclude>
+                                        <exclude>META-INF/*.RSA</exclude>
+                                    </excludes>
+                                </filter>
+                            </filters>
                             <transformers>
                                 <transformer implementation="org.apache.maven.plugins.shade.resource.ServicesResourceTransformer"/>
                             </transformers>
@@ -276,28 +286,7 @@
                     </arguments>
                 </configuration>
             </plugin>
-            <plugin>
-                <groupId>org.apache.maven.plugins</groupId>
-                <artifactId>maven-dependency-plugin</artifactId>
-                <version>2.6</version>
-                <executions>
-                    <execution>
-                        <id>unpack-dependencies</id>
-                        <phase>package</phase>
-                        <goals>
-                            <goal>unpack-dependencies</goal>
-                        </goals>
-                        <configuration>
-                            <excludeScope>system</excludeScope>
-                            <excludes>META-INF/*.SF</excludes>
-                            <excludes>META-INF/*.DSA</excludes>
-                            <excludes>META-INF/*.RSA</excludes>
-                            <excludeGroupIds>junit,org.mockito,org.hamcrest</excludeGroupIds>
-                            <outputDirectory>${project.build.directory}/classes</outputDirectory>
-                        </configuration>
-                    </execution>
-                </executions>
-            </plugin>
+
             <!-- Google error-prone compiles -->
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
