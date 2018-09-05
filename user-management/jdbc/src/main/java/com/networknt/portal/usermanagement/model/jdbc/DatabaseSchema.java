@@ -1,6 +1,6 @@
 package com.networknt.portal.usermanagement.model.jdbc;
 
-import com.networknt.utility.StringUtil;
+import com.networknt.utility.StringUtils;
 
 public class DatabaseSchema {
   public static final String DEFAULT_SCHEMA = "user";
@@ -13,7 +13,7 @@ public class DatabaseSchema {
   }
 
   public DatabaseSchema(String userDatabaseSchema) {
-    this.userDatabaseSchema = StringUtil.isNullOrEmpty(userDatabaseSchema) ? DEFAULT_SCHEMA : userDatabaseSchema;
+    this.userDatabaseSchema = StringUtils.isNullOrEmpty(userDatabaseSchema) ? DEFAULT_SCHEMA : userDatabaseSchema;
   }
 
   public String getEventuateDatabaseSchema() {
