@@ -4,22 +4,20 @@
          xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
     <modelVersion>4.0.0</modelVersion>
 
-    <groupId>light-portal</groupId>
+    <groupId>net.lightapi</groupId>
     <artifactId>user-management</artifactId>
     <version>0.1.0</version>
     <packaging>pom</packaging>
     <name>Parent POM</name>
-    <description>User management</description>
+    <description>User Management</description>
     <url>https://github.com/networknt/light-portal-4j.git</url>
 
     <modules>
         <module>common</module>
-        <module>jdbc</module>
-        <module>auth</module>
-        <module>usermanagement-service</module>
-        <module>rest-command</module>
-        <module>rest-query</module>
-        <module>hybrid-service</module>
+        <module>command</module>
+        <module>query</module>
+        <module>hybrid-command</module>
+        <module>hybrid-query</module>
     </modules>
 
     <properties>
@@ -52,26 +50,30 @@
     <dependencyManagement>
         <dependencies>
             <dependency>
-                <groupId>light-portal</groupId>
-                <artifactId>user-management-common</artifactId>
+                <groupId>net.lightapi</groupId>
+                <artifactId>user-common</artifactId>
                 <version>${project.version}</version>
             </dependency>
             <dependency>
-                <groupId>light-portal</groupId>
-                <artifactId>user-management-jdbc</artifactId>
+                <groupId>net.lightapi</groupId>
+                <artifactId>user-command</artifactId>
                 <version>${project.version}</version>
             </dependency>
             <dependency>
-                <groupId>light-portal</groupId>
-                <artifactId>usermanagement-auth</artifactId>
+                <groupId>net.lightapi</groupId>
+                <artifactId>user-query</artifactId>
                 <version>${project.version}</version>
             </dependency>
             <dependency>
-                <groupId>light-portal</groupId>
-                <artifactId>usermanagement-service</artifactId>
+                <groupId>net.lightapi</groupId>
+                <artifactId>user-hybrid-command</artifactId>
                 <version>${project.version}</version>
             </dependency>
-
+            <dependency>
+                <groupId>net.lightapi</groupId>
+                <artifactId>user-hybrid-query</artifactId>
+                <version>${project.version}</version>
+            </dependency>
             <dependency>
                 <groupId>org.slf4j</groupId>
                 <artifactId>slf4j-api</artifactId>

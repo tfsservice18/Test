@@ -9,25 +9,29 @@
         <relativePath>..</relativePath>
     </parent>
     <modelVersion>4.0.0</modelVersion>
-    <groupId>net.lightapi</groupId>
-    <artifactId>user-common</artifactId>
 
+    <groupId>net.lightapi</groupId>
+    <artifactId>user-command</artifactId>
     <dependencies>
         <dependency>
-            <groupId>org.slf4j</groupId>
-            <artifactId>slf4j-api</artifactId>
-        </dependency>
-        <dependency>
-            <groupId>com.networknt</groupId>
-            <artifactId>eventuate-common</artifactId>
+            <groupId>net.lightapi</groupId>
+            <artifactId>user-common</artifactId>
         </dependency>
         <dependency>
             <groupId>com.networknt</groupId>
             <artifactId>config</artifactId>
         </dependency>
         <dependency>
-            <groupId>com.sun.mail</groupId>
-            <artifactId>javax.mail</artifactId>
+            <groupId>com.networknt</groupId>
+            <artifactId>utility</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>com.networknt</groupId>
+            <artifactId>email</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>com.zaxxer</groupId>
+            <artifactId>HikariCP</artifactId>
         </dependency>
 
         <dependency>
@@ -35,6 +39,12 @@
             <artifactId>junit</artifactId>
             <scope>test</scope>
         </dependency>
+        <dependency>
+            <groupId>com.networknt</groupId>
+            <artifactId>service</artifactId>
+            <scope>test</scope>
+        </dependency>
     </dependencies>
+
 
 </project>
