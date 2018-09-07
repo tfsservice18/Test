@@ -61,7 +61,7 @@
         </dependency>
         <dependency>
             <groupId>com.networknt</groupId>
-            <artifactId>email</artifactId>
+            <artifactId>email-sender</artifactId>
             <version>${version.light-4j}</version>
         </dependency>
         <dependency>
