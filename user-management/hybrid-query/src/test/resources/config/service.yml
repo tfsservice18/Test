@@ -1,20 +1,7 @@
 # Singleton service factory configuration
-
 singletons:
-- javax.sql.DataSource:
-  - com.zaxxer.hikari.HikariDataSource:
-      DriverClassName: org.h2.jdbcx.JdbcDataSource
-      jdbcUrl: jdbc:h2:~/test
-      username: sa
-      password: sa
-- com.networknt.portal.usermanagement.model.jdbc.DatabaseSchema:
-  - com.networknt.portal.usermanagement.model.jdbc.DatabaseSchema:
-    - java.lang.String: none
-- com.networknt.portal.usermanagement.model.common.model.user.UserRepository:
-  - com.networknt.portal.usermanagement.model.jdbc.user.UserRepositoryImpl
-- com.networknt.portal.usermanagement.model.common.crypto.PasswordSecurity:
-  - com.networknt.portal.usermanagement.model.common.crypto.Pbkdf2PasswordSecurityImpl
-
+- net.lightapi.portal.user.UserRepository:
+  - net.lightapi.portal.user.UserRepositoryArangoImpl
 # HandlerProvider implementation
 - com.networknt.handler.HandlerProvider:
   - com.networknt.rpc.router.RpcRouter

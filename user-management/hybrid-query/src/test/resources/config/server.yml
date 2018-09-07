@@ -33,7 +33,7 @@ enableTwoWayTls: false
 truststoreName: server.truststore
 
 # Unique service identifier. Used in service registration and discovery etc.
-serviceId: net.lightapi.user-hybrid-service-0.1.0
+serviceId: net.lightapi.user-hybrid-query-0.1.0
 
 # Flag to enable self service registration. This should be turned on on official test and production. And
 # dyanmicPort should be enabled if any orchestration tool is used like Kubernetes.
@@ -57,3 +57,12 @@ maxPort: 2500
 # https://github.com/networknt/light-doc/blob/master/docs/content/design/env-segregation.md
 # This tag should only be set for testing env, not production. The production certification process will enforce it.
 # environment: test1
+
+# environment tag that will be registered on consul to support multiple instances per env for testing.
+# https://github.com/networknt/light-doc/blob/master/docs/content/design/env-segregation.md
+# This tag should only be set for testing env, not production. The production certification process will enforce it.
+# environment: test1
+
+# Build Number
+# Allows teams to audit the value and set it according to their release management processes
+buildNumber: 0.1.0

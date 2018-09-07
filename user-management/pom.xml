@@ -43,7 +43,9 @@
         <version.javamail>1.6.1</version.javamail>
         <version.postgres>42.1.1</version.postgres>
         <version.mysql>6.0.6</version.mysql>
-
+        <version.arangodb>4.2.2</version.arangodb>
+        <version.velocypack>1.0.2</version.velocypack>
+        <version.fastscanner>2.18.1</version.fastscanner>
         <argLine>-Xmx512m -XX:MaxPermSize=256m</argLine>
     </properties>
 
@@ -72,6 +74,11 @@
             <dependency>
                 <groupId>net.lightapi</groupId>
                 <artifactId>user-hybrid-query</artifactId>
+                <version>${project.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>net.lightapi</groupId>
+                <artifactId>common-util</artifactId>
                 <version>${project.version}</version>
             </dependency>
             <dependency>
@@ -216,6 +223,16 @@
             </dependency>
             <dependency>
                 <groupId>com.networknt</groupId>
+                <artifactId>rpc-router</artifactId>
+                <version>${version.light-hybrid-4j}</version>
+            </dependency>
+            <dependency>
+                <groupId>com.networknt</groupId>
+                <artifactId>rpc-security</artifactId>
+                <version>${version.light-hybrid-4j}</version>
+            </dependency>
+            <dependency>
+                <groupId>com.networknt</groupId>
                 <artifactId>eventuate-common</artifactId>
                 <version>${version.light-eventuate-4j}</version>
             </dependency>
@@ -235,6 +252,11 @@
                 <version>${version.light-eventuate-4j}</version>
             </dependency>
             <dependency>
+                <groupId>com.networknt</groupId>
+                <artifactId>eventuate-server-jdbc</artifactId>
+                <version>${version.light-eventuate-4j}</version>
+            </dependency>
+            <dependency>
                 <groupId>org.apache.kafka</groupId>
                 <artifactId>kafka-clients</artifactId>
                 <version>${version.kafka-clients}</version>
@@ -244,7 +266,31 @@
                 <artifactId>json-schema-validator</artifactId>
                 <version>${version.json-schema-validator}</version>
             </dependency>
-
+            <dependency>
+                <groupId>com.fasterxml.jackson.core</groupId>
+                <artifactId>jackson-databind</artifactId>
+                <version>${version.jackson}</version>
+            </dependency>
+            <dependency>
+                <groupId>com.fasterxml.jackson.core</groupId>
+                <artifactId>jackson-core</artifactId>
+                <version>${version.jackson}</version>
+            </dependency>
+            <dependency>
+                <groupId>com.fasterxml.jackson.datatype</groupId>
+                <artifactId>jackson-datatype-jdk8</artifactId>
+                <version>${version.jackson}</version>
+            </dependency>
+            <dependency>
+                <groupId>com.fasterxml.jackson.datatype</groupId>
+                <artifactId>jackson-datatype-jsr310</artifactId>
+                <version>${version.jackson}</version>
+            </dependency>
+            <dependency>
+                <groupId>io.undertow</groupId>
+                <artifactId>undertow-core</artifactId>
+                <version>${version.undertow}</version>
+            </dependency>
             <dependency>
                 <groupId>com.zaxxer</groupId>
                 <artifactId>HikariCP</artifactId>
@@ -254,6 +300,21 @@
                 <groupId>com.sun.mail</groupId>
                 <artifactId>javax.mail</artifactId>
                 <version>${version.javamail}</version>
+            </dependency>
+            <dependency>
+                <groupId>com.arangodb</groupId>
+                <artifactId>arangodb-java-driver</artifactId>
+                <version>${version.arangodb}</version>
+            </dependency>
+            <dependency>
+                <groupId>com.arangodb</groupId>
+                <artifactId>velocypack-module-jdk8</artifactId>
+                <version>${version.velocypack}</version>
+            </dependency>
+            <dependency>
+                <groupId>io.github.lukehutch</groupId>
+                <artifactId>fast-classpath-scanner</artifactId>
+                <version>${version.fastscanner}</version>
             </dependency>
 
             <dependency>
@@ -273,6 +334,13 @@
                 <artifactId>postgresql</artifactId>
                 <version>${version.postgres}</version>
             </dependency>
+            <dependency>
+                <groupId>ch.qos.logback</groupId>
+                <artifactId>logback-classic</artifactId>
+                <version>${version.logback}</version>
+                <scope>test</scope>
+            </dependency>
+
         </dependencies>
     </dependencyManagement>
 

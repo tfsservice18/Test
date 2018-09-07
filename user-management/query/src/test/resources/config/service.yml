@@ -1,0 +1,4 @@
+---
+singletons:
+- net.lightapi.portal.user.UserRepository:
+  - net.lightapi.portal.user.UserRepositoryArangoImpl

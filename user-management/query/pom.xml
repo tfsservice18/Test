@@ -12,6 +12,7 @@
 
     <groupId>net.lightapi</groupId>
     <artifactId>user-query</artifactId>
+
     <dependencies>
         <dependency>
             <groupId>net.lightapi</groupId>
@@ -27,11 +28,23 @@
         </dependency>
         <dependency>
             <groupId>com.networknt</groupId>
+            <artifactId>service</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>com.networknt</groupId>
             <artifactId>email</artifactId>
         </dependency>
         <dependency>
-            <groupId>com.zaxxer</groupId>
-            <artifactId>HikariCP</artifactId>
+            <groupId>net.lightapi</groupId>
+            <artifactId>common-util</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>com.arangodb</groupId>
+            <artifactId>arangodb-java-driver</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>com.arangodb</groupId>
+            <artifactId>velocypack-module-jdk8</artifactId>
         </dependency>
 
         <dependency>
@@ -40,8 +53,8 @@
             <scope>test</scope>
         </dependency>
         <dependency>
-            <groupId>com.networknt</groupId>
-            <artifactId>service</artifactId>
+            <groupId>ch.qos.logback</groupId>
+            <artifactId>logback-classic</artifactId>
             <scope>test</scope>
         </dependency>
     </dependencies>
