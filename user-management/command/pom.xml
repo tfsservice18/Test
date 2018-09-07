@@ -27,7 +27,7 @@
         </dependency>
         <dependency>
             <groupId>com.networknt</groupId>
-            <artifactId>email</artifactId>
+            <artifactId>email-sender</artifactId>
         </dependency>
         <dependency>
             <groupId>com.zaxxer</groupId>
