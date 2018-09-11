@@ -1,11 +1,16 @@
 
 package net.lightapi.portal.user.query.handler;
 
+import com.fasterxml.jackson.core.type.TypeReference;
+import com.networknt.config.Config;
 import com.networknt.service.SingletonServiceFactory;
+import com.networknt.utility.HashUtil;
 import com.networknt.utility.NioUtils;
 import com.networknt.rpc.Handler;
 import com.networknt.rpc.router.ServiceHandler;
 import java.nio.ByteBuffer;
+import java.util.Arrays;
+import java.util.HashMap;
 import java.util.Map;
 
 import com.networknt.utility.StringUtils;
@@ -26,10 +31,15 @@ import org.slf4j.LoggerFactory;
 public class SignInUser implements Handler {
     static final Logger logger = LoggerFactory.getLogger(SignInUser.class);
     static final String USER_NOT_FOUND_BY_USERIDEMAIL = "ERR11610";
+    static final String ERROR_PARSING_USER = "ERR11615";
+    static final String INVALID_SIGNIN_PASSWORD = "ERR11616";
+    static final String USER_NOT_ACTIVATED = "ERR11617";
+
     UserRepository userQueryRepository = SingletonServiceFactory.getBean(UserRepository.class);
 
     @Override
     public ByteBuffer handle(HttpServerExchange exchange, Object input)  {
+
         String userIdEmail = ((Map<String, String>)input).get("userIdEmail");
         String inputPassword = ((Map<String, String>)input).get("password");
         String user = null;
@@ -44,7 +54,31 @@ public class SignInUser implements Handler {
             return NioUtils.toByteBuffer(getStatus(exchange, USER_NOT_FOUND_BY_USERIDEMAIL, userIdEmail));
         } else {
             // check password match
-            return NioUtils.toByteBuffer("");
+            try {
+                Map<String, Object> userMap = Config.getInstance().getMapper().readValue(user, new TypeReference<Map<String, Object>>(){});
+                String hashedPassword = (String)userMap.get("password");
+                boolean match = HashUtil.validatePassword(inputPassword.toCharArray(), hashedPassword);
+                if(match) {
+                    // check if the user is activated
+                    Boolean activated = (Boolean)userMap.get("activated");
+                    if(activated == null || activated == false) {
+                        return NioUtils.toByteBuffer(getStatus(exchange, USER_NOT_ACTIVATED, userMap.get("userId")));
+                    }
+                    // constructed a new user object
+                    Map<String, Object> result = new HashMap<>();
+                    result.put("userId", userMap.get("userId"));
+                    result.put("email", userMap.get("email"));
+                    if(userMap.get("firstName") != null) result.put("firstName", userMap.get("firstName"));
+                    if(userMap.get("lastName") != null) result.put("lastName", userMap.get("lastName"));
+                    if(userMap.get("roles") != null) result.put("roles", userMap.get("roles"));
+                    return NioUtils.toByteBuffer(Config.getInstance().getMapper().writeValueAsString(result));
+                } else {
+                    return NioUtils.toByteBuffer(getStatus(exchange, INVALID_SIGNIN_PASSWORD));
+                }
+            } catch (Exception e) {
+                logger.error("Exception:", e);
+                return NioUtils.toByteBuffer(getStatus(exchange, ERROR_PARSING_USER, e.getMessage()));
+            }
         }
     }
 }

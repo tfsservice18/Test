@@ -40,6 +40,7 @@ public class CreateUserTest {
     static final int httpsPort = server.getServerConfig().getHttpsPort();
     static final String url = enableHttp2 || enableHttps ? "https://localhost:" + httpsPort : "http://localhost:" + httpPort;
 
+    /*
     public static DataSource ds;
     static {
         ds = (DataSource) SingletonServiceFactory.getBean(DataSource.class);
@@ -58,6 +59,7 @@ public class CreateUserTest {
             e.printStackTrace();
         }
     }
+    */
 
     @Test
     public void testCreateUser() throws ClientException, ApiException {
@@ -92,4 +94,73 @@ public class CreateUserTest {
         Assert.assertEquals(200, statusCode);
         Assert.assertNotNull(body);
     }
+
+    @Test
+    public void testExistEmail() throws ClientException, ApiException {
+        final Http2Client client = Http2Client.getInstance();
+        final CountDownLatch latch = new CountDownLatch(1);
+        final ClientConnection connection;
+        try {
+            connection = client.connect(new URI(url), Http2Client.WORKER, Http2Client.SSL, Http2Client.POOL, enableHttp2 ? OptionMap.create(UndertowOptions.ENABLE_HTTP2, true): OptionMap.EMPTY).get();
+        } catch (Exception e) {
+            throw new ClientException(e);
+        }
+        final AtomicReference<ClientResponse> reference = new AtomicReference<>();
+        final String s = "{\"host\":\"lightapi.net\",\"service\":\"user\",\"action\":\"createUser\",\"version\":\"0.1.0\",\"data\":{\"host\":\"example.org\",\"userId\":\"stevehu\",\"email\":\"test@example.org\",\"password\":\"123456\",\"passwordConfirm\":\"123456\"}}";
+
+        try {
+            ClientRequest request = new ClientRequest().setPath("/api/json").setMethod(Methods.POST);
+            request.getRequestHeaders().put(Headers.HOST, "localhost");
+            request.getRequestHeaders().put(Headers.CONTENT_TYPE, "application/json");
+            request.getRequestHeaders().put(Headers.TRANSFER_ENCODING, "chunked");
+            connection.sendRequest(request, client.createClientCallback(reference, latch, s));
+            latch.await();
+        } catch (Exception e) {
+            logger.error("Exception: ", e);
+            throw new ClientException(e);
+        } finally {
+            IoUtils.safeClose(connection);
+        }
+        int statusCode = reference.get().getResponseCode();
+        String body = reference.get().getAttachment(Http2Client.RESPONSE_BODY);
+        logger.debug("statusCode = " + statusCode);
+        logger.debug("body = " + body);
+        Assert.assertEquals(400, statusCode);
+        Assert.assertNotNull(body);
+    }
+
+    @Test
+    public void testExistUserId() throws ClientException, ApiException {
+        final Http2Client client = Http2Client.getInstance();
+        final CountDownLatch latch = new CountDownLatch(1);
+        final ClientConnection connection;
+        try {
+            connection = client.connect(new URI(url), Http2Client.WORKER, Http2Client.SSL, Http2Client.POOL, enableHttp2 ? OptionMap.create(UndertowOptions.ENABLE_HTTP2, true): OptionMap.EMPTY).get();
+        } catch (Exception e) {
+            throw new ClientException(e);
+        }
+        final AtomicReference<ClientResponse> reference = new AtomicReference<>();
+        final String s = "{\"host\":\"lightapi.net\",\"service\":\"user\",\"action\":\"createUser\",\"version\":\"0.1.0\",\"data\":{\"host\":\"example.org\",\"userId\":\"test\",\"email\":\"test@gmail.com\",\"password\":\"123456\",\"passwordConfirm\":\"123456\"}}";
+
+        try {
+            ClientRequest request = new ClientRequest().setPath("/api/json").setMethod(Methods.POST);
+            request.getRequestHeaders().put(Headers.HOST, "localhost");
+            request.getRequestHeaders().put(Headers.CONTENT_TYPE, "application/json");
+            request.getRequestHeaders().put(Headers.TRANSFER_ENCODING, "chunked");
+            connection.sendRequest(request, client.createClientCallback(reference, latch, s));
+            latch.await();
+        } catch (Exception e) {
+            logger.error("Exception: ", e);
+            throw new ClientException(e);
+        } finally {
+            IoUtils.safeClose(connection);
+        }
+        int statusCode = reference.get().getResponseCode();
+        String body = reference.get().getAttachment(Http2Client.RESPONSE_BODY);
+        logger.debug("statusCode = " + statusCode);
+        logger.debug("body = " + body);
+        Assert.assertEquals(400, statusCode);
+        Assert.assertNotNull(body);
+    }
+
 }

@@ -316,6 +316,11 @@
                 <artifactId>fast-classpath-scanner</artifactId>
                 <version>${version.fastscanner}</version>
             </dependency>
+            <dependency>
+                <groupId>mysql</groupId>
+                <artifactId>mysql-connector-java</artifactId>
+                <version>${version.mysql}</version>
+            </dependency>
 
             <dependency>
                 <groupId>junit</groupId>

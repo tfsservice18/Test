@@ -27,6 +27,8 @@
           <version.hdrhistogram>2.1.8</version.hdrhistogram>
           <version.json-schema-validator>0.1.21</version.json-schema-validator>
           <version.curator>3.3.0</version.curator>
+          <version.arangodb>4.2.2</version.arangodb>
+          <version.velocypack>1.0.2</version.velocypack>
           <version.hikaricp>3.1.0</version.hikaricp>
           <version.fastscanner>2.18.1</version.fastscanner>
           <version.mysql>6.0.5</version.mysql>
@@ -148,6 +150,16 @@
             <groupId>org.apache.curator</groupId>
             <artifactId>curator-recipes</artifactId>
             <version>${version.curator}</version>
+        </dependency>
+        <dependency>
+            <groupId>com.arangodb</groupId>
+            <artifactId>arangodb-java-driver</artifactId>
+            <version>${version.arangodb}</version>
+        </dependency>
+        <dependency>
+            <groupId>com.arangodb</groupId>
+            <artifactId>velocypack-module-jdk8</artifactId>
+            <version>${version.velocypack}</version>
         </dependency>
         <dependency>
             <groupId>io.reactivex</groupId>

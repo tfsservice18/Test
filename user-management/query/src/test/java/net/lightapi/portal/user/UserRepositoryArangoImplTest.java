@@ -73,4 +73,14 @@ public class UserRepositoryArangoImplTest {
 
 
     }
+
+    /**
+     * create a permanent user for subsequent test cases. This user only be removed by the tearDown.
+     * And this method should be commented out all the time as it will fail the second time your run it.
+     */
+    @Test
+    public void testPermanentUser() {
+        String u0 = "{\"host\":\"example.org\",\"userId\":\"test\",\"email\":\"test@example.org\",\"password\":\"123456\",\"passwordConfirm\":\"123456\",\"firstName\":\"Steve\",\"lastName\":\"Hu\"}";
+        userQueryRepository.createUser("u0", u0);
+    }
 }

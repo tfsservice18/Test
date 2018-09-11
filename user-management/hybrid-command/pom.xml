@@ -13,153 +13,120 @@
     <name>user-hybrid-command</name>
     <version>0.1.0</version>
 
-    <properties>
-        <java.version>1.8</java.version>
-        <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
-        <version.light-4j>1.5.19</version.light-4j>
-        <version.light-hybrid-4j>1.5.19</version.light-hybrid-4j>
-        <version.light-eventuate-4j>1.5.19</version.light-eventuate-4j>
-        <version.jackson>2.9.5</version.jackson>
-        <version.slf4j>1.7.25</version.slf4j>
-        <version.jose4j>0.6.3</version.jose4j>
-        <version.encoder>1.2.1</version.encoder>
-        <version.logback>1.2.3</version.logback>
-        <version.junit>4.12</version.junit>
-        <version.undertow>2.0.11.Final</version.undertow>
-        <version.json-schema-validator>0.1.21</version.json-schema-validator>
-        <version.fastscanner>2.18.1</version.fastscanner>
-        <version.hikaricp>3.1.0</version.hikaricp>
-        <version.mysql>6.0.5</version.mysql>
-        <version.h2>1.3.176</version.h2>
-    </properties>
-
     <dependencies>
         <dependency>
             <groupId>net.lightapi</groupId>
             <artifactId>user-common</artifactId>
-            <version>${project.version}</version>
         </dependency>
         <dependency>
             <groupId>net.lightapi</groupId>
             <artifactId>user-command</artifactId>
-            <version>${project.version}</version>
+        </dependency>
+        <dependency>
+            <groupId>net.lightapi</groupId>
+            <artifactId>user-query</artifactId>
         </dependency>
         <dependency>
             <groupId>com.networknt</groupId>
             <artifactId>client</artifactId>
-            <version>${version.light-4j}</version>
         </dependency>
         <dependency>
             <groupId>com.networknt</groupId>
             <artifactId>metrics</artifactId>
-            <version>${version.light-4j}</version>
         </dependency>
         <dependency>
             <groupId>com.networknt</groupId>
             <artifactId>traceability</artifactId>
-            <version>${version.light-4j}</version>
         </dependency>
         <dependency>
             <groupId>com.networknt</groupId>
             <artifactId>email-sender</artifactId>
-            <version>${version.light-4j}</version>
         </dependency>
         <dependency>
             <groupId>com.networknt</groupId>
             <artifactId>correlation</artifactId>
-            <version>${version.light-4j}</version>
         </dependency>
         <dependency>
             <groupId>com.networknt</groupId>
             <artifactId>rpc-router</artifactId>
-            <version>${version.light-hybrid-4j}</version>
         </dependency>
         <dependency>
             <groupId>com.networknt</groupId>
             <artifactId>rpc-security</artifactId>
-            <version>${version.light-hybrid-4j}</version>
         </dependency>
         <dependency>
             <groupId>com.networknt</groupId>
             <artifactId>json-schema-validator</artifactId>
-            <version>${version.json-schema-validator}</version>
         </dependency>
         <dependency>
             <groupId>com.networknt</groupId>
             <artifactId>eventuate-common</artifactId>
-            <version>${version.light-eventuate-4j}</version>
         </dependency>
         <dependency>
             <groupId>com.networknt</groupId>
             <artifactId>eventuate-client</artifactId>
-            <version>${version.light-eventuate-4j}</version>
         </dependency>
         <dependency>
             <groupId>com.networknt</groupId>
             <artifactId>eventuate-server-jdbc</artifactId>
-            <version>${version.light-eventuate-4j}</version>
         </dependency>
         <dependency>
             <groupId>com.networknt</groupId>
             <artifactId>eventuate-client-jdbc-common</artifactId>
-            <version>${version.light-eventuate-4j}</version>
         </dependency>
         <dependency>
             <groupId>com.fasterxml.jackson.core</groupId>
             <artifactId>jackson-databind</artifactId>
-            <version>${version.jackson}</version>
         </dependency>
         <dependency>
             <groupId>com.fasterxml.jackson.core</groupId>
             <artifactId>jackson-core</artifactId>
-            <version>${version.jackson}</version>
         </dependency>
         <dependency>
             <groupId>com.fasterxml.jackson.datatype</groupId>
             <artifactId>jackson-datatype-jdk8</artifactId>
-            <version>${version.jackson}</version>
         </dependency>
         <dependency>
             <groupId>com.fasterxml.jackson.datatype</groupId>
             <artifactId>jackson-datatype-jsr310</artifactId>
-            <version>${version.jackson}</version>
         </dependency>
         <dependency>
             <groupId>ch.qos.logback</groupId>
             <artifactId>logback-classic</artifactId>
-            <version>${version.logback}</version>
         </dependency>
         <dependency>
             <groupId>io.undertow</groupId>
             <artifactId>undertow-core</artifactId>
-            <version>${version.undertow}</version>
         </dependency>
         <dependency>
             <groupId>io.github.lukehutch</groupId>
             <artifactId>fast-classpath-scanner</artifactId>
-            <version>${version.fastscanner}</version>
         </dependency>
         <dependency>
             <groupId>com.zaxxer</groupId>
             <artifactId>HikariCP</artifactId>
-            <version>${version.hikaricp}</version>
         </dependency>
         <dependency>
             <groupId>mysql</groupId>
             <artifactId>mysql-connector-java</artifactId>
-            <version>${version.mysql}</version>
+        </dependency>
+        <dependency>
+            <groupId>com.arangodb</groupId>
+            <artifactId>arangodb-java-driver</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>com.arangodb</groupId>
+            <artifactId>velocypack-module-jdk8</artifactId>
         </dependency>
 
         <dependency>
             <groupId>junit</groupId>
             <artifactId>junit</artifactId>
-            <version>${version.junit}</version>
             <scope>test</scope>
         </dependency>
         <dependency>
             <groupId>com.h2database</groupId>
             <artifactId>h2</artifactId>
-            <version>${version.h2}</version>
             <scope>test</scope>
         </dependency>
     </dependencies>

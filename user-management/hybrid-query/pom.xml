@@ -82,10 +82,17 @@
             <groupId>io.github.lukehutch</groupId>
             <artifactId>fast-classpath-scanner</artifactId>
         </dependency>
-
         <dependency>
             <groupId>com.zaxxer</groupId>
             <artifactId>HikariCP</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>com.arangodb</groupId>
+            <artifactId>arangodb-java-driver</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>com.arangodb</groupId>
+            <artifactId>velocypack-module-jdk8</artifactId>
         </dependency>
 
     <!-- Test Dependencies -->
