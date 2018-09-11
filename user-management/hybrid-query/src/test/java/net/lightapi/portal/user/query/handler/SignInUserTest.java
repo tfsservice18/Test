@@ -32,7 +32,7 @@ public class SignInUserTest {
     static final int httpsPort = server.getServerConfig().getHttpsPort();
     static final String url = enableHttp2 || enableHttps ? "https://localhost:" + httpsPort : "http://localhost:" + httpPort;
 
-    @Test
+    //@Test
     public void testSignInByUserId() throws ClientException, ApiException {
         final Http2Client client = Http2Client.getInstance();
         final CountDownLatch latch = new CountDownLatch(1);
@@ -62,7 +62,7 @@ public class SignInUserTest {
         Assert.assertNotNull(body);
     }
 
-    @Test
+    //@Test
     public void testSignByEmail() throws ClientException, ApiException {
         final Http2Client client = Http2Client.getInstance();
         final CountDownLatch latch = new CountDownLatch(1);
