@@ -61,7 +61,14 @@ public class CreateUserTest {
     }
     */
 
-    @Test
+    /**
+     * Disable this test as there are two different scenarios may occur. The userId exists in database
+     * or the user doesn't exist in database. This test case will only be used during development and
+     * the developer knows what is the current status in database. 
+     * @throws ClientException
+     * @throws ApiException
+     */
+    //@Test
     public void testCreateUser() throws ClientException, ApiException {
         final Http2Client client = Http2Client.getInstance();
         final CountDownLatch latch = new CountDownLatch(1);
