@@ -157,6 +157,15 @@ public class UserRepositoryArangoImpl implements UserRepository {
             final DocumentCreateEntity<BaseDocument> doc = db.collection(USER).insertDocument(bd);
         } catch(IOException e) {
             logger.error("IOException:", e);
+        } catch(ArangoDBException e) {
+            logger.error("ArangoDBException:", e);
+            // there is a chance that the same userId or email will be saved multiple time due to the query
+            // side update latency or the query side service id down. If this happens, then an email will be
+            // sent out the user to let him/her know that the registration is failed. As ArangoDBException is
+            // RuntimeException, we have to swagger it here. Otherwise, the message in events db won't be
+            // consumed and it will keep popping up.
+            // TODO send email here.
+            logger.info("An email is sending to the user...");
         }
     }
 
