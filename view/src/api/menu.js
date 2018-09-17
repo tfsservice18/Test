@@ -3,7 +3,7 @@ const body = {
   service: 'menu',
   action: 'getMenuByHost',
   version: '0.1.0',
-  data: { host: 'lightportal.org' },
+  data: { host: 'lightapi.net' },
 };
 
 /**
