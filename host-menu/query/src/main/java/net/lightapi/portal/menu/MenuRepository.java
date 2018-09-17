@@ -1,7 +1,5 @@
 package net.lightapi.portal.menu;
 
-import java.io.IOException;
-
 public interface MenuRepository {
 
     void setDataSource(Object dataSource);

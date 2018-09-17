@@ -57,102 +57,107 @@ docker-compose -f docker-compose-hybrid.yml up
 
 ## test steps:
 
+
+
 1, create menu:
 
+First create three menuItems
+
 ```
-{"host":"lightapi.net","service":"menu","action":"createMenu","version":"0.1.0","data":{"host":"example.org","description":"example org web site","contains":["1","2","3"]}}
+
+curl -k -X POST https://localhost:8443/api/command -d '{"host":"lightapi.net","service":"menu","action":"createMenuItem","version":"0.1.0","data":{"menuItemId":"1","label":"Access Admin","route":"/admin/accessAdmin","roles":["admin","owner"]}}'
+
+curl -k -X POST https://localhost:8443/api/command -d '{"host":"lightapi.net","service":"menu","action":"createMenuItem","version":"0.1.0","data":{"menuItemId":"2","label":"Access User","route":"/user/accessUser","roles":["user","client"]}}'
+
+curl -k -X POST https://localhost:8443/api/command -d '{"host":"lightapi.net","service":"menu","action":"createMenuItem","version":"0.1.0","data":{"menuItemId":"3","label":"Access Public","route":"/public/accessPublic","roles":["user","client"]}}'
+
+```
+
+Then create a menu for lightapi.net host
+
+```
+curl -k -X POST https://localhost:8443/api/command -d '{"host":"lightapi.net","service":"menu","action":"createMenu","version":"0.1.0","data":{"host":"lightapi.net","description":"lightapi.net web site","contains":["1","2","3"]}}'
+
 ```
 
 2. get created menu:
 
 ```
-{"host":"lightapi.net","service":"menu","action":"getMenu","version":"0.1.0"}
+curl -k -X POST https://localhost:8442/api/query -d '{"host":"lightapi.net","service":"menu","action":"getMenu","version":"0.1.0"}'
 ```
 
 Result:
 
 ```
-[
+[{"_rev":"_XcQhk7K--_","description":"lightapi.net web site","entityId":"00000165e45c62dc-0242ac12000a0001","_id":"menu/lightapi.net","_key":"lightapi.net"}]
+```
+
+3. get menu item:
+
+```
+curl -k -X POST https://localhost:8442/api/query -d '{"host":"lightapi.net","service":"menu","action":"getMenuItem","version":"0.1.0"}'
+```
+
+Result: (three items return)
+```
+[{"route":"/admin/accessAdmin","roles":["admin","owner"],"_rev":"_XcQThMu--_","entityId":"00000165e483db34-0242ac1200090000","_id":"menuItem/1","label":"Access Admin","_key":"1"},{"route":"/user/accessUser","roles":["user","client"],"_rev":"_XcQThPW--_","entityId":"00000165e484af50-0242ac1200090001","_id":"menuItem/2","label":"Access User","_key":"2"},{"route":"/public/accessPublic","roles":["user","client"],"_rev":"_XcQThRy--_","entityId":"00000165e484f59c-0242ac1200090001","_id":"menuItem/3","label":"Access Public","_key":"3"}]
+
+```
+
+4. get menu by host.
+
+```
+curl -k -X POST https://localhost:8442/api/query -d '{"host":"lightapi.net","service":"menu","action":"getMenuByHost","version":"0.1.0","data":{"host":"lightapi.net"}}'
+```
+
+Result: 
+
+```
+{
+  "contains": [
     {
-        "_rev": "_VwI4yru---",
-        "description": "example org web site",
-        "entityId": "0000015f22bad109-0242ac1200070001",
-        "_id": "menu/example.org",
-        "_key": "example.org"
-    }
-]
-```
-
-3. create first menu item:
-
-```
-{"host":"lightapi.net","service":"menu","action":"createMenuItem","version":"0.1.0","data":{"menuItemId":"1","label":"Access Admin","route":"/admin/accessAdmin","roles":["admin","owner"]}}
-```
-
-4. get menu item:
-
-```
-{"host":"lightapi.net","service":"menu","action":"getMenuItem","version":"0.1.0"}
-```
-
-Result: (one item return)
-```
-[
-    {
-        "route": "/admin/accessAdmin",
-        "roles": [
-            "admin",
-            "owner"
-        ],
-        "_rev": "_VwI7whW---",
-        "entityId": "0000015f22bdca0a-0242ac1200070001",
-        "_id": "menuItem/1",
-        "label": "Access Admin",
-        "_key": "1"
-    }
-]
-```
-
-5. create second menu item:
-
-```
-{"host":"lightapi.net","service":"menu","action":"createMenuItem","version":"0.1.0","data":{"menuItemId":"2","label":"Access User","route":"/user/accessUser","roles":["user","client"]}}
-```
-
-6. get menu item again:
-
-```
-{"host":"lightapi.net","service":"menu","action":"getMenuItem","version":"0.1.0"}
-```
-
-Result: (two items return)
-```
-[
-    {
-        "route": "/admin/accessAdmin",
-        "roles": [
-            "admin",
-            "owner"
-        ],
-        "_rev": "_VwIQRXG---",
-        "entityId": "0000015f22924d65-0242ac1200070001",
-        "_id": "menuItem/1",
-        "label": "Access Admin",
-        "_key": "1"
+      "route": "/admin/accessAdmin",
+      "roles": [
+        "admin",
+        "owner"
+      ],
+      "_rev": "_XcQThMu--_",
+      "entityId": "00000165e483db34-0242ac1200090000",
+      "_id": "menuItem/1",
+      "label": "Access Admin",
+      "_key": "1"
     },
     {
-        "route": "/user/accessUser",
-        "roles": [
-            "user",
-            "client"
-        ],
-        "_rev": "_VwIRKfy---",
-        "entityId": "0000015f229331fb-0242ac1200070001",
-        "_id": "menuItem/2",
-        "label": "Access User",
-        "_key": "2"
+      "route": "/user/accessUser",
+      "roles": [
+        "user",
+        "client"
+      ],
+      "_rev": "_XcQThPW--_",
+      "entityId": "00000165e484af50-0242ac1200090001",
+      "_id": "menuItem/2",
+      "label": "Access User",
+      "_key": "2"
+    },
+    {
+      "route": "/public/accessPublic",
+      "roles": [
+        "user",
+        "client"
+      ],
+      "_rev": "_XcQThRy--_",
+      "entityId": "00000165e484f59c-0242ac1200090001",
+      "_id": "menuItem/3",
+      "label": "Access Public",
+      "_key": "3"
     }
-]
+  ],
+  "_rev": "_XcQhk7K--_",
+  "description": "lightapi.net web site",
+  "entityId": "00000165e45c62dc-0242ac12000a0001",
+  "_id": "menu/lightapi.net",
+  "_key": "lightapi.net"
+}
 ```
 
 7. delete menu item:

@@ -2,6 +2,7 @@ package net.lightapi.portal.menu;
 
 import com.arangodb.ArangoCursor;
 import com.arangodb.ArangoDB;
+import com.arangodb.ArangoDBException;
 import com.arangodb.ArangoDatabase;
 import com.arangodb.entity.*;
 import com.arangodb.model.HashIndexOptions;
@@ -24,6 +25,8 @@ import java.util.List;
 import java.util.Map;
 
 public class MenuRepositoryArangoImpl implements MenuRepository {
+    static final Logger logger = LoggerFactory.getLogger(MenuRepositoryArangoImpl.class);
+
     static final String CONFIG_NAME = "arango";
 
     public static final String DBNAME = "menu";
@@ -34,8 +37,6 @@ public class MenuRepositoryArangoImpl implements MenuRepository {
     public static final String CONTAINSGRAPH = "containsGraph";
     public static final String MENUITEMID = "menuItemId";
     public static final String HOST = "host";
-
-    protected Logger logger = LoggerFactory.getLogger(getClass());
 
     private ArangoConfig config = (ArangoConfig)Config.getInstance().getJsonObjectConfig(CONFIG_NAME, ArangoConfig.class);
     private ArangoDB arangoDB;
@@ -248,6 +249,7 @@ public class MenuRepositoryArangoImpl implements MenuRepository {
 
     @Override
     public void createMenuItem(String entityId, String data) {
+        if(logger.isDebugEnabled()) logger.debug("entityId = " + entityId + " data = " + data);
         try {
             Map<String, Object> map = mapper.readValue(data, new TypeReference<Map<String, Object>>() {});
             final List<String> contains = (List<String>)map.remove(CONTAINS);
@@ -256,6 +258,7 @@ public class MenuRepositoryArangoImpl implements MenuRepository {
             bd.setProperties(map);
             bd.addAttribute(ENTITYID, entityId);
             final DocumentCreateEntity<BaseDocument> doc = db.collection(MENUITEM).insertDocument(bd);
+            if(logger.isDebugEnabled()) logger.debug("Insert doc = " + bd);
             // create menuItem to menuItem edges from contains
             if(contains != null && contains.size() > 0) {
                 contains.forEach(item -> {
@@ -268,6 +271,8 @@ public class MenuRepositoryArangoImpl implements MenuRepository {
         } catch(IOException e) {
             logger.error("Error parsing event data from json string to map in createMenuItem.", e);
             // TODO should I throw a runtime exception here?
+        } catch(ArangoDBException e) {
+            logger.error("ArangoDBException:", e);
         }
     }
 
