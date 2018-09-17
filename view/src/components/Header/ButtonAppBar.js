@@ -38,7 +38,7 @@ const ButtonAppBar = props => {
         <Toolbar>
           <IconButton
             className={classes.menuButton}
-            color="contrast"
+            color="default"
             aria-label="Menu"
           >
             <MenuIcon />
@@ -50,7 +50,7 @@ const ButtonAppBar = props => {
           </Link>
           {routes.map(route => (
             <Link to={route.route} key={route.label} href={route.route}>
-              <Button color="contrast">{route.label}</Button>
+              <Button color="default">{route.label}</Button>
             </Link>
           ))}
         </Toolbar>

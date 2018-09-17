@@ -28,6 +28,7 @@ class Login extends Component {
 
            <form onSubmit={this.handleSubmit}>
            <table>
+           <tbody>
            <tr><td>
              <label>
               UserId or Email:
@@ -46,12 +47,10 @@ class Login extends Component {
             <td> <input type="submit" value="Login" /></td>
              <td><input type="reset" value="Reset" /></td>
              </tr>
+           </tbody>
             </table>
            </form>
        </Layout>
-
-
-
     );
   }
 }
