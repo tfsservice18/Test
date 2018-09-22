@@ -1,5 +1,19 @@
 # Change Log
 
+## [1.5.19](https://github.com/networknt/light-portal/tree/1.5.19) (2018-09-22)
+[Full Changelog](https://github.com/networknt/light-portal/compare/1.5.18...1.5.19)
+
+**Closed issues:**
+
+- fix warnings in the view module [\#77](https://github.com/networknt/light-portal/issues/77)
+- upgrade to the latest material-ui version [\#76](https://github.com/networknt/light-portal/issues/76)
+- handle ArangoDBException in menu creation and update README [\#75](https://github.com/networknt/light-portal/issues/75)
+- fix the vulnerabilities by running npm audit fix for the view module [\#74](https://github.com/networknt/light-portal/issues/74)
+- disable createUser test case [\#73](https://github.com/networknt/light-portal/issues/73)
+- ignore the ArangoDBException for duplicates [\#72](https://github.com/networknt/light-portal/issues/72)
+- refactor user-management with arangodb [\#71](https://github.com/networknt/light-portal/issues/71)
+- switch from StringUtil to StringUtils in user-management-jdbc [\#70](https://github.com/networknt/light-portal/issues/70)
+
 ## [1.5.18](https://github.com/networknt/light-portal/tree/1.5.18) (2018-08-16)
 [Full Changelog](https://github.com/networknt/light-portal/compare/1.5.17...1.5.18)
 
